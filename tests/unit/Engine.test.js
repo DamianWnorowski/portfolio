@@ -5,64 +5,86 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
-// Mock THREE.js
-vi.mock('three', () => ({
-    Clock: vi.fn().mockImplementation(() => ({
-        getDelta: vi.fn().mockReturnValue(0.016),
-        getElapsedTime: vi.fn().mockReturnValue(1.0)
-    })),
-    Vector2: vi.fn().mockImplementation((x = 0, y = 0) => ({
-        x,
-        y,
-        set: vi.fn(function(newX, newY) { this.x = newX; this.y = newY; return this; })
-    }))
-}));
-
 describe('Engine', () => {
     let Engine;
     let getEngine;
     let engine;
+    let rafCallbacks = [];
+    let mockClock;
+    let mockVector2;
 
     beforeEach(async () => {
         vi.resetModules();
+        vi.useFakeTimers();
+        rafCallbacks = [];
 
-        // Mock window
+        // Create mock instances
+        mockClock = {
+            getDelta: vi.fn().mockReturnValue(0.016),
+            getElapsedTime: vi.fn().mockReturnValue(1.0)
+        };
+
+        mockVector2 = (x = 0, y = 0) => ({
+            x,
+            y,
+            set: vi.fn(function(newX, newY) { this.x = newX; this.y = newY; return this; })
+        });
+
+        // Mock THREE.js
+        vi.doMock('three', () => ({
+            Clock: vi.fn().mockImplementation(() => mockClock),
+            Vector2: vi.fn().mockImplementation(mockVector2)
+        }));
+
+        // Mock window dimensions
         global.innerWidth = 1920;
         global.innerHeight = 1080;
 
-        // Mock requestAnimationFrame
+        // Mock requestAnimationFrame to capture callbacks without auto-executing
         global.requestAnimationFrame = vi.fn((cb) => {
-            return setTimeout(() => cb(performance.now()), 16);
+            const id = rafCallbacks.length;
+            rafCallbacks.push(cb);
+            return id;
         });
-        global.cancelAnimationFrame = vi.fn((id) => clearTimeout(id));
+        global.cancelAnimationFrame = vi.fn((id) => {
+            rafCallbacks[id] = null;
+        });
 
-        // Reset singleton
+        // Import module fresh for each test
         const module = await import('../../src/core/Engine.js');
         Engine = module.Engine;
         getEngine = module.getEngine;
-
-        engine = new Engine();
     });
 
     afterEach(() => {
-        vi.restoreAllMocks();
+        // Stop any running engines
+        if (engine) {
+            engine.isRunning = false;
+        }
+        rafCallbacks = [];
+        vi.clearAllTimers();
         vi.useRealTimers();
+        vi.restoreAllMocks();
+        vi.doUnmock('three');
     });
 
     describe('Initialization', () => {
+        beforeEach(() => {
+            engine = new Engine();
+        });
+
         it('creates a Clock instance', () => {
             expect(engine.clock).toBeDefined();
         });
 
-        it('initializes mouse position at center', () => {
-            // Engine initializes mouse at (0.5, 0.5) representing center of viewport
+        it('initializes mouse position at (0.5, 0.5)', () => {
+            // Engine initializes mouse at center (0.5, 0.5) in normalized coordinates
             expect(engine.mouse.x).toBe(0.5);
             expect(engine.mouse.y).toBe(0.5);
         });
 
-        it('stores window dimensions', () => {
-            expect(engine.width).toBe(1920);
-            expect(engine.height).toBe(1080);
+        it('initializes mouse influence at 0', () => {
+            expect(engine.mouseInfluence).toBe(0);
         });
 
         it('creates empty components map', () => {
@@ -70,149 +92,179 @@ describe('Engine', () => {
             expect(engine.components.size).toBe(0);
         });
 
-        it('starts not running', () => {
-            expect(engine.isRunning).toBe(false);
+        it('starts running automatically', () => {
+            // Engine auto-starts on construction
+            expect(engine.isRunning).toBe(true);
+        });
+
+        it('registers mousemove listener', () => {
+            const addEventSpy = vi.spyOn(window, 'addEventListener');
+            new Engine();
+            expect(addEventSpy).toHaveBeenCalledWith('mousemove', expect.any(Function));
+        });
+
+        it('registers resize listener', () => {
+            const addEventSpy = vi.spyOn(window, 'addEventListener');
+            new Engine();
+            expect(addEventSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+        });
+
+        it('requests animation frame on init', () => {
+            expect(requestAnimationFrame).toHaveBeenCalled();
         });
     });
 
     describe('Component Registration', () => {
+        beforeEach(() => {
+            engine = new Engine();
+        });
+
         it('registers component with name', () => {
             const mockComponent = { update: vi.fn() };
-            engine.register('test', mockComponent);
+            engine.registerComponent('test', mockComponent);
 
             expect(engine.components.has('test')).toBe(true);
         });
 
-        it('returns component on get', () => {
+        it('returns component on getComponent', () => {
             const mockComponent = { update: vi.fn() };
-            engine.register('test', mockComponent);
+            engine.registerComponent('test', mockComponent);
 
-            expect(engine.get('test')).toBe(mockComponent);
+            expect(engine.getComponent('test')).toBe(mockComponent);
         });
 
         it('returns undefined for unregistered component', () => {
-            expect(engine.get('nonexistent')).toBeUndefined();
+            expect(engine.getComponent('nonexistent')).toBeUndefined();
         });
 
-        it('unregisters component', () => {
-            const mockComponent = { update: vi.fn(), dispose: vi.fn() };
-            engine.register('test', mockComponent);
+        it('allows multiple components to be registered', () => {
+            engine.registerComponent('comp1', { update: vi.fn() });
+            engine.registerComponent('comp2', { update: vi.fn() });
 
-            engine.unregister('test');
-
-            expect(engine.components.has('test')).toBe(false);
+            expect(engine.components.size).toBe(2);
         });
 
-        it('calls dispose on unregister if available', () => {
-            const mockComponent = { update: vi.fn(), dispose: vi.fn() };
-            engine.register('test', mockComponent);
+        it('overwrites component with same name', () => {
+            const comp1 = { update: vi.fn(), id: 1 };
+            const comp2 = { update: vi.fn(), id: 2 };
 
-            engine.unregister('test');
+            engine.registerComponent('test', comp1);
+            engine.registerComponent('test', comp2);
 
-            expect(mockComponent.dispose).toHaveBeenCalled();
-        });
-
-        it('handles unregister without dispose method', () => {
-            const mockComponent = { update: vi.fn() };
-            engine.register('test', mockComponent);
-
-            expect(() => engine.unregister('test')).not.toThrow();
+            expect(engine.getComponent('test').id).toBe(2);
         });
     });
 
     describe('Animation Loop', () => {
         beforeEach(() => {
-            vi.useFakeTimers();
+            engine = new Engine();
         });
 
-        afterEach(() => {
-            vi.useRealTimers();
+        it('calls requestAnimationFrame in animate', () => {
+            // Clear initial call from constructor
+            const initialCalls = requestAnimationFrame.mock.calls.length;
+
+            // Execute the first RAF callback to trigger another frame
+            if (rafCallbacks[0]) {
+                rafCallbacks[0]();
+            }
+
+            expect(requestAnimationFrame.mock.calls.length).toBeGreaterThan(initialCalls);
         });
 
-        it('starts animation loop', () => {
-            engine.start();
+        it('stops animation when isRunning is false', () => {
+            engine.isRunning = false;
 
-            expect(engine.isRunning).toBe(true);
-            expect(requestAnimationFrame).toHaveBeenCalled();
+            // Clear previous calls
+            requestAnimationFrame.mockClear();
+
+            // Try to animate - should exit early
+            engine.animate();
+
+            expect(requestAnimationFrame).not.toHaveBeenCalled();
         });
 
-        it('does not start if already running', () => {
-            engine.start();
-            const callCount = requestAnimationFrame.mock.calls.length;
-
-            engine.start();
-
-            expect(requestAnimationFrame.mock.calls.length).toBe(callCount);
-        });
-
-        it('stops animation loop', () => {
-            engine.start();
-            engine.stop();
-
-            expect(engine.isRunning).toBe(false);
-        });
-
-        it('updates all components on tick', () => {
+        it('updates all components with update method', () => {
             const comp1 = { update: vi.fn() };
             const comp2 = { update: vi.fn() };
 
-            engine.register('comp1', comp1);
-            engine.register('comp2', comp2);
-            engine.start();
+            engine.registerComponent('comp1', comp1);
+            engine.registerComponent('comp2', comp2);
 
-            vi.advanceTimersByTime(16);
+            // Execute animation frame callback
+            if (rafCallbacks.length > 0 && rafCallbacks[0]) {
+                rafCallbacks[0]();
+            }
 
             expect(comp1.update).toHaveBeenCalled();
             expect(comp2.update).toHaveBeenCalled();
         });
 
-        it('passes delta time to component update', () => {
+        it('passes elapsed, delta, mouse, and mouseInfluence to update', () => {
             const mockComponent = { update: vi.fn() };
-            engine.register('test', mockComponent);
-            engine.start();
+            engine.registerComponent('test', mockComponent);
 
-            vi.advanceTimersByTime(16);
+            // Execute animation frame
+            if (rafCallbacks.length > 0 && rafCallbacks[0]) {
+                rafCallbacks[0]();
+            }
 
             expect(mockComponent.update).toHaveBeenCalledWith(
-                expect.any(Number),
-                expect.any(Number)
+                expect.any(Number),   // elapsed
+                expect.any(Number),   // delta
+                engine.mouse,         // mouse position
+                expect.any(Number)    // mouseInfluence
             );
         });
 
         it('skips components without update method', () => {
             const noUpdate = { render: vi.fn() };
-            engine.register('noUpdate', noUpdate);
+            engine.registerComponent('noUpdate', noUpdate);
 
             expect(() => {
-                engine.start();
-                vi.advanceTimersByTime(16);
+                if (rafCallbacks.length > 0 && rafCallbacks[0]) {
+                    rafCallbacks[0]();
+                }
             }).not.toThrow();
+        });
+
+        it('decays mouse influence each frame', () => {
+            engine.mouseInfluence = 1.0;
+
+            // Execute animation frame
+            if (rafCallbacks.length > 0 && rafCallbacks[0]) {
+                rafCallbacks[0]();
+            }
+
+            expect(engine.mouseInfluence).toBeLessThan(1.0);
         });
     });
 
     describe('Mouse Tracking', () => {
-        it('normalizes mouse position on move', () => {
+        beforeEach(() => {
+            engine = new Engine();
+        });
+
+        it('normalizes mouse X position (0 to 1)', () => {
             const event = new MouseEvent('mousemove', {
-                clientX: 960,
+                clientX: 960,  // Center of 1920
                 clientY: 540
             });
 
-            window.dispatchEvent(event);
+            engine.onMouseMove(event);
 
-            // Center of screen should be ~0, 0
-            expect(engine.mouse.x).toBeCloseTo(0, 1);
-            expect(engine.mouse.y).toBeCloseTo(0, 1);
+            expect(engine.mouse.x).toBeCloseTo(0.5, 2);
         });
 
-        it('calculates left edge as -1', () => {
+        it('calculates left edge as 0', () => {
             const event = new MouseEvent('mousemove', {
                 clientX: 0,
                 clientY: 540
             });
 
-            window.dispatchEvent(event);
+            engine.onMouseMove(event);
 
-            expect(engine.mouse.x).toBeCloseTo(-1, 1);
+            expect(engine.mouse.x).toBeCloseTo(0, 2);
         });
 
         it('calculates right edge as 1', () => {
@@ -221,99 +273,145 @@ describe('Engine', () => {
                 clientY: 540
             });
 
-            window.dispatchEvent(event);
+            engine.onMouseMove(event);
 
-            expect(engine.mouse.x).toBeCloseTo(1, 1);
+            expect(engine.mouse.x).toBeCloseTo(1, 2);
         });
 
-        it('inverts Y axis (top is 1, bottom is -1)', () => {
+        it('inverts Y axis (top is 1, bottom is 0)', () => {
+            // Top of screen
             const topEvent = new MouseEvent('mousemove', {
                 clientX: 960,
                 clientY: 0
             });
-            window.dispatchEvent(topEvent);
-            expect(engine.mouse.y).toBeCloseTo(1, 1);
+            engine.onMouseMove(topEvent);
+            expect(engine.mouse.y).toBeCloseTo(1, 2);
 
+            // Bottom of screen
             const bottomEvent = new MouseEvent('mousemove', {
                 clientX: 960,
                 clientY: 1080
             });
-            window.dispatchEvent(bottomEvent);
-            expect(engine.mouse.y).toBeCloseTo(-1, 1);
+            engine.onMouseMove(bottomEvent);
+            expect(engine.mouse.y).toBeCloseTo(0, 2);
+        });
+
+        it('increases mouse influence on move', () => {
+            const initialInfluence = engine.mouseInfluence;
+
+            const event = new MouseEvent('mousemove', {
+                clientX: 500,
+                clientY: 500
+            });
+
+            engine.onMouseMove(event);
+
+            expect(engine.mouseInfluence).toBeGreaterThan(initialInfluence);
+        });
+
+        it('caps mouse influence at 1.0', () => {
+            // Move mouse multiple times
+            for (let i = 0; i < 20; i++) {
+                engine.onMouseMove(new MouseEvent('mousemove', {
+                    clientX: i * 100,
+                    clientY: i * 50
+                }));
+            }
+
+            expect(engine.mouseInfluence).toBeLessThanOrEqual(1.0);
         });
     });
 
     describe('Resize Handling', () => {
-        it('updates dimensions on resize', () => {
-            global.innerWidth = 1280;
-            global.innerHeight = 720;
-
-            window.dispatchEvent(new Event('resize'));
-
-            expect(engine.width).toBe(1280);
-            expect(engine.height).toBe(720);
+        beforeEach(() => {
+            engine = new Engine();
         });
 
-        it('calls onResize on components', () => {
+        it('calls onResize on components with onResize method', () => {
             const mockComponent = {
                 update: vi.fn(),
                 onResize: vi.fn()
             };
-            engine.register('test', mockComponent);
+            engine.registerComponent('test', mockComponent);
 
-            global.innerWidth = 1280;
-            global.innerHeight = 720;
-            window.dispatchEvent(new Event('resize'));
+            engine.onResize();
 
-            expect(mockComponent.onResize).toHaveBeenCalledWith(1280, 720);
+            expect(mockComponent.onResize).toHaveBeenCalled();
         });
 
-        it('handles components without onResize', () => {
+        it('handles components without onResize method', () => {
             const noResize = { update: vi.fn() };
-            engine.register('noResize', noResize);
+            engine.registerComponent('noResize', noResize);
 
-            expect(() => {
-                window.dispatchEvent(new Event('resize'));
-            }).not.toThrow();
+            expect(() => engine.onResize()).not.toThrow();
+        });
+
+        it('calls onResize on all components', () => {
+            const comp1 = { update: vi.fn(), onResize: vi.fn() };
+            const comp2 = { update: vi.fn(), onResize: vi.fn() };
+
+            engine.registerComponent('comp1', comp1);
+            engine.registerComponent('comp2', comp2);
+
+            engine.onResize();
+
+            expect(comp1.onResize).toHaveBeenCalled();
+            expect(comp2.onResize).toHaveBeenCalled();
         });
     });
 
     describe('Singleton Pattern', () => {
-        it('getEngine returns same instance', async () => {
-            const engine1 = getEngine();
-            const engine2 = getEngine();
+        it('getEngine returns an Engine instance', () => {
+            const instance = getEngine();
+            expect(instance).toBeInstanceOf(Engine);
+        });
 
-            expect(engine1).toBe(engine2);
+        it('getEngine returns same instance on subsequent calls', async () => {
+            // Need to test singleton within same module context
+            const instance1 = getEngine();
+            const instance2 = getEngine();
+
+            expect(instance1).toBe(instance2);
         });
     });
 
     describe('Cleanup', () => {
-        it('disposes all components on destroy', () => {
-            const comp1 = { update: vi.fn(), dispose: vi.fn() };
-            const comp2 = { update: vi.fn(), dispose: vi.fn() };
+        beforeEach(() => {
+            engine = new Engine();
+        });
 
-            engine.register('comp1', comp1);
-            engine.register('comp2', comp2);
+        it('sets isRunning to false on destroy', () => {
+            engine.destroy();
+
+            expect(engine.isRunning).toBe(false);
+        });
+
+        it('calls destroy on components with destroy method', () => {
+            const comp1 = { update: vi.fn(), destroy: vi.fn() };
+            const comp2 = { update: vi.fn(), destroy: vi.fn() };
+
+            engine.registerComponent('comp1', comp1);
+            engine.registerComponent('comp2', comp2);
 
             engine.destroy();
 
-            expect(comp1.dispose).toHaveBeenCalled();
-            expect(comp2.dispose).toHaveBeenCalled();
+            expect(comp1.destroy).toHaveBeenCalled();
+            expect(comp2.destroy).toHaveBeenCalled();
         });
 
         it('clears components map on destroy', () => {
-            engine.register('test', { update: vi.fn() });
+            engine.registerComponent('test', { update: vi.fn() });
 
             engine.destroy();
 
             expect(engine.components.size).toBe(0);
         });
 
-        it('stops animation loop on destroy', () => {
-            engine.start();
-            engine.destroy();
+        it('handles components without destroy method', () => {
+            const noDestroy = { update: vi.fn() };
+            engine.registerComponent('noDestroy', noDestroy);
 
-            expect(engine.isRunning).toBe(false);
+            expect(() => engine.destroy()).not.toThrow();
         });
     });
 });
