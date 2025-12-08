@@ -98,6 +98,10 @@ describe('AnalyticsService', () => {
 
         it('does not track when DNT is enabled', async () => {
             vi.resetModules();
+
+            // Reset fetch mock to ensure clean state
+            global.fetch = vi.fn().mockResolvedValue({ ok: true });
+
             Object.defineProperty(navigator, 'doNotTrack', {
                 value: '1',
                 configurable: true
@@ -108,6 +112,7 @@ describe('AnalyticsService', () => {
 
             dntService.track('test_event');
 
+            // With DNT enabled, no fetch calls should be made
             expect(fetch).not.toHaveBeenCalled();
         });
     });
@@ -234,6 +239,9 @@ describe('AnalyticsService', () => {
         });
 
         it('includes event data in request body', async () => {
+            // Clear previous fetch calls from initialization
+            fetch.mockClear();
+
             await service.trackInternal('test_event', { key: 'value' });
 
             const body = JSON.parse(fetch.mock.calls[0][1].body);

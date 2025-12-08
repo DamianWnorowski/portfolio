@@ -40,11 +40,14 @@ describe('Security Tests', () => {
                 // Bad: innerHTML with user data
                 // container.innerHTML = userInput; // DON'T DO THIS
 
-                // Good: textContent
+                // Good: textContent (this HTML-encodes the string)
                 container.textContent = userInput;
 
-                expect(container.innerHTML).not.toContain('onerror');
+                // textContent escapes the string, so no actual img element is created
                 expect(container.querySelector('img')).toBeNull();
+                // The innerHTML will have encoded entities, not executable attributes
+                expect(container.innerHTML).toContain('&lt;');
+                expect(container.innerHTML).toContain('&gt;');
             });
 
             it('sanitizes URLs before use', () => {
@@ -154,7 +157,8 @@ describe('Security Tests', () => {
         describe('Form Input Sanitization', () => {
             it('validates email format', () => {
                 const isValidEmail = (email) => {
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    // More strict regex that rejects special characters
+                    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                     return emailRegex.test(email);
                 };
 

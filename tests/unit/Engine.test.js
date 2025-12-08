@@ -10,6 +10,11 @@ vi.mock('three', () => ({
     Clock: vi.fn().mockImplementation(() => ({
         getDelta: vi.fn().mockReturnValue(0.016),
         getElapsedTime: vi.fn().mockReturnValue(1.0)
+    })),
+    Vector2: vi.fn().mockImplementation((x = 0, y = 0) => ({
+        x,
+        y,
+        set: vi.fn(function(newX, newY) { this.x = newX; this.y = newY; return this; })
     }))
 }));
 
@@ -50,7 +55,9 @@ describe('Engine', () => {
         });
 
         it('initializes mouse position at center', () => {
-            expect(engine.mouse).toEqual({ x: 0, y: 0 });
+            // Engine initializes mouse at (0.5, 0.5) representing center of viewport
+            expect(engine.mouse.x).toBe(0.5);
+            expect(engine.mouse.y).toBe(0.5);
         });
 
         it('stores window dimensions', () => {

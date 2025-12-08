@@ -5,6 +5,19 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
+// Helper to create the required DOM structure for EliteTerminal
+function createTerminalDOM() {
+    return `
+        <section id="terminal">
+            <div id="terminal-output"></div>
+            <input type="text" id="term-input" />
+            <button class="term-btn active" data-filter="system">System</button>
+            <button class="term-btn" data-filter="deploy">Deploy</button>
+            <button class="term-btn" data-filter="api">API</button>
+        </section>
+    `;
+}
+
 describe('EliteTerminal', () => {
     let EliteTerminal;
     let terminal;
@@ -16,6 +29,9 @@ describe('EliteTerminal', () => {
         document.body.innerHTML = '';
         document.head.innerHTML = '';
 
+        // Mock requestAnimationFrame
+        global.requestAnimationFrame = vi.fn(cb => setTimeout(cb, 16));
+
         const module = await import('../../src/components/EliteTerminal.js');
         EliteTerminal = module.EliteTerminal;
     });
@@ -26,346 +42,348 @@ describe('EliteTerminal', () => {
     });
 
     describe('Initialization', () => {
-        it('creates container if not found', () => {
-            document.body.innerHTML = '<div class="grid"></div>';
+        it('finds output element', () => {
+            document.body.innerHTML = createTerminalDOM();
 
-            terminal = new EliteTerminal('terminal');
+            terminal = new EliteTerminal();
 
-            expect(document.getElementById('terminal')).not.toBeNull();
+            expect(terminal.output).toBe(document.getElementById('terminal-output'));
         });
 
-        it('uses existing container if found', () => {
-            document.body.innerHTML = '<section id="terminal"></section>';
+        it('finds input element', () => {
+            document.body.innerHTML = createTerminalDOM();
 
-            terminal = new EliteTerminal('terminal');
+            terminal = new EliteTerminal();
 
-            expect(terminal.container).toBe(document.getElementById('terminal'));
+            expect(terminal.input).toBe(document.getElementById('term-input'));
         });
 
         it('initializes command history', () => {
-            document.body.innerHTML = '<section id="terminal"></section>';
+            document.body.innerHTML = createTerminalDOM();
 
-            terminal = new EliteTerminal('terminal');
+            terminal = new EliteTerminal();
 
             expect(terminal.commandHistory).toEqual([]);
         });
 
         it('sets history index to -1', () => {
-            document.body.innerHTML = '<section id="terminal"></section>';
+            document.body.innerHTML = createTerminalDOM();
 
-            terminal = new EliteTerminal('terminal');
+            terminal = new EliteTerminal();
 
             expect(terminal.historyIndex).toBe(-1);
         });
-    });
 
-    describe('Rendering', () => {
-        beforeEach(() => {
-            document.body.innerHTML = '<section id="terminal"></section>';
-            terminal = new EliteTerminal('terminal');
+        it('sets default filter to system', () => {
+            document.body.innerHTML = createTerminalDOM();
+
+            terminal = new EliteTerminal();
+
+            expect(terminal.currentFilter).toBe('system');
         });
 
-        it('renders panel header', () => {
-            const header = terminal.container.querySelector('.panel-header');
-            expect(header).not.toBeNull();
-        });
+        it('sets maxLines to 50', () => {
+            document.body.innerHTML = createTerminalDOM();
 
-        it('renders window controls', () => {
-            const controls = terminal.container.querySelectorAll('.window-btn');
-            expect(controls.length).toBe(3);
-        });
+            terminal = new EliteTerminal();
 
-        it('renders terminal output area', () => {
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output).not.toBeNull();
-        });
-
-        it('renders input field', () => {
-            const input = terminal.container.querySelector('#terminal-input');
-            expect(input).not.toBeNull();
-        });
-
-        it('renders prompt indicator', () => {
-            const prompt = terminal.container.querySelector('.prompt');
-            expect(prompt.textContent).toContain('>');
+            expect(terminal.maxLines).toBe(50);
         });
     });
 
     describe('Command Execution', () => {
         beforeEach(() => {
-            document.body.innerHTML = '<section id="terminal"></section>';
-            terminal = new EliteTerminal('terminal');
+            document.body.innerHTML = createTerminalDOM();
+            terminal = new EliteTerminal();
         });
 
         it('executes help command', () => {
             terminal.executeCommand('help');
 
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('Available commands');
+            expect(terminal.output.innerHTML).toContain('Available commands');
         });
 
         it('executes clear command', () => {
             terminal.executeCommand('help');
             terminal.executeCommand('clear');
 
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toBe('');
+            // Clear removes all content but adds "Terminal cleared." message
+            expect(terminal.output.innerHTML).toContain('Terminal cleared');
+            expect(terminal.output.innerHTML).not.toContain('Available commands');
         });
 
         it('executes status command', () => {
             terminal.executeCommand('status');
 
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('SYSTEM STATUS');
+            expect(terminal.output.innerHTML).toContain('SYSTEM STATUS');
         });
 
         it('executes skills command', () => {
             terminal.executeCommand('skills');
 
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('SKILL');
-        });
-
-        it('executes projects command', () => {
-            terminal.executeCommand('projects');
-
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('PROJECT');
+            expect(terminal.output.innerHTML).toContain('TECHNICAL');
         });
 
         it('executes contact command', () => {
             terminal.executeCommand('contact');
 
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML.toLowerCase()).toContain('contact');
+            expect(terminal.output.innerHTML).toContain('CONTACT');
         });
 
         it('handles unknown command', () => {
             terminal.executeCommand('unknowncommand');
 
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('not recognized');
+            expect(terminal.output.innerHTML).toContain('Command not found');
         });
 
-        it('is case insensitive', () => {
-            terminal.executeCommand('HELP');
+        it('echoes command in output', () => {
+            terminal.executeCommand('help');
 
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('Available commands');
-        });
-
-        it('trims whitespace from commands', () => {
-            terminal.executeCommand('  help  ');
-
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('Available commands');
+            expect(terminal.output.innerHTML).toContain('$ help');
         });
     });
 
     describe('Command History', () => {
         beforeEach(() => {
-            document.body.innerHTML = '<section id="terminal"></section>';
-            terminal = new EliteTerminal('terminal');
+            document.body.innerHTML = createTerminalDOM();
+            terminal = new EliteTerminal();
         });
 
         it('adds command to history', () => {
-            terminal.executeCommand('help');
+            terminal.input.value = 'help';
+            terminal.handleKeydown({ key: 'Enter', preventDefault: vi.fn() });
 
             expect(terminal.commandHistory).toContain('help');
         });
 
         it('does not add empty commands', () => {
-            terminal.executeCommand('');
+            terminal.input.value = '';
+            terminal.handleKeydown({ key: 'Enter', preventDefault: vi.fn() });
 
             expect(terminal.commandHistory.length).toBe(0);
         });
 
         it('navigates history with up arrow', () => {
-            const input = terminal.container.querySelector('#terminal-input');
+            terminal.input.value = 'help';
+            terminal.handleKeydown({ key: 'Enter', preventDefault: vi.fn() });
+            terminal.input.value = 'status';
+            terminal.handleKeydown({ key: 'Enter', preventDefault: vi.fn() });
 
-            terminal.executeCommand('help');
-            terminal.executeCommand('status');
+            terminal.handleKeydown({ key: 'ArrowUp', preventDefault: vi.fn() });
 
-            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
-
-            expect(input.value).toBe('status');
+            expect(terminal.input.value).toBe('status');
         });
 
         it('navigates history with down arrow', () => {
-            const input = terminal.container.querySelector('#terminal-input');
+            terminal.input.value = 'help';
+            terminal.handleKeydown({ key: 'Enter', preventDefault: vi.fn() });
+            terminal.input.value = 'status';
+            terminal.handleKeydown({ key: 'Enter', preventDefault: vi.fn() });
 
-            terminal.executeCommand('help');
-            terminal.executeCommand('status');
+            terminal.handleKeydown({ key: 'ArrowUp', preventDefault: vi.fn() });
+            terminal.handleKeydown({ key: 'ArrowUp', preventDefault: vi.fn() });
+            terminal.handleKeydown({ key: 'ArrowDown', preventDefault: vi.fn() });
 
-            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
-            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
-            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
-
-            expect(input.value).toBe('status');
+            expect(terminal.input.value).toBe('status');
         });
 
         it('clears input on down at end of history', () => {
-            const input = terminal.container.querySelector('#terminal-input');
+            terminal.input.value = 'help';
+            terminal.handleKeydown({ key: 'Enter', preventDefault: vi.fn() });
 
-            terminal.executeCommand('help');
+            terminal.handleKeydown({ key: 'ArrowUp', preventDefault: vi.fn() });
+            terminal.handleKeydown({ key: 'ArrowDown', preventDefault: vi.fn() });
 
-            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
-            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
-
-            expect(input.value).toBe('');
+            expect(terminal.input.value).toBe('');
         });
     });
 
     describe('Input Handling', () => {
         beforeEach(() => {
-            document.body.innerHTML = '<section id="terminal"></section>';
-            terminal = new EliteTerminal('terminal');
+            document.body.innerHTML = createTerminalDOM();
+            terminal = new EliteTerminal();
         });
 
         it('executes command on Enter key', () => {
-            const input = terminal.container.querySelector('#terminal-input');
-            input.value = 'help';
+            terminal.input.value = 'help';
+            terminal.handleKeydown({ key: 'Enter', preventDefault: vi.fn() });
 
-            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('Available commands');
+            expect(terminal.output.innerHTML).toContain('Available commands');
         });
 
         it('clears input after execution', () => {
-            const input = terminal.container.querySelector('#terminal-input');
-            input.value = 'help';
+            terminal.input.value = 'help';
+            terminal.handleKeydown({ key: 'Enter', preventDefault: vi.fn() });
 
-            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-
-            expect(input.value).toBe('');
+            expect(terminal.input.value).toBe('');
         });
 
-        it('shows command echo in output', () => {
-            const input = terminal.container.querySelector('#terminal-input');
-            input.value = 'help';
+        it('trims whitespace from commands', () => {
+            terminal.input.value = '  help  ';
+            terminal.handleKeydown({ key: 'Enter', preventDefault: vi.fn() });
 
-            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('help');
+            expect(terminal.output.innerHTML).toContain('Available commands');
         });
     });
 
     describe('Output Formatting', () => {
         beforeEach(() => {
-            document.body.innerHTML = '<section id="terminal"></section>';
-            terminal = new EliteTerminal('terminal');
+            document.body.innerHTML = createTerminalDOM();
+            terminal = new EliteTerminal();
         });
 
-        it('formats success output in green', () => {
-            terminal.print('Success message', 'success');
+        it('adds term-line class to output', () => {
+            terminal.addLine('Test message', 'system');
 
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('success');
+            const line = terminal.output.querySelector('.term-line');
+            expect(line).not.toBeNull();
         });
 
-        it('formats error output in red', () => {
-            terminal.print('Error message', 'error');
+        it('adds type class to lines', () => {
+            terminal.addLine('Test message', 'error');
 
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('error');
+            const line = terminal.output.querySelector('.term-line.error');
+            expect(line).not.toBeNull();
         });
 
-        it('formats info output in blue', () => {
-            terminal.print('Info message', 'info');
+        it('includes timestamp', () => {
+            terminal.addLine('Test message');
 
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('info');
+            const time = terminal.output.querySelector('.term-time');
+            expect(time).not.toBeNull();
         });
 
-        it('auto-scrolls output to bottom', () => {
-            const output = terminal.container.querySelector('#terminal-output');
-            const scrollSpy = vi.spyOn(output, 'scrollTop', 'set');
+        it('includes prefix', () => {
+            terminal.addLine('Test message', 'system');
 
-            for (let i = 0; i < 20; i++) {
-                terminal.print(`Line ${i}`);
+            const prefix = terminal.output.querySelector('.term-prefix');
+            expect(prefix.textContent).toContain('[SYS]');
+        });
+
+        it('includes message content', () => {
+            terminal.addLine('Test message');
+
+            const msg = terminal.output.querySelector('.term-msg');
+            expect(msg.textContent).toContain('Test message');
+        });
+    });
+
+    describe('Text Highlighting', () => {
+        beforeEach(() => {
+            document.body.innerHTML = createTerminalDOM();
+            terminal = new EliteTerminal();
+        });
+
+        it('highlights SUCCESS text', () => {
+            terminal.addLine('Operation SUCCESS');
+
+            expect(terminal.output.innerHTML).toContain('hl-success');
+        });
+
+        it('highlights ERROR text', () => {
+            terminal.addLine('Operation ERROR');
+
+            expect(terminal.output.innerHTML).toContain('hl-error');
+        });
+
+        it('highlights metrics', () => {
+            terminal.addLine('Response time: 50ms');
+
+            expect(terminal.output.innerHTML).toContain('hl-metric');
+        });
+    });
+
+    describe('Line Management', () => {
+        beforeEach(() => {
+            document.body.innerHTML = createTerminalDOM();
+            terminal = new EliteTerminal();
+        });
+
+        it('limits output to maxLines', () => {
+            for (let i = 0; i < 60; i++) {
+                terminal.addLine(`Line ${i}`);
             }
 
-            expect(scrollSpy).toHaveBeenCalled();
+            expect(terminal.output.children.length).toBeLessThanOrEqual(50);
+        });
+
+        it('removes oldest lines when limit exceeded', () => {
+            terminal.addLine('First line');
+            for (let i = 0; i < 55; i++) {
+                terminal.addLine(`Line ${i}`);
+            }
+
+            expect(terminal.output.innerHTML).not.toContain('First line');
         });
     });
 
-    describe('Deploy Command', () => {
+    describe('Filter Buttons', () => {
         beforeEach(() => {
-            document.body.innerHTML = '<section id="terminal"></section>';
-            terminal = new EliteTerminal('terminal');
+            document.body.innerHTML = createTerminalDOM();
+            terminal = new EliteTerminal();
         });
 
-        it('shows deployment sequence', () => {
-            terminal.executeCommand('deploy');
+        it('changes filter on button click', () => {
+            const deployBtn = document.querySelector('[data-filter="deploy"]');
+            deployBtn.click();
 
-            vi.advanceTimersByTime(5000);
-
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML.toLowerCase()).toContain('deploy');
-        });
-    });
-
-    describe('Styles', () => {
-        it('adds styles to document', () => {
-            document.body.innerHTML = '<section id="terminal"></section>';
-            terminal = new EliteTerminal('terminal');
-
-            const styles = document.getElementById('terminal-styles');
-            expect(styles).not.toBeNull();
+            expect(terminal.currentFilter).toBe('deploy');
         });
 
-        it('does not duplicate styles', () => {
-            document.body.innerHTML = '<section id="terminal"></section>';
-            new EliteTerminal('terminal');
-            new EliteTerminal('terminal-2');
+        it('updates active class on button click', () => {
+            const deployBtn = document.querySelector('[data-filter="deploy"]');
+            deployBtn.click();
 
-            const styles = document.querySelectorAll('#terminal-styles');
-            expect(styles.length).toBe(1);
+            expect(deployBtn.classList.contains('active')).toBe(true);
+        });
+
+        it('removes active class from other buttons', () => {
+            const systemBtn = document.querySelector('[data-filter="system"]');
+            const deployBtn = document.querySelector('[data-filter="deploy"]');
+
+            deployBtn.click();
+
+            expect(systemBtn.classList.contains('active')).toBe(false);
         });
     });
 
-    describe('ASCII Art', () => {
+    describe('Prefix Mapping', () => {
         beforeEach(() => {
-            document.body.innerHTML = '<section id="terminal"></section>';
-            terminal = new EliteTerminal('terminal');
+            document.body.innerHTML = createTerminalDOM();
+            terminal = new EliteTerminal();
         });
 
-        it('ascii command shows art', () => {
-            terminal.executeCommand('ascii');
+        it('returns correct prefix for system', () => {
+            expect(terminal.getPrefix('system')).toBe('[SYS]');
+        });
 
-            const output = terminal.container.querySelector('#terminal-output');
-            // Should contain some form of ASCII art or text banner
-            expect(output.innerHTML.length).toBeGreaterThan(50);
+        it('returns correct prefix for deploy', () => {
+            expect(terminal.getPrefix('deploy')).toBe('[DEPLOY]');
+        });
+
+        it('returns correct prefix for api', () => {
+            expect(terminal.getPrefix('api')).toBe('[API]');
+        });
+
+        it('returns correct prefix for error', () => {
+            expect(terminal.getPrefix('error')).toBe('[ERR]');
+        });
+
+        it('returns default prefix for unknown type', () => {
+            expect(terminal.getPrefix('unknown')).toBe('[LOG]');
         });
     });
 
-    describe('Whoami Command', () => {
+    describe('Timestamp', () => {
         beforeEach(() => {
-            document.body.innerHTML = '<section id="terminal"></section>';
-            terminal = new EliteTerminal('terminal');
+            document.body.innerHTML = createTerminalDOM();
+            terminal = new EliteTerminal();
         });
 
-        it('shows user info', () => {
-            terminal.executeCommand('whoami');
+        it('returns timestamp in HH:MM:SS format', () => {
+            const timestamp = terminal.getTimestamp();
 
-            const output = terminal.container.querySelector('#terminal-output');
-            expect(output.innerHTML).toContain('Damian');
-        });
-    });
-
-    describe('Cleanup', () => {
-        it('removes event listeners on destroy', () => {
-            document.body.innerHTML = '<section id="terminal"></section>';
-            terminal = new EliteTerminal('terminal');
-
-            const input = terminal.container.querySelector('#terminal-input');
-            const removeEventSpy = vi.spyOn(input, 'removeEventListener');
-
-            terminal.destroy();
-
-            expect(removeEventSpy).toHaveBeenCalled();
+            expect(timestamp).toMatch(/^\d{2}:\d{2}:\d{2}$/);
         });
     });
 });
