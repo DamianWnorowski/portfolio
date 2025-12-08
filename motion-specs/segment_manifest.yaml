@@ -1,0 +1,561 @@
+# GENESIS Segment Manifest
+# KAIZEN Elite Portfolio - Veo 3.1 Temporal Segmentation
+# Optimized for 8-second segments with continuity anchoring
+
+meta:
+  total_duration: 56000
+  segment_duration: 8000
+  total_segments: 7
+  overlap_frames: 12  # For smooth transitions
+  frame_rate: 60
+  resolution: "1920x1080"
+
+# ═══════════════════════════════════════════════════════════════
+# SEGMENT DEFINITIONS
+# ═══════════════════════════════════════════════════════════════
+
+segments:
+  - id: "S1_boot"
+    name: "System Boot & Neural Emergence"
+    start_ms: 0
+    end_ms: 8000
+    duration_ms: 8000
+
+    entry_state:
+      screen: "black"
+      elements_visible: []
+      cursor_position: null
+
+    exit_state:
+      screen: "neural_active"
+      elements_visible:
+        - "neural_background"
+        - "ambient_glow"
+      cursor_position: [960, 540]
+      velocity: [0, 0]
+
+    key_events:
+      - time: 0
+        event: "fade_from_black"
+      - time: 500
+        event: "logo_glitch_appear"
+      - time: 2000
+        event: "progress_bar_animate"
+      - time: 3500
+        event: "boot_chime"
+      - time: 4000
+        event: "loading_complete"
+      - time: 4500
+        event: "neural_fade_in"
+      - time: 6000
+        event: "neural_pulse_begin"
+
+    visual_focus:
+      primary: "loading_screen"
+      secondary: "neural_background"
+
+    audio_cues:
+      - time: 500
+        sound: "digital_hum_start"
+      - time: 3500
+        sound: "boot_chime"
+      - time: 4500
+        sound: "ambient_drone_fade_in"
+
+    cut_point_quality: 0.95
+    continuity_notes: "Neural background must be fully visible at exit"
+
+  - id: "S2_reveal"
+    name: "Globe & Interface Reveal"
+    start_ms: 8000
+    end_ms: 16000
+    duration_ms: 8000
+
+    entry_state:
+      screen: "neural_active"
+      elements_visible:
+        - "neural_background"
+      cursor_position: [960, 540]
+      velocity: [0, 0]
+
+    exit_state:
+      screen: "interface_visible"
+      elements_visible:
+        - "neural_background"
+        - "holographic_globe"
+        - "header"
+        - "profile_panel"
+        - "globe_panel"
+        - "stats_panel"
+      cursor_position: [400, 350]
+      velocity: [-2, 1]
+
+    key_events:
+      - time: 8000
+        event: "globe_materialize_start"
+      - time: 10000
+        event: "globe_fully_visible"
+      - time: 10500
+        event: "nodes_appear"
+      - time: 11000
+        event: "arcs_draw"
+      - time: 12000
+        event: "panels_slide_in"
+      - time: 12500
+        event: "header_animate"
+      - time: 14000
+        event: "profile_reveal"
+      - time: 15500
+        event: "avatar_glow_pulse"
+
+    visual_focus:
+      primary: "holographic_globe"
+      secondary: "ui_panels"
+
+    audio_cues:
+      - time: 8000
+        sound: "whoosh_digital"
+      - time: 10500
+        sound: "ping_node"
+        repeat: 4
+        interval: 200
+      - time: 12000
+        sound: "whoosh_panels"
+
+    cut_point_quality: 0.92
+    continuity_notes: "Globe rotation must match exit velocity"
+
+  - id: "S3_profile"
+    name: "Profile & Statistics"
+    start_ms: 16000
+    end_ms: 24000
+    duration_ms: 8000
+
+    entry_state:
+      screen: "interface_visible"
+      elements_visible:
+        - "neural_background"
+        - "holographic_globe"
+        - "all_panels"
+      cursor_position: [400, 350]
+      velocity: [-2, 1]
+
+    exit_state:
+      screen: "profile_complete"
+      elements_visible:
+        - "all_elements"
+        - "bio_typed"
+        - "stats_counted"
+        - "skills_filled"
+      cursor_position: [800, 650]
+      velocity: [3, 2]
+
+    key_events:
+      - time: 16000
+        event: "bio_typewriter_start"
+      - time: 18000
+        event: "stats_count_up"
+      - time: 20000
+        event: "skills_bars_fill"
+      - time: 22000
+        event: "status_badges_pulse"
+      - time: 23000
+        event: "cursor_move_to_terminal"
+
+    visual_focus:
+      primary: "profile_panel"
+      secondary: "stats_display"
+
+    audio_cues:
+      - time: 16000
+        sound: "typewriter_keys"
+        duration: 2000
+      - time: 18000
+        sound: "counter_tick"
+        repeat: 10
+        interval: 150
+
+    cut_point_quality: 0.88
+    continuity_notes: "Typewriter must complete before cut"
+
+  - id: "S4_terminal"
+    name: "Terminal Interaction"
+    start_ms: 24000
+    end_ms: 32000
+    duration_ms: 8000
+
+    entry_state:
+      screen: "profile_complete"
+      elements_visible:
+        - "all_elements"
+      cursor_position: [800, 650]
+      velocity: [3, 2]
+
+    exit_state:
+      screen: "terminal_active"
+      elements_visible:
+        - "all_elements"
+        - "terminal_output"
+        - "skills_constellation"
+      cursor_position: [1200, 300]
+      velocity: [0, -1]
+
+    key_events:
+      - time: 24000
+        event: "terminal_focus"
+      - time: 24500
+        event: "cursor_blink_active"
+      - time: 25000
+        event: "type_command_status"
+      - time: 27000
+        event: "command_response"
+      - time: 29000
+        event: "skills_toggle_click"
+      - time: 30000
+        event: "constellation_reveal"
+      - time: 31500
+        event: "node_hover"
+
+    visual_focus:
+      primary: "terminal_panel"
+      secondary: "skills_constellation"
+
+    audio_cues:
+      - time: 25000
+        sound: "key_click"
+        repeat: 6
+        interval: 80
+      - time: 27000
+        sound: "terminal_response"
+      - time: 30000
+        sound: "constellation_whoosh"
+
+    cut_point_quality: 0.90
+    continuity_notes: "Constellation must be stable at exit"
+
+  - id: "S5_features"
+    name: "Features Showcase"
+    start_ms: 32000
+    end_ms: 40000
+    duration_ms: 8000
+
+    entry_state:
+      screen: "terminal_active"
+      elements_visible:
+        - "all_elements"
+        - "skills_constellation"
+      cursor_position: [1200, 300]
+      velocity: [0, -1]
+
+    exit_state:
+      screen: "features_shown"
+      elements_visible:
+        - "all_elements"
+        - "testimonials_cycling"
+      cursor_position: [1800, 50]
+      velocity: [2, 0]
+
+    key_events:
+      - time: 33000
+        event: "testimonial_transition"
+      - time: 35000
+        event: "testimonial_2_visible"
+      - time: 36000
+        event: "cmd_k_pressed"
+      - time: 36200
+        event: "command_palette_open"
+      - time: 37000
+        event: "search_type_con"
+      - time: 38000
+        event: "result_highlighted"
+      - time: 38500
+        event: "command_palette_close"
+      - time: 39500
+        event: "cursor_to_theme_toggle"
+
+    visual_focus:
+      primary: "testimonials"
+      secondary: "command_palette"
+
+    audio_cues:
+      - time: 33000
+        sound: "slide_whoosh"
+      - time: 36000
+        sound: "palette_open"
+      - time: 37000
+        sound: "key_clicks"
+        count: 3
+      - time: 38500
+        sound: "palette_close"
+
+    cut_point_quality: 0.93
+    continuity_notes: "Command palette must be closed at exit"
+
+  - id: "S6_theme"
+    name: "Theme & Easter Eggs"
+    start_ms: 40000
+    end_ms: 48000
+    duration_ms: 8000
+
+    entry_state:
+      screen: "features_shown"
+      elements_visible:
+        - "all_elements"
+      cursor_position: [1800, 50]
+      velocity: [2, 0]
+
+    exit_state:
+      screen: "dark_theme"
+      elements_visible:
+        - "all_elements"
+        - "confetti_fading"
+      cursor_position: [300, 450]
+      velocity: [-3, 2]
+
+    key_events:
+      - time: 40000
+        event: "theme_toggle_click"
+      - time: 40300
+        event: "light_theme_active"
+      - time: 42000
+        event: "theme_toggle_back"
+      - time: 42300
+        event: "dark_theme_active"
+      - time: 44000
+        event: "easter_egg_trigger"
+      - time: 44500
+        event: "confetti_burst"
+      - time: 47000
+        event: "cursor_to_contact"
+
+    visual_focus:
+      primary: "theme_transition"
+      secondary: "easter_egg_effect"
+
+    audio_cues:
+      - time: 40000
+        sound: "toggle_click"
+      - time: 42000
+        sound: "toggle_click"
+      - time: 44500
+        sound: "success_chime"
+      - time: 44500
+        sound: "confetti_pop"
+
+    cut_point_quality: 0.85
+    continuity_notes: "Confetti must be fading out at exit"
+
+  - id: "S7_cta"
+    name: "Contact & Closing"
+    start_ms: 48000
+    end_ms: 56000
+    duration_ms: 8000
+
+    entry_state:
+      screen: "dark_theme"
+      elements_visible:
+        - "all_elements"
+      cursor_position: [300, 450]
+      velocity: [-3, 2]
+
+    exit_state:
+      screen: "final"
+      elements_visible:
+        - "all_elements"
+        - "contact_modal_open"
+        - "logo_pulsing"
+      cursor_position: [960, 400]
+      velocity: [0, 0]
+
+    key_events:
+      - time: 48000
+        event: "contact_button_hover"
+      - time: 48500
+        event: "contact_button_glow"
+      - time: 50000
+        event: "contact_click"
+      - time: 50200
+        event: "modal_open"
+      - time: 51000
+        event: "modal_fully_visible"
+      - time: 53000
+        event: "form_field_focus"
+      - time: 54000
+        event: "demo_typing"
+      - time: 55000
+        event: "logo_final_pulse"
+      - time: 55500
+        event: "fade_to_end"
+
+    visual_focus:
+      primary: "contact_modal"
+      secondary: "logo"
+
+    audio_cues:
+      - time: 50000
+        sound: "click"
+      - time: 50200
+        sound: "modal_whoosh"
+      - time: 53000
+        sound: "focus_blip"
+      - time: 55000
+        sound: "final_chime"
+
+    cut_point_quality: 0.97
+    continuity_notes: "Final frame holds for impact"
+
+# ═══════════════════════════════════════════════════════════════
+# CONTINUITY ANCHORING
+# ═══════════════════════════════════════════════════════════════
+
+continuity:
+  velocity_matching:
+    enabled: true
+    tolerance: 0.1
+    interpolation: "cubic"
+
+  visual_anchors:
+    - element: "holographic_globe"
+      property: "rotation_y"
+      continuous: true
+
+    - element: "neural_background"
+      property: "shader_phase"
+      continuous: true
+
+    - element: "cursor"
+      property: "position"
+      continuous: true
+
+    - element: "testimonials"
+      property: "slide_index"
+      discrete: true
+
+  audio_anchors:
+    - track: "ambient_drone"
+      continuous: true
+      crossfade_ms: 100
+
+    - track: "ui_sounds"
+      continuous: false
+
+  state_preservation:
+    - "theme_mode"
+    - "terminal_history"
+    - "constellation_node_positions"
+    - "scroll_position"
+
+# ═══════════════════════════════════════════════════════════════
+# CUT POINT OPTIMIZATION
+# ═══════════════════════════════════════════════════════════════
+
+cut_optimization:
+  criteria:
+    - name: "motion_stability"
+      weight: 0.3
+      threshold: 0.8
+      description: "Elements should be at rest or steady motion"
+
+    - name: "visual_completeness"
+      weight: 0.25
+      threshold: 0.9
+      description: "Animations should be complete, not mid-transition"
+
+    - name: "audio_natural"
+      weight: 0.2
+      threshold: 0.85
+      description: "Cut on silence or sustained tone, not mid-sound"
+
+    - name: "narrative_pause"
+      weight: 0.15
+      threshold: 0.8
+      description: "Natural pause in the story flow"
+
+    - name: "element_alignment"
+      weight: 0.1
+      threshold: 0.75
+      description: "Key elements in expected positions"
+
+  fallback_frames:
+    S1_boot: [7800, 7900, 8000]
+    S2_reveal: [15800, 15900, 16000]
+    S3_profile: [23800, 23900, 24000]
+    S4_terminal: [31800, 31900, 32000]
+    S5_features: [39800, 39900, 40000]
+    S6_theme: [47800, 47900, 48000]
+    S7_cta: [55800, 55900, 56000]
+
+# ═══════════════════════════════════════════════════════════════
+# SEGMENT QUALITY METRICS
+# ═══════════════════════════════════════════════════════════════
+
+quality_metrics:
+  segment_scores:
+    S1_boot:
+      visual_interest: 0.85
+      motion_complexity: 0.75
+      audio_richness: 0.70
+      narrative_weight: 0.90
+      overall: 0.80
+
+    S2_reveal:
+      visual_interest: 0.95
+      motion_complexity: 0.90
+      audio_richness: 0.75
+      narrative_weight: 0.85
+      overall: 0.86
+
+    S3_profile:
+      visual_interest: 0.80
+      motion_complexity: 0.70
+      audio_richness: 0.65
+      narrative_weight: 0.80
+      overall: 0.74
+
+    S4_terminal:
+      visual_interest: 0.85
+      motion_complexity: 0.85
+      audio_richness: 0.80
+      narrative_weight: 0.75
+      overall: 0.81
+
+    S5_features:
+      visual_interest: 0.90
+      motion_complexity: 0.80
+      audio_richness: 0.70
+      narrative_weight: 0.70
+      overall: 0.78
+
+    S6_theme:
+      visual_interest: 0.95
+      motion_complexity: 0.85
+      audio_richness: 0.85
+      narrative_weight: 0.65
+      overall: 0.83
+
+    S7_cta:
+      visual_interest: 0.85
+      motion_complexity: 0.65
+      audio_richness: 0.80
+      narrative_weight: 0.95
+      overall: 0.81
+
+  coverage_matrix:
+    dimension_1_input_parsing: 1.0
+    dimension_2_scene_composition: 1.0
+    dimension_3_design_tokens: 1.0
+    dimension_4_flow_decomposition: 1.0
+    dimension_5_timeline_architecture: 1.0
+    dimension_6_component_specification: 1.0
+    dimension_7_motion_tracks: 1.0
+    dimension_8_interaction_choreography: 1.0
+    dimension_9_state_machines: 1.0
+    dimension_10_transition_systems: 1.0
+    dimension_11_audio_design: 1.0
+    dimension_12_physics_parameters: 1.0
+    dimension_13_micro_interactions: 1.0
+    dimension_14_accessibility_motion: 1.0
+    dimension_15_platform_adaptation: 1.0
+    dimension_16_temporal_segmentation: 1.0
+    dimension_17_continuity_anchoring: 1.0
+    dimension_18_prompt_generation: 1.0

@@ -1,0 +1,1405 @@
+# GENESIS Kinesis Specification
+# KAIZEN Elite Portfolio - Complete Motion System
+# Version: 1.0.0
+
+meta:
+  project: "KAIZEN Elite Portfolio"
+  version: "13.0.0"
+  author: "GENESIS Motion Intelligence"
+  generated: "2024-12-07"
+  total_duration: 56000 # 56 seconds
+  frame_rate: 60
+  resolution:
+    width: 1920
+    height: 1080
+    aspect_ratio: "16:9"
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 1: DESIGN TOKENS
+# ═══════════════════════════════════════════════════════════════
+
+tokens:
+  colors:
+    primary:
+      bg_primary: "#0a0c10"
+      bg_secondary: "#0f1419"
+      bg_tertiary: "#1a1f2e"
+    accent:
+      gold: "#c9a227"
+      gold_dim: "rgba(201, 162, 39, 0.3)"
+      blue: "#4a9eff"
+      blue_dim: "rgba(74, 158, 255, 0.2)"
+    text:
+      primary: "#f8fafc"
+      secondary: "#cbd5e1"
+      muted: "#64748b"
+    status:
+      success: "#22c55e"
+      warning: "#f59e0b"
+      error: "#ef4444"
+      info: "#3b82f6"
+    glass:
+      bg: "rgba(15, 20, 30, 0.8)"
+      border: "rgba(201, 162, 39, 0.2)"
+
+  typography:
+    families:
+      display: "'Inter', system-ui, sans-serif"
+      mono: "'JetBrains Mono', 'Fira Code', monospace"
+    sizes:
+      hero: "3.5rem"      # 56px
+      h1: "2.5rem"        # 40px
+      h2: "1.5rem"        # 24px
+      h3: "1.125rem"      # 18px
+      body: "1rem"        # 16px
+      small: "0.875rem"   # 14px
+      caption: "0.75rem"  # 12px
+      micro: "0.625rem"   # 10px
+    weights:
+      light: 300
+      regular: 400
+      medium: 500
+      semibold: 600
+      bold: 700
+
+  spacing:
+    unit: 4
+    scale:
+      xs: 4
+      sm: 8
+      md: 16
+      lg: 24
+      xl: 32
+      2xl: 48
+      3xl: 64
+      4xl: 96
+
+  motion:
+    durations:
+      instant: 0
+      fast: 150
+      normal: 300
+      slow: 500
+      slower: 800
+      slowest: 1200
+    easings:
+      default: "cubic-bezier(0.16, 1, 0.3, 1)"
+      bounce: "cubic-bezier(0.34, 1.56, 0.64, 1)"
+      smooth: "cubic-bezier(0.4, 0, 0.2, 1)"
+      sharp: "cubic-bezier(0.4, 0, 0.6, 1)"
+      decelerate: "cubic-bezier(0, 0, 0.2, 1)"
+      accelerate: "cubic-bezier(0.4, 0, 1, 1)"
+    springs:
+      snappy:
+        tension: 300
+        friction: 30
+        mass: 1
+      gentle:
+        tension: 170
+        friction: 26
+        mass: 1
+      bouncy:
+        tension: 200
+        friction: 20
+        mass: 1
+      stiff:
+        tension: 400
+        friction: 40
+        mass: 1
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 2: SCENE COMPOSITION
+# ═══════════════════════════════════════════════════════════════
+
+scene:
+  environment:
+    type: "command_center"
+    ambiance: "dark_tech"
+    atmosphere:
+      fog_density: 0.02
+      fog_color: "#0a0c10"
+      ambient_light: 0.15
+
+  camera:
+    initial:
+      position: [0, 0, 100]
+      target: [0, 0, 0]
+      fov: 45
+    movements:
+      - name: "dolly_in"
+        from: [0, 0, 100]
+        to: [0, 0, 50]
+        duration: 3000
+        easing: "decelerate"
+      - name: "orbit_left"
+        arc_degrees: 15
+        duration: 8000
+        easing: "smooth"
+      - name: "focus_pull"
+        aperture_from: 2.8
+        aperture_to: 1.4
+        duration: 1000
+
+  lighting:
+    key_light:
+      type: "directional"
+      color: "#c9a227"
+      intensity: 0.8
+      position: [-1, 1, 1]
+    fill_light:
+      type: "area"
+      color: "#4a9eff"
+      intensity: 0.3
+      position: [1, 0.5, 1]
+    rim_light:
+      type: "point"
+      color: "#ffffff"
+      intensity: 0.4
+      position: [0, -1, -1]
+    ambient:
+      color: "#0f1419"
+      intensity: 0.2
+
+  device:
+    model: "macbook_pro_16"
+    screen:
+      width: 3456
+      height: 2234
+      ppi: 254
+    position: [0, 0, 0]
+    rotation: [0, 0, 0]
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 3: TIMELINE ARCHITECTURE
+# ═══════════════════════════════════════════════════════════════
+
+timeline:
+  total_duration: 56000
+
+  acts:
+    - id: "act_1_boot"
+      name: "System Boot"
+      start: 0
+      end: 8000
+      description: "Loading sequence and neural emergence"
+
+    - id: "act_2_reveal"
+      name: "Interface Reveal"
+      start: 8000
+      end: 24000
+      description: "Globe, panels, and profile animation"
+
+    - id: "act_3_interact"
+      name: "Interaction Showcase"
+      start: 24000
+      end: 40000
+      description: "Terminal, skills, and features demo"
+
+    - id: "act_4_cta"
+      name: "Call to Action"
+      start: 40000
+      end: 56000
+      description: "Contact and closing sequence"
+
+  keyframes:
+    # Act 1: Boot Sequence
+    - time: 0
+      event: "loading_screen_appear"
+
+    - time: 500
+      event: "boot_text_start"
+
+    - time: 2000
+      event: "progress_bar_animate"
+
+    - time: 3500
+      event: "boot_sound_play"
+
+    - time: 4000
+      event: "loading_complete"
+
+    - time: 4500
+      event: "neural_bg_fade_in"
+
+    - time: 6000
+      event: "neural_pulse_start"
+
+    # Act 2: Interface Reveal
+    - time: 8000
+      event: "globe_materialize"
+
+    - time: 10000
+      event: "globe_nodes_appear"
+
+    - time: 11000
+      event: "globe_arcs_draw"
+
+    - time: 12000
+      event: "panels_slide_in"
+
+    - time: 12500
+      event: "header_animate"
+
+    - time: 14000
+      event: "profile_reveal"
+
+    - time: 15000
+      event: "avatar_glow"
+
+    - time: 16000
+      event: "bio_typewriter"
+
+    - time: 18000
+      event: "stats_count_up"
+
+    - time: 20000
+      event: "skills_bars_fill"
+
+    - time: 22000
+      event: "status_badges_pulse"
+
+    # Act 3: Interaction
+    - time: 24000
+      event: "terminal_focus"
+
+    - time: 25000
+      event: "terminal_type_command"
+
+    - time: 27000
+      event: "terminal_response"
+
+    - time: 29000
+      event: "skills_toggle_click"
+
+    - time: 30000
+      event: "constellation_reveal"
+
+    - time: 33000
+      event: "testimonial_cycle"
+
+    - time: 36000
+      event: "command_palette_open"
+
+    - time: 38000
+      event: "command_palette_search"
+
+    # Act 4: CTA
+    - time: 40000
+      event: "theme_toggle"
+
+    - time: 42000
+      event: "theme_revert"
+
+    - time: 44000
+      event: "easter_egg_tease"
+
+    - time: 48000
+      event: "contact_button_focus"
+
+    - time: 50000
+      event: "modal_open"
+
+    - time: 53000
+      event: "form_fill_demo"
+
+    - time: 55000
+      event: "final_logo_pulse"
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 4: COMPONENT SPECIFICATIONS
+# ═══════════════════════════════════════════════════════════════
+
+components:
+  loading_screen:
+    id: "loading_screen"
+    type: "overlay"
+    z_index: 9999
+    states:
+      - name: "visible"
+        opacity: 1
+        display: "flex"
+      - name: "hidden"
+        opacity: 0
+        display: "none"
+    children:
+      logo:
+        type: "text"
+        content: "KAIZEN"
+        font: "display"
+        size: "hero"
+        color: "accent.gold"
+        animation:
+          type: "glitch"
+          intensity: 0.3
+          duration: 2000
+      progress_bar:
+        type: "progress"
+        width: "300px"
+        height: "2px"
+        bg_color: "primary.bg_tertiary"
+        fill_color: "accent.gold"
+        animation:
+          type: "fill"
+          duration: 3000
+          easing: "smooth"
+      status_text:
+        type: "text"
+        font: "mono"
+        size: "caption"
+        color: "text.muted"
+        animation:
+          type: "cycle"
+          items:
+            - "INITIALIZING NEURAL CORE..."
+            - "LOADING ASSETS..."
+            - "ESTABLISHING CONNECTIONS..."
+            - "SYSTEM READY"
+          interval: 800
+
+  neural_background:
+    id: "neural_bg"
+    type: "webgl_canvas"
+    z_index: -1
+    fullscreen: true
+    shader: "neural.frag"
+    uniforms:
+      u_time: "animated"
+      u_resolution: "viewport"
+      u_mouse: "cursor"
+      u_neuron_count: 50
+      u_connection_opacity: 0.3
+      u_pulse_speed: 0.5
+      u_color_primary: [0.788, 0.635, 0.153]  # gold
+      u_color_secondary: [0.290, 0.620, 1.0]   # blue
+    states:
+      - name: "idle"
+        pulse_intensity: 0.3
+      - name: "active"
+        pulse_intensity: 0.6
+      - name: "pulse"
+        pulse_intensity: 1.0
+        duration: 500
+
+  holographic_globe:
+    id: "globe"
+    type: "three_js"
+    container: "globe-container"
+    geometry:
+      type: "sphere"
+      radius: 2
+      segments: 64
+    material:
+      type: "custom_shader"
+      shader: "hologlobe"
+      wireframe: true
+      opacity: 0.8
+    nodes:
+      - name: "NYC"
+        lat: 40.7128
+        lng: -74.0060
+        status: "active"
+      - name: "London"
+        lat: 51.5074
+        lng: -0.1278
+        status: "active"
+      - name: "Tokyo"
+        lat: 35.6762
+        lng: 139.6503
+        status: "active"
+      - name: "Singapore"
+        lat: 1.3521
+        lng: 103.8198
+        status: "active"
+      - name: "Sydney"
+        lat: -33.8688
+        lng: 151.2093
+        status: "standby"
+    animations:
+      rotate:
+        axis: "y"
+        speed: 0.001
+        continuous: true
+      hover_node:
+        scale: 1.5
+        glow_intensity: 2
+        duration: 300
+      arc_draw:
+        stroke_dashoffset: "100% to 0%"
+        duration: 1000
+        stagger: 200
+
+  elite_terminal:
+    id: "terminal"
+    type: "interactive"
+    container: "terminal-panel"
+    prompt: "kaizen@elite:~$"
+    cursor:
+      type: "block"
+      blink_rate: 530
+      color: "accent.gold"
+    commands:
+      help:
+        response: |
+          Available commands:
+          - status    System status
+          - skills    Technical skills
+          - projects  View projects
+          - contact   Get in touch
+          - hire      Let's talk
+      status:
+        response: |
+          ╔═══════════════════════════════════╗
+          ║ SYSTEM STATUS: OPTIMAL            ║
+          ║ Uptime: 99.97%                    ║
+          ║ Active Deployments: 12            ║
+          ║ Response Time: <50ms              ║
+          ╚═══════════════════════════════════╝
+    animations:
+      typing:
+        speed: 50  # ms per character
+        sound: "key"
+      response:
+        delay: 200
+        line_delay: 30
+
+  skills_constellation:
+    id: "skills_constellation"
+    type: "webgl_canvas"
+    container: "skills-constellation"
+    nodes:
+      - id: "typescript"
+        label: "TypeScript"
+        level: 95
+        connections: ["react", "nodejs"]
+      - id: "react"
+        label: "React"
+        level: 92
+        connections: ["typescript", "nextjs"]
+      - id: "python"
+        label: "Python"
+        level: 88
+        connections: ["ai_ml", "django"]
+      - id: "rust"
+        label: "Rust"
+        level: 75
+        connections: ["systems"]
+      - id: "ai_ml"
+        label: "AI/ML"
+        level: 85
+        connections: ["python", "tensorflow"]
+    physics:
+      repulsion: 100
+      attraction: 0.01
+      damping: 0.9
+    animations:
+      reveal:
+        type: "scatter_to_position"
+        duration: 2000
+        stagger: 100
+        easing: "bounce"
+      hover:
+        scale: 1.3
+        glow: true
+        show_label: true
+        duration: 200
+
+  testimonials_carousel:
+    id: "testimonials"
+    type: "carousel"
+    container: "testimonials-panel"
+    auto_play: true
+    interval: 5000
+    transition:
+      type: "slide"
+      duration: 500
+      easing: "default"
+    items: 5
+    indicators:
+      type: "dots"
+      active_color: "accent.gold"
+      inactive_color: "primary.bg_tertiary"
+
+  command_palette:
+    id: "command_palette"
+    type: "modal"
+    trigger: "Cmd+K"
+    position: "center_top"
+    width: "600px"
+    states:
+      - name: "closed"
+        opacity: 0
+        transform: "translateY(-20px)"
+        pointer_events: "none"
+      - name: "open"
+        opacity: 1
+        transform: "translateY(0)"
+        pointer_events: "auto"
+    animations:
+      open:
+        duration: 200
+        easing: "decelerate"
+      close:
+        duration: 150
+        easing: "accelerate"
+      item_select:
+        background: "accent.gold_dim"
+        duration: 100
+
+  theme_toggle:
+    id: "theme_toggle"
+    type: "button"
+    position: "header_right"
+    states:
+      - name: "dark"
+        icon: "sun"
+        tooltip: "Switch to light mode"
+      - name: "light"
+        icon: "moon"
+        tooltip: "Switch to dark mode"
+    animations:
+      toggle:
+        icon_rotate: 360
+        duration: 300
+        easing: "bounce"
+      theme_transition:
+        duration: 300
+        properties:
+          - "background-color"
+          - "color"
+          - "border-color"
+
+  cursor_trail:
+    id: "cursor_trail"
+    type: "effect"
+    max_particles: 20
+    particle:
+      size_range: [4, 12]
+      colors: ["accent.gold", "accent.blue"]
+      shape: "circle"
+      blend_mode: "screen"
+    physics:
+      velocity_decay: 0.95
+      gravity: 0.05
+      life_decay: 0.02
+    animations:
+      spawn:
+        scale_from: 1
+        scale_to: 0
+        opacity_from: 1
+        opacity_to: 0
+        duration: "life"
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 5: MOTION TRACKS
+# ═══════════════════════════════════════════════════════════════
+
+motion_tracks:
+  loading_sequence:
+    target: "loading_screen"
+    keyframes:
+      - time: 0
+        properties:
+          opacity: 1
+          logo_scale: 0.8
+          logo_opacity: 0
+      - time: 300
+        properties:
+          logo_scale: 1
+          logo_opacity: 1
+        easing: "bounce"
+      - time: 500
+        properties:
+          progress_width: "0%"
+      - time: 3500
+        properties:
+          progress_width: "100%"
+        easing: "smooth"
+      - time: 4000
+        properties:
+          opacity: 1
+      - time: 4500
+        properties:
+          opacity: 0
+          transform: "scale(1.1)"
+        easing: "accelerate"
+
+  neural_emergence:
+    target: "neural_bg"
+    keyframes:
+      - time: 4500
+        properties:
+          opacity: 0
+          shader_intensity: 0
+      - time: 6500
+        properties:
+          opacity: 1
+          shader_intensity: 0.5
+        easing: "decelerate"
+      - time: 8000
+        properties:
+          shader_intensity: 1
+
+  globe_materialize:
+    target: "globe"
+    keyframes:
+      - time: 8000
+        properties:
+          scale: 0
+          opacity: 0
+          rotation_y: -180
+      - time: 10000
+        properties:
+          scale: 1
+          opacity: 1
+          rotation_y: 0
+        easing: "bounce"
+      - time: 10500
+        properties:
+          nodes_visible: true
+        stagger: 200
+      - time: 12000
+        properties:
+          arcs_drawn: true
+
+  panels_cascade:
+    target: ".panel"
+    keyframes:
+      - time: 12000
+        properties:
+          transform: "translateY(30px)"
+          opacity: 0
+      - time: 13500
+        properties:
+          transform: "translateY(0)"
+          opacity: 1
+        easing: "decelerate"
+        stagger: 100
+
+  profile_reveal:
+    target: "profile_panel"
+    keyframes:
+      - time: 14000
+        properties:
+          avatar_scale: 0.8
+          avatar_glow: 0
+      - time: 15000
+        properties:
+          avatar_scale: 1
+          avatar_glow: 1
+        easing: "bounce"
+      - time: 16000
+        events: ["start_typewriter"]
+
+  stats_animation:
+    target: ".stat-value"
+    keyframes:
+      - time: 18000
+        properties:
+          value: 0
+      - time: 20000
+        properties:
+          value: "target"
+        easing: "decelerate"
+        stagger: 150
+
+  terminal_demo:
+    target: "terminal"
+    keyframes:
+      - time: 24000
+        events: ["focus"]
+      - time: 25000
+        events: ["type", "status"]
+        type_speed: 50
+      - time: 27000
+        events: ["show_response"]
+
+  constellation_reveal:
+    target: "skills_constellation"
+    keyframes:
+      - time: 30000
+        properties:
+          nodes_scattered: true
+          opacity: 0
+      - time: 32000
+        properties:
+          nodes_positioned: true
+          opacity: 1
+        easing: "bounce"
+        stagger: 100
+      - time: 33000
+        properties:
+          connections_visible: true
+
+  command_palette_demo:
+    target: "command_palette"
+    keyframes:
+      - time: 36000
+        events: ["open"]
+      - time: 36500
+        events: ["type_search", "con"]
+      - time: 37500
+        events: ["highlight_result", 0]
+      - time: 38500
+        events: ["close"]
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 6: STATE MACHINES (XState Compatible)
+# ═══════════════════════════════════════════════════════════════
+
+state_machines:
+  loading_machine:
+    id: "loading"
+    initial: "booting"
+    states:
+      booting:
+        on:
+          PROGRESS_UPDATE: "loading"
+        entry: ["showLogo", "playBootSound"]
+      loading:
+        on:
+          COMPLETE: "ready"
+        entry: ["animateProgress"]
+      ready:
+        on:
+          DISMISS: "hidden"
+        entry: ["showReady"]
+      hidden:
+        type: "final"
+        entry: ["fadeOut"]
+
+  terminal_machine:
+    id: "terminal"
+    initial: "idle"
+    states:
+      idle:
+        on:
+          FOCUS: "focused"
+          TYPE: "typing"
+      focused:
+        on:
+          TYPE: "typing"
+          BLUR: "idle"
+        entry: ["showCursor"]
+      typing:
+        on:
+          ENTER: "executing"
+          ESCAPE: "idle"
+        entry: ["startTyping"]
+      executing:
+        on:
+          COMPLETE: "response"
+          ERROR: "error"
+        entry: ["processCommand"]
+      response:
+        on:
+          IDLE: "idle"
+        entry: ["showResponse"]
+        after:
+          2000: "idle"
+      error:
+        on:
+          IDLE: "idle"
+        entry: ["showError"]
+
+  theme_machine:
+    id: "theme"
+    initial: "dark"
+    states:
+      dark:
+        on:
+          TOGGLE: "transitioning_to_light"
+        entry: ["applyDarkTheme"]
+      transitioning_to_light:
+        after:
+          300: "light"
+        entry: ["startTransition"]
+      light:
+        on:
+          TOGGLE: "transitioning_to_dark"
+        entry: ["applyLightTheme"]
+      transitioning_to_dark:
+        after:
+          300: "dark"
+        entry: ["startTransition"]
+
+  command_palette_machine:
+    id: "commandPalette"
+    initial: "closed"
+    states:
+      closed:
+        on:
+          OPEN: "opening"
+      opening:
+        after:
+          200: "open"
+        entry: ["animateOpen"]
+      open:
+        on:
+          CLOSE: "closing"
+          TYPE: "searching"
+          SELECT: "executing"
+        entry: ["focusInput"]
+      searching:
+        on:
+          CLOSE: "closing"
+          SELECT: "executing"
+          CLEAR: "open"
+        entry: ["filterResults"]
+      executing:
+        after:
+          100: "closing"
+        entry: ["executeCommand"]
+      closing:
+        after:
+          150: "closed"
+        entry: ["animateClose"]
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 7: INTERACTION CHOREOGRAPHY
+# ═══════════════════════════════════════════════════════════════
+
+interactions:
+  cursor_choreography:
+    segments:
+      - name: "initial_exploration"
+        start: 8000
+        path:
+          type: "bezier"
+          points: [[960, 800], [800, 400], [600, 300]]
+          duration: 3000
+
+      - name: "globe_interaction"
+        start: 11000
+        path:
+          type: "arc"
+          center: [400, 350]
+          radius: 100
+          arc_length: 180
+          duration: 2000
+        hover_targets: ["globe_node_nyc", "globe_node_london"]
+
+      - name: "profile_scan"
+        start: 14000
+        path:
+          type: "linear"
+          points: [[200, 200], [200, 400]]
+          duration: 2000
+
+      - name: "terminal_focus"
+        start: 24000
+        path:
+          type: "bezier"
+          points: [[960, 540], [960, 700], [800, 650]]
+          duration: 1500
+        click_at: [800, 650]
+
+      - name: "skills_toggle"
+        start: 29000
+        path:
+          type: "direct"
+          to: [1200, 300]
+          duration: 500
+        click_at: [1200, 300]
+
+      - name: "testimonial_nav"
+        start: 33000
+        path:
+          type: "direct"
+          to: [1600, 400]
+          duration: 400
+        click_at: [1600, 400]
+
+      - name: "command_palette_trigger"
+        start: 35500
+        keyboard: ["Meta", "k"]
+
+      - name: "theme_toggle"
+        start: 40000
+        path:
+          type: "direct"
+          to: [1800, 50]
+          duration: 300
+        click_at: [1800, 50]
+
+      - name: "contact_cta"
+        start: 48000
+        path:
+          type: "bezier"
+          points: [[960, 540], [500, 300], [300, 450]]
+          duration: 2000
+        click_at: [300, 450]
+
+  gesture_definitions:
+    click:
+      phases:
+        - name: "approach"
+          cursor_scale: 1
+        - name: "press"
+          cursor_scale: 0.9
+          duration: 50
+        - name: "release"
+          cursor_scale: 1.1
+          duration: 100
+        - name: "settle"
+          cursor_scale: 1
+          duration: 150
+
+    hover:
+      phases:
+        - name: "enter"
+          target_highlight: true
+          cursor_style: "pointer"
+        - name: "dwell"
+          min_duration: 200
+        - name: "exit"
+          target_highlight: false
+
+  haptics:
+    click:
+      type: "impact"
+      intensity: "light"
+    hover:
+      type: "selection"
+      intensity: "light"
+    success:
+      type: "notification"
+      intensity: "medium"
+    error:
+      type: "error"
+      intensity: "heavy"
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 8: TRANSITION SYSTEMS
+# ═══════════════════════════════════════════════════════════════
+
+transitions:
+  screen_transitions:
+    loading_to_main:
+      type: "crossfade"
+      duration: 500
+      easing: "decelerate"
+      overlay_color: "#0a0c10"
+
+    theme_switch:
+      type: "morph"
+      duration: 300
+      properties:
+        - "background-color"
+        - "color"
+        - "border-color"
+        - "box-shadow"
+      stagger: 0
+
+    modal_open:
+      type: "scale_fade"
+      origin: "center"
+      duration: 200
+      backdrop:
+        color: "rgba(10, 12, 16, 0.8)"
+        blur: 8
+
+    modal_close:
+      type: "scale_fade"
+      direction: "out"
+      duration: 150
+
+  element_transitions:
+    panel_hover:
+      type: "elevate"
+      properties:
+        transform: "translateY(-2px)"
+        box_shadow: "0 8px 30px rgba(0, 0, 0, 0.3)"
+      duration: 200
+
+    button_press:
+      type: "scale"
+      scale: 0.98
+      duration: 100
+
+    link_hover:
+      type: "underline_grow"
+      origin: "left"
+      color: "accent.gold"
+      duration: 200
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 9: AUDIO DESIGN
+# ═══════════════════════════════════════════════════════════════
+
+audio:
+  ambient:
+    track: "ambient_drone"
+    description: "Low frequency drone with subtle digital artifacts"
+    specs:
+      frequency_range: [40, 200]
+      modulation: "slow_lfo"
+      reverb: 0.6
+    volume: 0.15
+    loop: true
+    fade_in: 3000
+
+  ui_sounds:
+    boot:
+      description: "Three ascending tones, synthetic chime"
+      frequencies: [400, 500, 600]
+      waveform: "sine"
+      duration: 600
+      envelope:
+        attack: 50
+        decay: 100
+        sustain: 0.2
+        release: 200
+      trigger: "app_ready"
+
+    key:
+      description: "Mechanical key click"
+      waveform: "square"
+      frequency_range: [800, 1000]
+      duration: 50
+      randomize_pitch: true
+      trigger: "terminal_type"
+
+    hover:
+      description: "Soft blip"
+      frequency: 600
+      waveform: "sine"
+      duration: 50
+      volume: 0.05
+      trigger: "interactive_hover"
+
+    click:
+      description: "Confirmation click"
+      frequency: 800
+      waveform: "triangle"
+      duration: 80
+      trigger: "button_click"
+
+    success:
+      description: "Triumphant ascending arpeggio"
+      frequencies: [523, 659, 784]  # C5, E5, G5
+      waveform: "sine"
+      duration: 400
+      stagger: 100
+      trigger: "form_success"
+
+    error:
+      description: "Descending warning tone"
+      frequencies: [200, 100]
+      waveform: "sawtooth"
+      duration: 200
+      trigger: "error"
+
+    whoosh:
+      description: "Filtered noise sweep"
+      type: "noise"
+      filter: "bandpass"
+      filter_sweep: [1000, 100]
+      duration: 300
+      trigger: "panel_transition"
+
+    ping:
+      description: "Notification ping"
+      frequency: 880
+      waveform: "sine"
+      frequency_sweep: [880, 440]
+      duration: 300
+      trigger: "notification"
+
+  sync_map:
+    - time: 3500
+      sound: "boot"
+    - time: 12000
+      sound: "whoosh"
+    - time: 25000
+      sound: "key"
+      repeat: 6
+      interval: 50
+    - time: 36000
+      sound: "whoosh"
+    - time: 50000
+      sound: "click"
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 10: PHYSICS PARAMETERS
+# ═══════════════════════════════════════════════════════════════
+
+physics:
+  springs:
+    ui_default:
+      stiffness: 170
+      damping: 26
+      mass: 1
+      velocity: 0
+
+    bouncy:
+      stiffness: 200
+      damping: 15
+      mass: 1
+      velocity: 0
+
+    snappy:
+      stiffness: 300
+      damping: 30
+      mass: 1
+      velocity: 0
+
+    gentle:
+      stiffness: 120
+      damping: 20
+      mass: 1
+      velocity: 0
+
+  inertia:
+    scroll:
+      deceleration: 0.95
+      min_velocity: 0.01
+
+    drag:
+      friction: 0.1
+      boundary_resistance: 0.3
+
+  constraints:
+    globe:
+      rotation_speed_max: 0.01
+      zoom_range: [0.5, 2]
+
+    scroll:
+      overscroll_max: 50
+      bounce_back: true
+
+  particles:
+    cursor_trail:
+      gravity: [0, 0.05]
+      velocity_decay: 0.95
+      life_decay: 0.02
+      collision: false
+
+    confetti:
+      gravity: [0, 0.3]
+      velocity_initial: [-5, -15]
+      velocity_range: 10
+      rotation_speed: 10
+      life: 3000
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 11: MICRO-INTERACTIONS
+# ═══════════════════════════════════════════════════════════════
+
+micro_interactions:
+  hover_effects:
+    panel:
+      transform: "translateY(-2px)"
+      box_shadow: "0 8px 30px rgba(0, 0, 0, 0.3)"
+      border_color: "accent.gold_dim"
+      duration: 200
+
+    button:
+      background: "accent.gold"
+      color: "primary.bg_primary"
+      transform: "scale(1.02)"
+      duration: 150
+
+    link:
+      color: "accent.gold"
+      text_decoration: "underline"
+      duration: 100
+
+    nav_item:
+      color: "text.primary"
+      before_width: "100%"
+      duration: 200
+
+  loading_states:
+    spinner:
+      type: "rotate"
+      duration: 1000
+      easing: "linear"
+      infinite: true
+
+    skeleton:
+      type: "shimmer"
+      gradient: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)"
+      duration: 1500
+      infinite: true
+
+    progress:
+      type: "indeterminate"
+      animation: "progress_slide"
+      duration: 2000
+
+  feedback:
+    button_click:
+      ripple:
+        color: "rgba(201, 162, 39, 0.3)"
+        duration: 400
+        scale: 2
+      scale: 0.98
+      duration: 100
+
+    form_focus:
+      border_color: "accent.gold"
+      box_shadow: "0 0 0 3px rgba(201, 162, 39, 0.2)"
+      duration: 150
+
+    form_error:
+      shake:
+        offset: 5
+        duration: 400
+        iterations: 4
+      border_color: "status.error"
+
+    form_success:
+      border_color: "status.success"
+      icon: "checkmark"
+      icon_animation: "scale_in"
+
+  empty_states:
+    no_results:
+      icon: "search"
+      icon_animation: "pulse"
+      message_fade_in: 300
+
+    offline:
+      icon: "wifi_off"
+      icon_animation: "bounce"
+      retry_button: true
+
+  scroll_effects:
+    parallax:
+      factor: 0.5
+      elements: [".hero-bg", ".neural-bg"]
+
+    reveal:
+      threshold: 0.2
+      animation: "fade_up"
+      duration: 600
+      stagger: 100
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 12: ACCESSIBILITY MOTION
+# ═══════════════════════════════════════════════════════════════
+
+accessibility:
+  reduced_motion:
+    detection: "prefers-reduced-motion: reduce"
+    fallbacks:
+      animations: "instant"
+      transitions: "instant"
+      parallax: "disabled"
+      particles: "disabled"
+      auto_play: "disabled"
+
+    preserved:
+      - "focus_indicators"
+      - "state_changes"
+      - "essential_feedback"
+
+  high_contrast:
+    detection: "prefers-contrast: high"
+    adjustments:
+      border_width: "2px"
+      focus_outline: "3px solid"
+      text_decoration: "underline"
+
+  color_blind:
+    patterns:
+      success: "checkmark_icon"
+      error: "x_icon"
+      warning: "triangle_icon"
+
+  focus_management:
+    visible_outline:
+      color: "accent.gold"
+      width: "2px"
+      offset: "2px"
+      style: "solid"
+
+    trap_focus:
+      modals: true
+      dropdowns: true
+
+    skip_links:
+      enabled: true
+      targets: ["main-content", "navigation"]
+
+  timing:
+    minimum_duration: 5000  # for auto-advancing content
+    user_control: true
+    pause_on_hover: true
+
+# ═══════════════════════════════════════════════════════════════
+# DIMENSION 13: PLATFORM ADAPTATION
+# ═══════════════════════════════════════════════════════════════
+
+platform_adaptation:
+  web:
+    browsers:
+      chrome:
+        min_version: 90
+        features: ["webgl2", "css_backdrop_filter"]
+      firefox:
+        min_version: 88
+        fallbacks: ["backdrop_filter_polyfill"]
+      safari:
+        min_version: 14
+        prefixes: ["-webkit-"]
+      edge:
+        min_version: 90
+        features: ["webgl2"]
+
+    responsive:
+      breakpoints:
+        mobile: 480
+        tablet: 768
+        desktop: 1024
+        wide: 1440
+        ultrawide: 1920
+
+      adaptations:
+        mobile:
+          disable: ["cursor_trail", "particles"]
+          simplify: ["neural_bg", "globe"]
+          layout: "single_column"
+        tablet:
+          disable: ["cursor_trail"]
+          layout: "two_column"
+        desktop:
+          full_features: true
+          layout: "grid"
+
+  touch:
+    gestures:
+      swipe:
+        threshold: 50
+        velocity: 0.3
+      pinch:
+        enabled: false
+      long_press:
+        duration: 500
+
+    adaptations:
+      hover_states: "tap_highlight"
+      cursor_trail: "disabled"
+      tooltips: "tap_to_show"
+
+  performance:
+    tiers:
+      high:
+        particles: 50
+        webgl_quality: "high"
+        shadows: true
+        blur: true
+      medium:
+        particles: 25
+        webgl_quality: "medium"
+        shadows: false
+        blur: true
+      low:
+        particles: 0
+        webgl_quality: "low"
+        shadows: false
+        blur: false
+
+    detection:
+      method: "device_memory_and_gpu"
+      fallback: "medium"

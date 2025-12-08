@@ -1,0 +1,265 @@
+{
+  "meta": {
+    "project": "KAIZEN Elite Portfolio",
+    "version": "1.0.0",
+    "model": "veo-3.1",
+    "total_segments": 7,
+    "resolution": "1920x1080",
+    "fps": 60,
+    "generated": "2024-12-07"
+  },
+  "global_context": {
+    "style": "Cyberpunk tech interface, dark mode UI, premium portfolio website",
+    "color_palette": "Deep navy (#0a0c10) background, gold (#c9a227) accents, electric blue (#4a9eff) highlights",
+    "device": "16-inch MacBook Pro displaying a web application",
+    "lighting": "Low-key cinematic lighting with gold rim lights",
+    "camera": "Slight dolly movements, shallow depth of field",
+    "quality": "8K rendered, professional motion graphics quality"
+  },
+  "prompts": [
+    {
+      "segment_id": "S1_boot",
+      "segment_name": "System Boot & Neural Emergence",
+      "duration_seconds": 8,
+      "prompt": "Cinematic tech interface boot sequence on a premium laptop screen. Scene opens on pure black, then a glitchy gold text 'KAIZEN' materializes in the center with digital artifacts and scan lines. A thin gold progress bar animates below, filling left to right. Status text cycles: 'INITIALIZING...', 'LOADING ASSETS...', 'SYSTEM READY'. At completion, the loading screen fades revealing an animated neural network background - glowing gold and blue nodes connected by pulsing lines against deep navy space. Nodes slowly drift and pulse with energy. Camera holds steady, focused on the screen. Ambient low-frequency hum with a three-note ascending chime at boot completion. Premium, executive aesthetic. 8K quality.",
+      "negative_prompt": "Blurry, low quality, cartoon, anime, watermark, text overlay, bright colors, daylight, outdoor scene",
+      "entry_frame": {
+        "description": "Pure black screen",
+        "elements": []
+      },
+      "exit_frame": {
+        "description": "Neural background fully visible with glowing nodes and connections",
+        "elements": ["neural_network_background", "ambient_glow"],
+        "cursor_position": "center"
+      },
+      "key_moments": [
+        {"time": "0:00", "action": "Fade from black begins"},
+        {"time": "0:00.5", "action": "KAIZEN logo glitches into view"},
+        {"time": "0:02", "action": "Progress bar starts filling"},
+        {"time": "0:03.5", "action": "Boot chime plays"},
+        {"time": "0:04", "action": "Loading screen fades out"},
+        {"time": "0:04.5", "action": "Neural background emerges"},
+        {"time": "0:06", "action": "Neural nodes begin pulsing"}
+      ],
+      "audio_description": "Low digital hum building, then clean three-note ascending synthetic chime, transitioning to ambient electronic drone",
+      "motion_keywords": ["glitch", "materialize", "fade", "pulse", "drift", "glow"],
+      "continuity_requirements": {
+        "exit_velocity": "static",
+        "exit_state": "neural_background_active"
+      }
+    },
+    {
+      "segment_id": "S2_reveal",
+      "segment_name": "Globe & Interface Reveal",
+      "duration_seconds": 8,
+      "prompt": "Continuation of premium tech portfolio interface. Neural network background active with drifting gold and blue nodes. A holographic 3D wireframe globe materializes in center-right panel, starting as scattered particles that coalesce into a spinning Earth. Gold glowing nodes appear at major cities (New York, London, Tokyo, Singapore) connected by luminous arc paths. Simultaneously, glass-morphism UI panels slide in from edges - header from top, profile panel from left, stats from bottom. Each panel has subtle backdrop blur and gold border accents. The mouse cursor (gold dot with trail) gracefully moves across the interface, hovering over globe nodes which pulse brighter on interaction. Cinematic camera holds steady with slight parallax on layers. Premium dark theme throughout.",
+      "negative_prompt": "Blurry, pixelated, bright daylight, outdoor, cartoon style, cluttered, messy UI",
+      "entry_frame": {
+        "description": "Neural background active, no UI elements visible",
+        "elements": ["neural_background"],
+        "cursor_position": "center"
+      },
+      "exit_frame": {
+        "description": "Full interface visible - globe spinning, all panels in place",
+        "elements": ["neural_background", "holographic_globe", "header", "profile_panel", "globe_panel", "stats_panel"],
+        "cursor_position": "left_center near globe"
+      },
+      "key_moments": [
+        {"time": "0:00", "action": "Globe particles begin coalescing"},
+        {"time": "0:02", "action": "Globe fully formed, starts rotating"},
+        {"time": "0:02.5", "action": "City nodes appear with pings"},
+        {"time": "0:03", "action": "Arc connections draw between cities"},
+        {"time": "0:04", "action": "UI panels slide in with stagger"},
+        {"time": "0:04.5", "action": "Header animates into view"},
+        {"time": "0:06", "action": "Profile section reveals"},
+        {"time": "0:07.5", "action": "Avatar glows with gold pulse"}
+      ],
+      "audio_description": "Digital whoosh as globe forms, soft ping sounds for each node, subtle panel slide sounds",
+      "motion_keywords": ["materialize", "coalesce", "rotate", "slide", "reveal", "glow", "ping"],
+      "continuity_requirements": {
+        "entry_state": "neural_background_active",
+        "globe_rotation": "continuous_y_axis",
+        "exit_velocity": "cursor_moving_slow"
+      }
+    },
+    {
+      "segment_id": "S3_profile",
+      "segment_name": "Profile & Statistics",
+      "duration_seconds": 8,
+      "prompt": "Premium portfolio interface with profile section coming to life. In the left panel, a professional avatar photo with gold glow ring. Below it, text appears character-by-character in typewriter effect: 'Senior Software Engineer specializing in high-performance systems and AI integration.' Adjacent stats display with animated counters rapidly counting up: '47+' repositories, '2.4K' stars, '3.2K' commits - numbers spinning like slot machines before landing. Horizontal skill bars fill smoothly with gradient from blue to gold: TypeScript 95%, React 92%, Python 88%. Status badges pulse with 'ONLINE' indicator. The globe continues gentle rotation in background. Cursor moves to hover over different stats, causing subtle highlight effects. Clean, executive aesthetic.",
+      "negative_prompt": "Static, no animation, amateur design, bright colors, cluttered",
+      "entry_frame": {
+        "description": "Interface visible, profile section empty/placeholder state",
+        "elements": ["all_base_elements"],
+        "cursor_position": "near_globe"
+      },
+      "exit_frame": {
+        "description": "All profile data populated, stats counted, skills filled",
+        "elements": ["all_elements", "bio_complete", "stats_complete", "skills_filled"],
+        "cursor_position": "near_terminal"
+      },
+      "key_moments": [
+        {"time": "0:00", "action": "Typewriter effect begins on bio"},
+        {"time": "0:02", "action": "Stats counters begin spinning"},
+        {"time": "0:04", "action": "Skill bars begin filling"},
+        {"time": "0:06", "action": "Status badges pulse"},
+        {"time": "0:07", "action": "Cursor moves toward terminal"}
+      ],
+      "audio_description": "Soft mechanical typewriter clicks, digital counter tick sounds, subtle whoosh for skill bar fills",
+      "motion_keywords": ["typewriter", "count", "fill", "pulse", "reveal"],
+      "continuity_requirements": {
+        "bio_text": "fully_typed",
+        "stats": "final_values_displayed",
+        "skills": "bars_filled"
+      }
+    },
+    {
+      "segment_id": "S4_terminal",
+      "segment_name": "Terminal Interaction",
+      "duration_seconds": 8,
+      "prompt": "Interactive terminal demonstration in premium portfolio. Focus shifts to a terminal panel with dark background and green/gold text. Gold blinking cursor appears, then command 'status' types out character by character with mechanical key sounds. After Enter, response appears line by line: ASCII art box showing 'SYSTEM STATUS: OPTIMAL', 'Uptime: 99.97%', 'Active Deployments: 12'. View transitions - user clicks toggle button, and a constellation visualization replaces the skill bars: glowing nodes representing skills (TypeScript, React, Python, Rust, AI/ML) connected by luminous threads, nodes gently floating with physics simulation. Cursor hovers over 'TypeScript' node which enlarges and glows brighter. Sleek, professional interface throughout.",
+      "negative_prompt": "Ugly terminal, basic design, static, no interactivity",
+      "entry_frame": {
+        "description": "Full interface, cursor near terminal",
+        "elements": ["all_elements"],
+        "cursor_position": "terminal_area"
+      },
+      "exit_frame": {
+        "description": "Terminal shows output, skills constellation visible",
+        "elements": ["all_elements", "terminal_output", "skills_constellation"],
+        "cursor_position": "hovering_skill_node"
+      },
+      "key_moments": [
+        {"time": "0:00", "action": "Terminal receives focus"},
+        {"time": "0:00.5", "action": "Cursor blinks gold"},
+        {"time": "0:01", "action": "Typing 'status' command"},
+        {"time": "0:03", "action": "Command response appears"},
+        {"time": "0:05", "action": "View toggle clicked"},
+        {"time": "0:06", "action": "Constellation reveals with scatter effect"},
+        {"time": "0:07.5", "action": "Node hover interaction"}
+      ],
+      "audio_description": "Mechanical keyboard clicks while typing, soft terminal beep on response, whoosh for constellation reveal",
+      "motion_keywords": ["type", "execute", "toggle", "scatter", "float", "glow", "hover"],
+      "continuity_requirements": {
+        "terminal": "output_visible",
+        "constellation": "stable_floating"
+      }
+    },
+    {
+      "segment_id": "S5_features",
+      "segment_name": "Features Showcase",
+      "duration_seconds": 8,
+      "prompt": "Feature demonstration in premium portfolio interface. Testimonials carousel cycles - current quote card slides left while new one enters from right with smooth easing. Quote reads 'Delivered 3 months ahead of schedule with zero critical bugs' with author avatar and title below. Then spotlight command palette activates: user presses Cmd+K, overlay appears with search input and command list. User types 'con', results filter in real-time highlighting 'Contact'. Subtle backdrop blur effect on the modal. Clean transitions, gold accent highlights on hover states. Globe continues rotating in background, neural network nodes still pulsing. Professional motion design throughout.",
+      "negative_prompt": "Jarring transitions, ugly modals, basic UI, no polish",
+      "entry_frame": {
+        "description": "Constellation visible, testimonials showing",
+        "elements": ["all_elements", "skills_constellation"],
+        "cursor_position": "upper_area"
+      },
+      "exit_frame": {
+        "description": "Command palette closed, cursor moving to theme toggle",
+        "elements": ["all_elements", "testimonials_updated"],
+        "cursor_position": "header_right"
+      },
+      "key_moments": [
+        {"time": "0:01", "action": "Testimonial card transitions"},
+        {"time": "0:03", "action": "New testimonial fully visible"},
+        {"time": "0:04", "action": "Cmd+K pressed, palette opens"},
+        {"time": "0:04.5", "action": "Search input focused"},
+        {"time": "0:05", "action": "Typing 'con'"},
+        {"time": "0:06", "action": "Results filter, Contact highlighted"},
+        {"time": "0:06.5", "action": "Palette closes"}
+      ],
+      "audio_description": "Soft slide whoosh for carousel, subtle open/close sounds for palette, key clicks while searching",
+      "motion_keywords": ["slide", "filter", "highlight", "blur", "open", "close"],
+      "continuity_requirements": {
+        "command_palette": "closed",
+        "testimonial": "new_slide_visible"
+      }
+    },
+    {
+      "segment_id": "S6_theme",
+      "segment_name": "Theme & Easter Eggs",
+      "duration_seconds": 8,
+      "prompt": "Theme switching and easter egg demonstration. Cursor clicks theme toggle button - entire interface smoothly morphs from dark mode (navy/gold) to light mode (white/gold) over 300ms. All colors transition simultaneously: backgrounds lighten, text darkens, accents shift. After 2 seconds, toggle again back to elegant dark mode. Then easter egg triggers: typing secret command causes confetti burst - colorful particles (gold, blue, green, orange) explode from center and fall with physics, rotating and fading. Achievement toast slides in from bottom-right: trophy icon with 'SECRET FOUND' text. Premium celebratory moment. Cursor then moves toward contact button which begins to glow.",
+      "negative_prompt": "Harsh transitions, ugly light mode, cheap confetti, amateur effects",
+      "entry_frame": {
+        "description": "Dark theme, cursor at theme toggle",
+        "elements": ["all_elements"],
+        "cursor_position": "theme_toggle"
+      },
+      "exit_frame": {
+        "description": "Dark theme restored, confetti fading, cursor at contact",
+        "elements": ["all_elements", "fading_confetti"],
+        "cursor_position": "contact_button"
+      },
+      "key_moments": [
+        {"time": "0:00", "action": "Theme toggle clicked"},
+        {"time": "0:00.3", "action": "Light theme fully applied"},
+        {"time": "0:02", "action": "Theme toggle clicked again"},
+        {"time": "0:02.3", "action": "Dark theme restored"},
+        {"time": "0:04", "action": "Easter egg triggered"},
+        {"time": "0:04.5", "action": "Confetti explosion"},
+        {"time": "0:06", "action": "Achievement toast appears"},
+        {"time": "0:07", "action": "Cursor moves to contact"}
+      ],
+      "audio_description": "Click sound for toggle, theme transition whoosh, triumphant chime and pop sounds for confetti",
+      "motion_keywords": ["morph", "transition", "explode", "fall", "rotate", "celebrate"],
+      "continuity_requirements": {
+        "theme": "dark_mode",
+        "confetti": "mostly_faded"
+      }
+    },
+    {
+      "segment_id": "S7_cta",
+      "segment_name": "Contact & Closing",
+      "duration_seconds": 8,
+      "prompt": "Closing call-to-action sequence. Contact button glows with pulsing gold aura as cursor approaches. On click, modal smoothly scales up from button origin with backdrop blur darkening. Modal contains contact form: name, email, message fields with gold focus states. Cursor clicks into email field, types demo email with typewriter effect. Focus shifts to 'Send Message' button which pulses invitingly. Finally, camera slightly pulls back, KAIZEN logo in header pulses with final gold glow, neural background intensifies briefly. Hold on complete interface - the perfect portfolio presentation. Fade to subtle vignette. Executive, premium, unforgettable.",
+      "negative_prompt": "Abrupt ending, ugly form, basic modal, no polish",
+      "entry_frame": {
+        "description": "Full interface, cursor approaching contact button",
+        "elements": ["all_elements"],
+        "cursor_position": "near_contact_button"
+      },
+      "exit_frame": {
+        "description": "Modal open with form, logo pulsing, ready for final fade",
+        "elements": ["all_elements", "contact_modal", "glowing_logo"],
+        "cursor_position": "center_modal"
+      },
+      "key_moments": [
+        {"time": "0:00", "action": "Contact button hover glow"},
+        {"time": "0:02", "action": "Button clicked"},
+        {"time": "0:02.2", "action": "Modal opens with scale animation"},
+        {"time": "0:03", "action": "Modal fully visible"},
+        {"time": "0:05", "action": "Form field focused"},
+        {"time": "0:06", "action": "Demo typing in field"},
+        {"time": "0:07", "action": "Logo final pulse"},
+        {"time": "0:07.5", "action": "Hold and subtle fade"}
+      ],
+      "audio_description": "Soft click, elegant modal whoosh, field focus blip, triumphant final chime",
+      "motion_keywords": ["pulse", "scale", "blur", "focus", "type", "glow", "finale"],
+      "continuity_requirements": {
+        "modal": "open_and_stable",
+        "logo": "pulsing",
+        "final_hold": "2_seconds"
+      }
+    }
+  ],
+  "concatenation_notes": {
+    "overlap_strategy": "12_frame_crossfade",
+    "velocity_matching": true,
+    "audio_crossfade": "100ms",
+    "color_continuity": "strict_palette_adherence",
+    "element_persistence": ["neural_background", "globe_rotation", "ambient_glow"]
+  },
+  "quality_checklist": [
+    "All 7 segments generated at 8K quality",
+    "Consistent color palette across segments",
+    "Smooth cursor trajectory continuity",
+    "Globe rotation velocity matches between cuts",
+    "Neural background phase continuity",
+    "Audio ambience continuous across segments",
+    "No jarring brightness changes at cut points",
+    "Element positions match entry/exit frames"
+  ]
+}

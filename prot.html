@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAIZEN | HYPER-INDEX</title>
+    <style>
+        :root {
+            --void: #030510;
+            --signal: #f7fbff;
+            --lidar: #6ef3ff; /* Scan glow */
+            --accent: #ff2fb3;
+            --glass: rgba(255,255,255,0.04);
+            --glass-strong: rgba(255,255,255,0.08);
+            --border: rgba(255,255,255,0.15);
+            --depth: 1000px;
+            --mono: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background: radial-gradient(circle at 20% 20%, #172445 0%, #0f1733 40%, #0a0f26 75%, #060a1d 100%);
+            color: var(--signal);
+            font-family: var(--mono);
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            perspective: 1200px; /* The Camera Lens */
+            cursor: crosshair;
+            user-select: none;
+        }
+
+        /* --- THE LIDAR OVERLAY (The Magic) --- */
+        #lidar-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            display: none; /* Keep fully visible scene */
+            background: transparent;
+        }
+
+        /* Background grid + halos */
+        .bg-grid {
+            position: fixed; inset: 0;
+            background:
+                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 140px 140px;
+            opacity: 0.25;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: 0;
+        }
+        .halo {
+            position: fixed; width: 60vw; height: 60vw;
+            max-width: 1100px; max-height: 1100px;
+            top: 10%; left: -10%;
+            background: radial-gradient(circle at 50% 50%, rgba(110,243,255,0.15), transparent 60%);
+            filter: blur(40px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- THE 3D WORLD --- */
+        #world {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
+            transform-style: preserve-3d; /* CRITICAL */
+            transform: translateZ(-500px); /* Push back to see inside */
+        }
+
+        /* The Faces of the Tesseract */
+        .face {
+            position: absolute;
+            width: 800px; height: 800px;
+            background: rgba(20, 20, 20, 0.2);
+            border: 1px solid rgba(255, 51, 51, 0.3);
+            display: flex; flex-direction: column;
+            padding: 40px;
+            backface-visibility: visible; /* We want to see through them */
+            overflow: hidden;
+            /* Center the face logic */
+            top: -400px; left: -400px; 
+            transition: box-shadow 0.3s;
+        }
+        
+        /* Positioning the 6 faces to form a cube */
+        .face-front  { transform: rotateY(0deg) translateZ(400px); }
+        .face-back   { transform: rotateY(180deg) translateZ(400px); }
+        .face-right  { transform: rotateY(90deg) translateZ(400px); }
+        .face-left   { transform: rotateY(-90deg) translateZ(400px); }
+        .face-top    { transform: rotateX(90deg) translateZ(400px); }
+        .face-bottom { transform: rotateX(-90deg) translateZ(400px); }
+
+        /* --- CONTENT STYLING --- */
+        h1 { font-size: 5rem; letter-spacing: -5px; line-height: 0.8; mix-blend-mode: difference; }
+        h2 { border-bottom: 2px solid var(--lidar); display: inline-block; margin-bottom: 20px; }
+        p { font-size: 0.8rem; line-height: 1.6; max-width: 60%; opacity: 0.7; }
+        
+        .scanner-data {
+            position: absolute; bottom: 20px; left: 20px;
+            color: var(--lidar); font-size: 0.7rem;
+        }
+
+        /* The "Ghost" particles */
+        .particle {
+            position: absolute;
+            color: var(--lidar);
+            font-size: 10px;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* Projects Grid (3D inside 3D) */
+        .holo-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            margin-top: 40px;
+        }
+        .holo-card {
+            border: 1px solid #fff; padding: 20px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .holo-card:hover {
+            background: var(--lidar);
+            color: #000;
+            transform: translateZ(50px); /* Pop out towards user */
+        }
+
+        /* --- HUD --- */
+        #hud {
+            position: fixed;
+            top: 20px; right: 20px;
+            text-align: right;
+            z-index: 10000;
+        }
+        .hud-line { display: block; font-size: 0.7rem; color: var(--lidar); }
+
+    </style>
+</head>
+<body>
+
+    <div id="lidar-layer"></div>
+
+    <div id="hud">
+        <span class="hud-line">LIDAR: ACTIVE</span>
+        <span class="hud-line" id="coord-disp">ROT: 0, 0</span>
+        <span class="hud-line" id="dist-disp">DIST: N/A</span>
+    </div>
+
+    <div id="world">
+        
+        <div class="face face-front">
+            <div class="scanner-data">SEC_01 // HOME</div>
+            <h1>KAIZEN<br>HYPER<br>INDEX</h1>
+            <p style="margin-top:40px;">[INSTRUCTION]: CLICK AND DRAG TO ROTATE THE HYPERCUBE. USE CURSOR TO SCAN SECTORS.</p>
+        </div>
+
+        <div class="face face-right">
+            <div class="scanner-data">SEC_02 // ARSENAL</div>
+            <h2>DEPLOYMENTS</h2>
+            <div class="holo-grid">
+                <div class="holo-card">
+                    <h3>TITAN_01</h3>
+                    <p>AI ARCHITECTURE</p>
+                </div>
+                <div class="holo-card">
+                    <h3>VOID_RENDER</h3>
+                    <p>WEBGL ENGINE</p>
+                </div>
+                <div class="holo-card">
+                    <h3>NEXUS</h3>
+                    <p>DATA VIZ</p>
+                </div>
+                <div class="holo-card">
+                    <h3>ECHO</h3>
+                    <p>AUDIO REACTIVE</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="face face-back">
+            <div class="scanner-data">SEC_03 // CORE</div>
+            <h2>DATA LOG</h2>
+            <p>WE ARE NOT A AGENCY. WE ARE A COMPILED EXECUTABLE DESIGNED TO OPTIMIZE REALITY. OPERATING IN 4 DIMENSIONS.</p>
+            <br>
+            <p>> ORIGIN: UNKNOWN</p>
+            <p>> STACK: RAW MATH</p>
+            <p>> STATUS: HUNTING</p>
+        </div>
+
+        <div class="face face-left">
+            <div class="scanner-data">SEC_04 // UPLINK</div>
+            <h2>ESTABLISH LINK</h2>
+            <p>WARNING: DIRECT CONNECTION MAY CAUSE DATA HEMORRHAGE.</p>
+            <div style="margin-top: 50px; border: 1px solid var(--lidar); padding: 20px; text-align: center;">
+                INITIATE_HANDSHAKE()
+            </div>
+        </div>
+
+        <div class="face face-top" style="align-items: center; justify-content: center;">
+            <div class="scanner-data">SEC_05 // ATMOSPHERE</div>
+            <h1 style="font-size: 2rem;">ABOVE THE FOLD</h1>
+        </div>
+
+        <div class="face face-bottom" style="align-items: center; justify-content: center;">
+            <div class="scanner-data">SEC_06 // BASEMENT</div>
+            <p>SYSTEM ARCHITECT: USER<br>BUILD: V4.0.0_HYPER</p>
+        </div>
+
+    </div>
+
+    <script>
+        /**
+         * KAIZEN V4 HYPER-ENGINE
+         * Capabilities: 3D Drag Physics, LIDAR Raycasting Simulation, Procedural Geometry
+         */
+
+        const world = document.getElementById('world');
+        const lidar = document.getElementById('lidar-layer');
+        const hudRot = document.getElementById('coord-disp');
+        
+        // --- 1. STATE MANAGEMENT ---
+        let state = {
+            rotX: 0,
+            rotY: 0,
+            targetRotX: 0,
+            targetRotY: 0,
+            isDragging: false,
+            lastMouseX: 0,
+            lastMouseY: 0,
+            mouseX: window.innerWidth/2,
+            mouseY: window.innerHeight/2
+        };
+
+        // --- 2. INPUT SIMULATION (Drag to Rotate) ---
+        document.addEventListener('mousedown', (e) => {
+            state.isDragging = true;
+            state.lastMouseX = e.clientX;
+            state.lastMouseY = e.clientY;
+            document.body.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mouseup', () => {
+            state.isDragging = false;
+            document.body.style.cursor = 'crosshair';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            // Update LIDAR position
+            state.mouseX = e.clientX;
+            state.mouseY = e.clientY;
+
+            // Handle Rotation
+            if (state.isDragging) {
+                const deltaX = e.clientX - state.lastMouseX;
+                const deltaY = e.clientY - state.lastMouseY;
+                
+                state.targetRotY += deltaX * 0.3; // Sensitivity
+                state.targetRotX -= deltaY * 0.3;
+                
+                state.lastMouseX = e.clientX;
+                state.lastMouseY = e.clientY;
+            }
+        });
+
+        // --- 3. THE PHYSICS LOOP ---
+        function animate() {
+            // Smooth Camera Ease (Lerp)
+            state.rotX += (state.targetRotX - state.rotX) * 0.05;
+            state.rotY += (state.targetRotY - state.rotY) * 0.05;
+
+            // Apply 3D Transform to World
+            // We rotate the world, effectively moving the camera
+            world.style.transform = `translateZ(-500px) rotateX(${state.rotX}deg) rotateY(${state.rotY}deg)`;
+
+            // Update HUD
+            hudRot.innerText = `ROT: ${Math.floor(state.rotX)}, ${Math.floor(state.rotY)}`;
+            
+            // Randomly glitch the HUD text for effect
+            if(Math.random() > 0.95) {
+                hudRot.style.textShadow = "2px 0 red";
+            } else {
+                hudRot.style.textShadow = "none";
+            }
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+
+        // --- 4. PROCEDURAL SPACE DEBRIS ---
+        // Generates random ASCII characters floating in 3D space around the cube
+        function initDebris() {
+            const chars = "XYZ01_+-=//<>";
+            for(let i=0; i<50; i++) {
+                const el = document.createElement('div');
+                el.className = 'particle';
+                el.innerText = chars[Math.floor(Math.random() * chars.length)];
+                
+                // Random 3D position
+                const x = (Math.random() - 0.5) * 2000;
+                const y = (Math.random() - 0.5) * 2000;
+                const z = (Math.random() - 0.5) * 2000;
+                
+                el.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
+                
+                world.appendChild(el);
+            }
+        }
+        initDebris();
+
+
+        // --- 5. AUDIO-REACTIVE TEXT SIMULATION ---
+        // Scrambles text when the Lidar is close to it (Simulated)
+        const titles = document.querySelectorAll('h1, h2, h3');
+        
+        function scrambleText() {
+            titles.forEach(title => {
+                const rect = title.getBoundingClientRect();
+                const dist = Math.hypot(rect.x - state.mouseX, rect.y - state.mouseY);
+                
+                // If scanner is close
+                if (dist < 200) {
+                    if (Math.random() > 0.8) {
+                        title.style.opacity = Math.random();
+                        title.style.transform = `translateX(${Math.random()*5}px)`;
+                    }
+                } else {
+                    title.style.opacity = 1;
+                    title.style.transform = `translateX(0)`;
+                }
+            });
+            requestAnimationFrame(scrambleText);
+        }
+        scrambleText();
+
+    </script>
+</body>
+</html>
