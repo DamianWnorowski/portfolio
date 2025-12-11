@@ -103,7 +103,7 @@ class RealtimeService {
     /**
      * Fallback polling when SSE is not available
      */
-    startPolling(name, url, handlers, interval = 5000) {
+    startPolling(name, url, handlers = {}, interval = 5000) {
         console.log(`[RealtimeService] Starting polling for ${name}`);
 
         const pollUrl = url.replace('/stream', '');
@@ -137,7 +137,7 @@ class RealtimeService {
     disconnect(name) {
         const connection = this.connections.get(name);
         if (connection) {
-            if (connection instanceof EventSource) {
+            if (typeof connection.close === 'function') {
                 connection.close();
             }
             this.connections.delete(name);
@@ -156,10 +156,10 @@ class RealtimeService {
      */
     disconnectAll() {
         this.connections.forEach((conn, name) => {
-            if (conn instanceof EventSource) {
-                conn.close();
-            } else if (typeof conn === 'number') {
+            if (name.endsWith('_poll')) {
                 clearInterval(conn);
+            } else if (typeof conn.close === 'function') {
+                conn.close();
             }
         });
         this.connections.clear();
@@ -171,7 +171,7 @@ class RealtimeService {
      */
     isConnected(name) {
         const conn = this.connections.get(name);
-        return conn && conn instanceof EventSource && conn.readyState === EventSource.OPEN;
+        return !!(conn && typeof conn.close === 'function' && conn.readyState === 1);
     }
 }
 

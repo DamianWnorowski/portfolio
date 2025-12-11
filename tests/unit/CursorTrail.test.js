@@ -528,6 +528,10 @@ describe('CursorTrail Singleton', () => {
         document.body.innerHTML = '';
         document.head.innerHTML = '';
 
+        // Re-establish requestAnimationFrame mock after resetModules
+        window.requestAnimationFrame = vi.fn((cb) => setTimeout(() => cb(performance.now()), 0));
+        window.cancelAnimationFrame = vi.fn((id) => clearTimeout(id));
+
         window.matchMedia = vi.fn().mockImplementation(query => ({
             matches: false,
             media: query,

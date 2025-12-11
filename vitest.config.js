@@ -18,7 +18,8 @@ export default defineConfig({
         exclude: [
             'node_modules',
             'dist',
-            '.git'
+            '.git',
+            'tests/e2e/**/*.spec.js'  // E2E tests use Playwright, not Vitest
         ],
 
         // Coverage configuration

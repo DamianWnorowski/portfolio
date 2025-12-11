@@ -5,6 +5,7 @@
 
 /* ============================================
    CSS CUSTOM PROPERTIES (Design Tokens)
+   Fluid Typography & Spacing with clamp()
    ============================================ */
 :root {
     /* Colors - Defense Tech Palette */
@@ -32,32 +33,52 @@
     --text-secondary: #94a3b8;
     --text-muted: #64748b;
 
-    /* Typography */
+    /* Typography - Fluid with clamp() */
     --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-    /* Spacing */
-    --spacing-xs: 4px;
-    --spacing-sm: 8px;
-    --spacing-md: 16px;
-    --spacing-lg: 24px;
-    --spacing-xl: 32px;
-    --spacing-2xl: 48px;
+    /* Fluid Font Sizes: clamp(min, preferred, max) */
+    --fs-xs: clamp(0.625rem, 0.5rem + 0.25vw, 0.75rem);      /* 10-12px */
+    --fs-sm: clamp(0.75rem, 0.65rem + 0.3vw, 0.875rem);      /* 12-14px */
+    --fs-base: clamp(0.875rem, 0.75rem + 0.4vw, 1rem);       /* 14-16px */
+    --fs-md: clamp(1rem, 0.875rem + 0.5vw, 1.125rem);        /* 16-18px */
+    --fs-lg: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);        /* 18-22px */
+    --fs-xl: clamp(1.25rem, 1rem + 0.75vw, 1.75rem);         /* 20-28px */
+    --fs-2xl: clamp(1.5rem, 1.25rem + 1vw, 2.25rem);         /* 24-36px */
+    --fs-3xl: clamp(2rem, 1.5rem + 1.5vw, 3rem);             /* 32-48px */
+    --fs-hero: clamp(2.5rem, 2rem + 2vw, 4rem);              /* 40-64px */
 
-    /* Border Radius */
-    --radius-sm: 2px;
-    --radius-md: 4px;
-    --radius-lg: 8px;
+    /* Fluid Spacing: clamp(min, preferred, max) */
+    --spacing-xs: clamp(2px, 0.25vw, 4px);
+    --spacing-sm: clamp(4px, 0.5vw + 2px, 8px);
+    --spacing-md: clamp(8px, 1vw + 4px, 16px);
+    --spacing-lg: clamp(12px, 1.5vw + 6px, 24px);
+    --spacing-xl: clamp(16px, 2vw + 8px, 32px);
+    --spacing-2xl: clamp(24px, 3vw + 12px, 48px);
+    --spacing-3xl: clamp(32px, 4vw + 16px, 64px);
+
+    /* Fluid Container Width */
+    --container-width: clamp(280px, 90vw, 1600px);
+    --sidebar-width: clamp(200px, 20vw + 80px, 360px);
+    --assets-width: clamp(240px, 22vw + 100px, 400px);
+
+    /* Border Radius - Fluid */
+    --radius-sm: clamp(2px, 0.15vw, 4px);
+    --radius-md: clamp(4px, 0.25vw + 2px, 8px);
+    --radius-lg: clamp(6px, 0.5vw + 2px, 12px);
 
     /* Transitions */
     --transition-fast: 150ms ease;
     --transition-base: 250ms ease;
     --transition-slow: 400ms ease;
 
-    /* Shadows */
-    --shadow-panel: 0 20px 50px rgba(0, 0, 0, 0.5);
-    --shadow-glow-gold: 0 0 20px rgba(201, 162, 39, 0.3);
-    --shadow-glow-blue: 0 0 20px rgba(74, 158, 255, 0.3);
+    /* Shadows - Scale with viewport */
+    --shadow-panel: 0 clamp(10px, 2vw, 20px) clamp(25px, 4vw, 50px) rgba(0, 0, 0, 0.5);
+    --shadow-glow-gold: 0 0 clamp(10px, 1.5vw, 20px) rgba(201, 162, 39, 0.3);
+    --shadow-glow-blue: 0 0 clamp(10px, 1.5vw, 20px) rgba(74, 158, 255, 0.3);
+
+    /* Grid Gap - Fluid */
+    --grid-gap: clamp(12px, 1.5vw + 6px, 24px);
 }
 
 /* ============================================
@@ -271,9 +292,9 @@ button {
    ============================================ */
 .main-grid {
     display: grid;
-    grid-template-columns: 320px 1fr 360px;
-    grid-template-rows: 1fr 280px;
-    gap: var(--spacing-lg);
+    grid-template-columns: var(--sidebar-width) 1fr var(--assets-width);
+    grid-template-rows: 1fr clamp(200px, 25vh, 320px);
+    gap: var(--grid-gap);
     flex: 1;
     min-height: 0;
 }
@@ -430,14 +451,14 @@ button {
 }
 
 .profile-name {
-    font-size: 1.6rem;
+    font-size: var(--fs-xl);
     font-weight: 600;
     line-height: 1.2;
     margin-bottom: var(--spacing-sm);
 }
 
 .profile-bio {
-    font-size: 0.875rem;
+    font-size: var(--fs-base);
     color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: var(--spacing-lg);
@@ -558,7 +579,7 @@ button {
 
 .metric-value {
     display: block;
-    font-size: 2.5rem;
+    font-size: var(--fs-hero);
     font-weight: 300;
     letter-spacing: -2px;
     line-height: 1;
@@ -911,6 +932,7 @@ button {
 .modal-overlay.hidden {
     opacity: 0;
     pointer-events: none;
+    visibility: hidden;
 }
 
 .modal {
@@ -1051,11 +1073,21 @@ button {
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN - Fluid & Adaptive
    ============================================ */
+
+/* Ultra-wide screens */
+@media (min-width: 1920px) {
+    :root {
+        --sidebar-width: clamp(320px, 18vw, 400px);
+        --assets-width: clamp(360px, 20vw, 440px);
+    }
+}
+
 @media (max-width: 1400px) {
-    .main-grid {
-        grid-template-columns: 280px 1fr 320px;
+    :root {
+        --sidebar-width: clamp(200px, 22vw, 280px);
+        --assets-width: clamp(240px, 25vw, 320px);
     }
 }
 
@@ -1073,7 +1105,7 @@ button {
     .viewport {
         grid-column: 2;
         grid-row: 1 / 3;
-        min-height: 400px;
+        min-height: clamp(300px, 40vh, 500px);
     }
 
     .assets {
@@ -1093,9 +1125,21 @@ button {
 }
 
 @media (max-width: 768px) {
+    :root {
+        --grid-gap: clamp(8px, 2vw, 16px);
+    }
+
     #app {
         padding: var(--spacing-md);
         gap: var(--spacing-md);
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+    }
+
+    body {
+        overflow-y: auto;
+        height: auto;
     }
 
     .main-grid {
@@ -1109,7 +1153,7 @@ button {
     }
 
     .viewport {
-        min-height: 300px;
+        min-height: clamp(250px, 40vh, 350px);
     }
 
     .top-bar {
@@ -1130,4 +1174,109 @@ button {
     .terminal {
         grid-column: 1;
     }
+
+    .profile-avatar {
+        width: clamp(60px, 15vw, 80px);
+        height: clamp(60px, 15vw, 80px);
+    }
+
+    .avatar-inner {
+        font-size: var(--fs-xl);
+    }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+    :root {
+        --spacing-lg: clamp(8px, 3vw, 16px);
+        --spacing-xl: clamp(12px, 4vw, 24px);
+    }
+
+    #app {
+        padding: var(--spacing-sm);
+    }
+
+    .panel-header {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .profile-content {
+        padding: var(--spacing-md);
+    }
+
+    .modal {
+        width: 95%;
+        margin: var(--spacing-md);
+    }
+}
+
+/* ============================================
+   CONVERGENCE VISUALIZER OVERLAYS
+   ============================================ */
+#convergence-overlays {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-mono);
+    text-align: center;
+}
+
+.checkpoint, #final-insight {
+    position: absolute;
+    width: 80%;
+    max-width: 600px;
+    padding: var(--spacing-lg);
+    background: rgba(12, 18, 30, 0.5);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.checkpoint h3 {
+    color: var(--accent-gold);
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--fs-md);
+    font-weight: 600;
+}
+
+.checkpoint p {
+    color: var(--text-secondary);
+    font-size: var(--fs-base);
+}
+
+#final-insight {
+    background: rgba(12, 18, 30, 0.7);
+    border-color: var(--accent-gold);
+}
+
+#final-insight h2 {
+    color: var(--accent-gold);
+    font-size: var(--fs-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+#final-insight p {
+    color: var(--text-primary);
+    font-size: var(--fs-md);
+    line-height: 1.6;
+}
+
+#final-insight strong {
+    color: var(--accent-blue);
+    font-weight: 600;
+}
+
+#convergence-overlays .visible {
+    opacity: 1;
+    pointer-events: auto;
 }

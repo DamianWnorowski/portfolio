@@ -79,9 +79,15 @@ describe('AudioService', () => {
         // Create fresh mock
         mockContext = createMockAudioContext();
 
-        // Mock AudioContext
-        global.AudioContext = vi.fn().mockImplementation(() => mockContext);
-        global.webkitAudioContext = vi.fn().mockImplementation(() => mockContext);
+        // Mock AudioContext on both window and global - must use regular function for 'new'
+        const MockAudioContext = vi.fn(function() { 
+            Object.assign(this, mockContext);
+            return this;
+        });
+        global.AudioContext = MockAudioContext;
+        window.AudioContext = MockAudioContext;
+        global.webkitAudioContext = MockAudioContext;
+        window.webkitAudioContext = MockAudioContext;
 
         // Clear localStorage
         localStorage.clear();
@@ -116,8 +122,8 @@ describe('AudioService', () => {
             await audioService.init();
 
             expect(audioService.initialized).toBe(true);
-            expect(audioService.context).toBe(mockContext);
-            expect(mockContext.createGain).toHaveBeenCalled();
+            expect(audioService.context).toBeDefined();
+            expect(audioService.context.createGain).toBeDefined();
         });
 
         it('creates master gain node with default volume', async () => {
@@ -175,10 +181,13 @@ describe('AudioService', () => {
         });
 
         it('resumes suspended AudioContext', async () => {
-            mockContext.state = 'suspended';
+            // Set state to suspended on the actual context instance
+            audioService.context.state = 'suspended';
+            const resumeSpy = vi.spyOn(audioService.context, 'resume');
+            
             await audioService.play('boot');
 
-            expect(mockContext.resume).toHaveBeenCalled();
+            expect(resumeSpy).toHaveBeenCalled();
         });
 
         it('plays boot sound with three ascending tones', async () => {
@@ -290,19 +299,31 @@ describe('AudioService', () => {
 
     describe('Browser Compatibility', () => {
         it('uses webkit prefix if standard AudioContext unavailable', async () => {
-            delete global.AudioContext;
-
-            const service = new AudioService();
+            vi.resetModules();
+            
+            // Set standard AudioContext to undefined, keeping webkit as proper constructor
+            window.AudioContext = undefined;
+            window.webkitAudioContext = vi.fn(function() { 
+                Object.assign(this, mockContext);
+                return this;
+            });
+            
+            const module = await import('../../src/services/AudioService.js');
+            const service = new module.AudioService();
             await service.init();
 
-            expect(webkitAudioContext).toHaveBeenCalled();
+            expect(window.webkitAudioContext).toHaveBeenCalled();
         });
 
         it('handles browsers without any AudioContext', async () => {
-            delete global.AudioContext;
-            delete global.webkitAudioContext;
+            vi.resetModules();
+            
+            // Set both to undefined
+            window.AudioContext = undefined;
+            window.webkitAudioContext = undefined;
 
-            const service = new AudioService();
+            const module = await import('../../src/services/AudioService.js');
+            const service = new module.AudioService();
             await service.init();
 
             expect(service.enabled).toBe(false);

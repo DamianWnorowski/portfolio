@@ -1,282 +1,299 @@
+import { vi } from 'vitest';
+
+// =====================================================
+// TEST HELPER FUNCTIONS
+// =====================================================
+
 /**
- * Test Setup - KAIZEN Elite Portfolio
- * Configures testing environment for Vitest
+ * Creates a container element in the DOM
  */
-
-import { vi, afterEach } from 'vitest';
-
-// Mock ResizeObserver
-global.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn()
-}));
-
-// Mock IntersectionObserver
-global.IntersectionObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn()
-}));
-
-// Mock localStorage
-const localStorageMock = {
-    store: {},
-    getItem: vi.fn((key) => localStorageMock.store[key] || null),
-    setItem: vi.fn((key, value) => { localStorageMock.store[key] = value; }),
-    removeItem: vi.fn((key) => { delete localStorageMock.store[key]; }),
-    clear: vi.fn(() => { localStorageMock.store = {}; })
-};
-Object.defineProperty(window, 'localStorage', { value: localStorageMock });
-
-// Mock matchMedia
-Object.defineProperty(window, 'matchMedia', {
-    writable: true,
-    value: vi.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: vi.fn(),
-        removeListener: vi.fn(),
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        dispatchEvent: vi.fn()
-    }))
-});
-
-// Mock requestAnimationFrame
-global.requestAnimationFrame = vi.fn((cb) => setTimeout(cb, 16));
-global.cancelAnimationFrame = vi.fn((id) => clearTimeout(id));
-
-// Mock Web Audio API
-class MockAudioContext {
-    constructor() {
-        this.destination = {};
-        this.currentTime = 0;
-        this.sampleRate = 44100;
-        this.state = 'running';
+export function createContainer(id) {
+    let container = document.getElementById(id);
+    if (!container) {
+        container = document.createElement('div');
+        container.id = id;
+        document.body.appendChild(container);
     }
-    createOscillator() {
-        return {
-            type: 'sine',
-            frequency: { value: 440, setValueAtTime: vi.fn(), linearRampToValueAtTime: vi.fn(), exponentialRampToValueAtTime: vi.fn() },
-            connect: vi.fn(),
-            start: vi.fn(),
-            stop: vi.fn()
-        };
-    }
-    createGain() {
-        return {
-            gain: { value: 1, setValueAtTime: vi.fn(), linearRampToValueAtTime: vi.fn(), exponentialRampToValueAtTime: vi.fn() },
-            connect: vi.fn()
-        };
-    }
-    createBiquadFilter() {
-        return {
-            type: 'lowpass',
-            frequency: { value: 1000, setValueAtTime: vi.fn(), exponentialRampToValueAtTime: vi.fn() },
-            Q: { value: 1 },
-            connect: vi.fn()
-        };
-    }
-    createBuffer() {
-        return { getChannelData: vi.fn(() => new Float32Array(1024)) };
-    }
-    createBufferSource() {
-        return { buffer: null, connect: vi.fn(), start: vi.fn(), stop: vi.fn() };
-    }
-    resume() { return Promise.resolve(); }
-}
-global.AudioContext = MockAudioContext;
-global.webkitAudioContext = MockAudioContext;
-
-// Mock WebGL context
-const mockWebGLContext = {
-    getParameter: vi.fn(() => 4096),
-    getExtension: vi.fn(() => null),
-    createShader: vi.fn(() => ({})),
-    shaderSource: vi.fn(),
-    compileShader: vi.fn(),
-    getShaderParameter: vi.fn(() => true),
-    createProgram: vi.fn(() => ({})),
-    attachShader: vi.fn(),
-    linkProgram: vi.fn(),
-    getProgramParameter: vi.fn(() => true),
-    useProgram: vi.fn(),
-    getUniformLocation: vi.fn(() => ({})),
-    getAttribLocation: vi.fn(() => 0),
-    createBuffer: vi.fn(() => ({})),
-    bindBuffer: vi.fn(),
-    bufferData: vi.fn(),
-    enableVertexAttribArray: vi.fn(),
-    vertexAttribPointer: vi.fn(),
-    uniform1f: vi.fn(),
-    uniform2f: vi.fn(),
-    uniform3f: vi.fn(),
-    uniform4f: vi.fn(),
-    uniformMatrix4fv: vi.fn(),
-    viewport: vi.fn(),
-    clear: vi.fn(),
-    clearColor: vi.fn(),
-    enable: vi.fn(),
-    disable: vi.fn(),
-    blendFunc: vi.fn(),
-    drawArrays: vi.fn(),
-    drawElements: vi.fn(),
-    canvas: { width: 800, height: 600 },
-    VERTEX_SHADER: 35633,
-    FRAGMENT_SHADER: 35632,
-    ARRAY_BUFFER: 34962,
-    STATIC_DRAW: 35044,
-    FLOAT: 5126,
-    TRIANGLES: 4,
-    COLOR_BUFFER_BIT: 16384,
-    DEPTH_BUFFER_BIT: 256,
-    BLEND: 3042,
-    MAX_TEXTURE_SIZE: 3379,
-    VENDOR: 7936,
-    RENDERER: 7937
-};
-
-// Mock 2D context
-const mock2DContext = {
-    fillRect: vi.fn(),
-    clearRect: vi.fn(),
-    fillText: vi.fn(),
-    strokeRect: vi.fn(),
-    beginPath: vi.fn(),
-    moveTo: vi.fn(),
-    lineTo: vi.fn(),
-    stroke: vi.fn(),
-    fill: vi.fn(),
-    arc: vi.fn(),
-    save: vi.fn(),
-    restore: vi.fn(),
-    translate: vi.fn(),
-    rotate: vi.fn(),
-    scale: vi.fn(),
-    drawImage: vi.fn(),
-    createLinearGradient: vi.fn(() => ({ addColorStop: vi.fn() })),
-    createRadialGradient: vi.fn(() => ({ addColorStop: vi.fn() })),
-    measureText: vi.fn(() => ({ width: 100 })),
-    canvas: { width: 800, height: 600 }
-};
-
-// Override HTMLCanvasElement.prototype.getContext
-const originalGetContext = HTMLCanvasElement.prototype.getContext;
-HTMLCanvasElement.prototype.getContext = function(type, ...args) {
-    if (type === 'webgl' || type === 'webgl2' || type === 'experimental-webgl') {
-        return mockWebGLContext;
-    }
-    if (type === '2d') {
-        return mock2DContext;
-    }
-    // Fall back to original for other types
-    try {
-        return originalGetContext.call(this, type, ...args);
-    } catch {
-        return null;
-    }
-};
-
-// Mock fetch
-global.fetch = vi.fn().mockImplementation((url) => {
-    return Promise.resolve({
-        ok: true,
-        status: 200,
-        json: () => Promise.resolve({}),
-        text: () => Promise.resolve('')
-    });
-});
-
-// Mock EventSource for SSE
-global.EventSource = vi.fn().mockImplementation((url) => ({
-    url,
-    readyState: 1,
-    CONNECTING: 0,
-    OPEN: 1,
-    CLOSED: 2,
-    onopen: null,
-    onmessage: null,
-    onerror: null,
-    close: vi.fn(),
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn()
-}));
-global.EventSource.OPEN = 1;
-
-// Mock PerformanceObserver
-global.PerformanceObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    disconnect: vi.fn()
-}));
-
-// Clean up after each test
-afterEach(() => {
-    vi.clearAllMocks();
-    document.body.innerHTML = '';
-    document.head.innerHTML = '';
-    localStorageMock.store = {};
-});
-
-// Export utilities
-export const mockFetch = (response) => {
-    global.fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-            ok: true,
-            status: 200,
-            json: () => Promise.resolve(response),
-            text: () => Promise.resolve(JSON.stringify(response))
-        })
-    );
-};
-
-export const mockFetchError = (status = 500, message = 'Server Error') => {
-    global.fetch.mockImplementationOnce(() =>
-        Promise.resolve({
-            ok: false,
-            status,
-            json: () => Promise.resolve({ error: message }),
-            text: () => Promise.resolve(message)
-        })
-    );
-};
-
-export const createContainer = (id) => {
-    const container = document.createElement('div');
-    container.id = id;
-    document.body.appendChild(container);
     return container;
-};
+}
 
-export const triggerKeydown = (key, options = {}) => {
+/**
+ * Mock fetch for successful responses
+ */
+export function mockFetch(response = {}) {
+    global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve(response),
+        text: () => Promise.resolve(JSON.stringify(response))
+    });
+    return global.fetch;
+}
+
+/**
+ * Mock fetch for error responses
+ */
+export function mockFetchError(message = 'Network error', status = 500) {
+    global.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status,
+        json: () => Promise.resolve({ error: message }),
+        text: () => Promise.resolve(message)
+    });
+    return global.fetch;
+}
+
+/**
+ * Wait utility for async tests
+ */
+export function wait(ms = 0) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Trigger a keyboard event on an element or document
+ */
+export function triggerKeydown(target, key, options = {}) {
+    const element = target || document;
     const event = new KeyboardEvent('keydown', {
         key,
-        code: key.length === 1 ? `Key${key.toUpperCase()}` : key,
+        code: options.code || key,
         bubbles: true,
         cancelable: true,
         ...options
     });
-    document.dispatchEvent(event);
+    element.dispatchEvent(event);
     return event;
-};
+}
 
-export const triggerClick = (element) => {
+/**
+ * Trigger a click event on an element
+ */
+export function triggerClick(element) {
+    if (!element) return;
     const event = new MouseEvent('click', {
         bubbles: true,
         cancelable: true
     });
     element.dispatchEvent(event);
     return event;
+}
+
+// =====================================================
+// CANVAS MOCKING
+// =====================================================
+
+// Mock HTMLCanvasElement.getContext for jsdom
+const mockContext2D = {
+    fillStyle: '',
+    strokeStyle: '',
+    font: '',
+    textAlign: '',
+    textBaseline: '',
+    globalAlpha: 1,
+    fillRect: vi.fn(),
+    clearRect: vi.fn(),
+    strokeRect: vi.fn(),
+    fillText: vi.fn(),
+    strokeText: vi.fn(),
+    measureText: vi.fn(() => ({ width: 0 })),
+    beginPath: vi.fn(),
+    moveTo: vi.fn(),
+    lineTo: vi.fn(),
+    closePath: vi.fn(),
+    stroke: vi.fn(),
+    fill: vi.fn(),
+    arc: vi.fn(),
+    rect: vi.fn(),
+    save: vi.fn(),
+    restore: vi.fn(),
+    translate: vi.fn(),
+    scale: vi.fn(),
+    rotate: vi.fn(),
+    setTransform: vi.fn(),
+    drawImage: vi.fn(),
+    createLinearGradient: vi.fn(() => ({
+        addColorStop: vi.fn()
+    })),
+    createRadialGradient: vi.fn(() => ({
+        addColorStop: vi.fn()
+    })),
+    getImageData: vi.fn(() => ({
+        data: new Uint8ClampedArray(4)
+    })),
+    putImageData: vi.fn(),
+    canvas: { width: 800, height: 600 }
 };
 
-export const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+// Store original getContext
+const originalGetContext = HTMLCanvasElement.prototype.getContext;
 
-export const waitFor = async (condition, timeout = 1000, interval = 50) => {
-    const start = Date.now();
-    while (Date.now() - start < timeout) {
-        if (condition()) return true;
-        await wait(interval);
+// Override getContext for canvas elements
+HTMLCanvasElement.prototype.getContext = function(contextType) {
+    if (contextType === '2d') {
+        return { ...mockContext2D, canvas: this };
     }
-    throw new Error('waitFor timeout');
+    // For WebGL contexts, return null (jsdom doesn't support them)
+    if (contextType === 'webgl' || contextType === 'webgl2' || contextType === 'experimental-webgl') {
+        return null;
+    }
+    // Fall back to original for other context types
+    return originalGetContext?.call(this, contextType) || null;
 };
+
+// Mock 'three' module
+vi.mock('three', () => {
+    const mockClock = vi.fn(function() {
+        this.getDelta = vi.fn(() => 0.016);
+        this.getElapsedTime = vi.fn(() => 1.0);
+    });
+
+    const mockVector2 = vi.fn(function(x = 0, y = 0) {
+        this.x = x;
+        this.y = y;
+        this.set = function(newX, newY) {
+            this.x = newX;
+            this.y = newY;
+            return this;
+        };
+    });
+
+    const mockVector3 = vi.fn(function(x = 0, y = 0, z = 0) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.set = function(newX, newY, newZ) { this.x = newX; this.y = newY; this.z = newZ; return this; };
+        this.copy = vi.fn().mockReturnThis();
+        this.add = vi.fn().mockReturnThis();
+        this.sub = vi.fn().mockReturnThis();
+        this.multiplyScalar = vi.fn().mockReturnThis();
+        this.normalize = vi.fn().mockReturnThis();
+        this.length = vi.fn(() => 1);
+        this.clone = vi.fn(() => new mockVector3(this.x, this.y, this.z));
+    });
+
+    const mockColor = vi.fn(function(color) {
+        this.r = 1;
+        this.g = 1;
+        this.b = 1;
+        this.setHex = vi.fn().mockReturnThis();
+        this.set = vi.fn().mockReturnThis();
+        this.clone = vi.fn(() => new mockColor());
+        this.lerp = vi.fn().mockReturnThis();
+    });
+
+    const mockScene = vi.fn(function() {
+        this.add = vi.fn();
+        this.remove = vi.fn();
+        this.children = [];
+    });
+
+    const mockPerspectiveCamera = vi.fn(function() {
+        this.position = new mockVector3();
+        this.lookAt = vi.fn();
+        this.updateProjectionMatrix = vi.fn();
+        this.aspect = 1;
+    });
+
+    const mockWebGLRenderer = vi.fn(function() {
+        this.setSize = vi.fn();
+        this.setPixelRatio = vi.fn();
+        this.render = vi.fn();
+        this.dispose = vi.fn();
+        this.domElement = document.createElement('canvas');
+    });
+
+    const mockMesh = vi.fn(function() {
+        this.position = new mockVector3();
+        this.rotation = new mockVector3();
+        this.scale = new mockVector3(1, 1, 1);
+    });
+
+    return {
+        Clock: mockClock,
+        Vector2: mockVector2,
+        Vector3: mockVector3,
+        Color: mockColor,
+        Scene: mockScene,
+        PerspectiveCamera: mockPerspectiveCamera,
+        WebGLRenderer: mockWebGLRenderer,
+        Mesh: mockMesh,
+        BoxGeometry: vi.fn(),
+        SphereGeometry: vi.fn(),
+        PlaneGeometry: vi.fn(),
+        MeshBasicMaterial: vi.fn(),
+        MeshStandardMaterial: vi.fn(),
+        ShaderMaterial: vi.fn(),
+        AmbientLight: vi.fn(),
+        PointLight: vi.fn(),
+        Group: vi.fn(function() { this.add = vi.fn(); this.children = []; }),
+        BufferGeometry: vi.fn(),
+        BufferAttribute: vi.fn(),
+        Float32BufferAttribute: vi.fn(),
+        Points: vi.fn(function() { this.position = new mockVector3(); }),
+        PointsMaterial: vi.fn(),
+        LineBasicMaterial: vi.fn(),
+        Line: vi.fn(),
+        Object3D: vi.fn(function() { this.add = vi.fn(); }),
+        Raycaster: vi.fn(function() { this.setFromCamera = vi.fn(); this.intersectObjects = vi.fn(() => []); }),
+        TextureLoader: vi.fn(function() { this.load = vi.fn(); }),
+        DoubleSide: 2,
+        AdditiveBlending: 2,
+        NormalBlending: 1,
+    };
+});
+
+// Mock global browser APIs not present in JSDOM
+if (typeof window !== 'undefined') {
+    // Ensure requestAnimationFrame is a spy that does not auto-execute callbacks
+    // Use vi.fn() which has mockClear, mockReset, etc.
+    window.requestAnimationFrame = vi.fn((cb) => {
+        // Schedule callback to be executed by fake timers
+        return setTimeout(() => cb(performance.now()), 0);
+    });
+
+    window.cancelAnimationFrame = vi.fn((id) => {
+        clearTimeout(id);
+    });
+
+    // Mock for matchMedia
+    Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: vi.fn().mockImplementation(query => ({
+            matches: false,
+            media: query,
+            onchange: null,
+            addListener: vi.fn(), // deprecated
+            removeListener: vi.fn(), // deprecated
+            addEventListener: vi.fn(),
+            removeEventListener: vi.fn(),
+            dispatchEvent: vi.fn(),
+        })),
+    });
+
+    // Mock for AudioContext
+    Object.defineProperty(window, 'AudioContext', {
+        writable: true,
+        value: vi.fn().mockImplementation(() => ({
+            createGain: vi.fn(() => ({
+                connect: vi.fn(),
+                gain: { value: 0 },
+            })),
+            createOscillator: vi.fn(() => ({
+                connect: vi.fn(),
+                start: vi.fn(),
+                stop: vi.fn(),
+                frequency: { setValueAtTime: vi.fn(), exponentialRampToValueAtTime: vi.fn() },
+            })),
+            createBufferSource: vi.fn(() => ({
+                connect: vi.fn(),
+                start: vi.fn(),
+            })),
+            createBuffer: vi.fn(),
+            createBiquadFilter: vi.fn(() => ({
+                connect: vi.fn(),
+            })),
+            resume: vi.fn(),
+            destination: {},
+        })),
+    });
+}

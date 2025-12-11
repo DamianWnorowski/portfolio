@@ -385,15 +385,17 @@ describe('Visual Regression Tests', () => {
             }
         });
 
-        it('CSS spacing scale follows design system', () => {
+        it('CSS spacing scale uses fluid clamp() values', () => {
             if (mainCSS) {
-                // Verify spacing values are in px and follow a scale
-                const xs = parseInt(cssVariables['--spacing-xs']);
-                const sm = parseInt(cssVariables['--spacing-sm']);
-                const md = parseInt(cssVariables['--spacing-md']);
+                // Fluid spacing uses clamp() - verify they're defined correctly
+                const spacingXs = cssVariables['--spacing-xs'];
+                const spacingSm = cssVariables['--spacing-sm'];
+                const spacingMd = cssVariables['--spacing-md'];
 
-                expect(xs).toBeLessThan(sm);
-                expect(sm).toBeLessThan(md);
+                // All spacing should use clamp() for fluid scaling
+                expect(spacingXs).toContain('clamp(');
+                expect(spacingSm).toContain('clamp(');
+                expect(spacingMd).toContain('clamp(');
             } else {
                 expect(true).toBe(true);
             }
@@ -583,19 +585,21 @@ describe('Viewport Design Specifications', () => {
     });
 
     describe('CSS Grid Layout Configuration', () => {
-        it('main grid uses 3-column layout on desktop', () => {
+        it('main grid uses fluid 3-column layout on desktop with CSS variables', () => {
             if (mainCSS) {
-                expect(mainCSS).toContain('grid-template-columns: 320px 1fr 360px');
+                // Current implementation uses fluid CSS variables
+                const hasFluidColumns = mainCSS.includes('var(--sidebar-width) 1fr var(--assets-width)');
+                expect(hasFluidColumns).toBe(true);
             } else {
                 expect(true).toBe(true);
             }
         });
 
-        it('main grid adjusts columns at 1400px breakpoint', () => {
+        it('main grid has fluid sidebar width definition', () => {
             if (mainCSS) {
-                const hasBreakpoint = mainCSS.includes('max-width: 1400px');
-                const hasGridChange = mainCSS.includes('280px 1fr 320px');
-                expect(hasBreakpoint && hasGridChange).toBe(true);
+                // Sidebar uses clamp() for fluid sizing
+                const hasFluidSidebar = mainCSS.includes('--sidebar-width: clamp(');
+                expect(hasFluidSidebar).toBe(true);
             } else {
                 expect(true).toBe(true);
             }
@@ -605,7 +609,7 @@ describe('Viewport Design Specifications', () => {
             if (mainCSS) {
                 const has1200Breakpoint = mainCSS.includes('max-width: 1200px');
                 const hasTwoColumns = mainCSS.includes('1fr 1fr');
-                expect(has1200Breakpoint).toBe(true);
+                expect(has1200Breakpoint && hasTwoColumns).toBe(true);
             } else {
                 expect(true).toBe(true);
             }
@@ -614,7 +618,8 @@ describe('Viewport Design Specifications', () => {
         it('main grid uses single column at 768px', () => {
             if (mainCSS) {
                 const has768Breakpoint = mainCSS.includes('max-width: 768px');
-                expect(has768Breakpoint).toBe(true);
+                const hasSingleColumn = mainCSS.includes('grid-template-columns: 1fr');
+                expect(has768Breakpoint && hasSingleColumn).toBe(true);
             } else {
                 expect(true).toBe(true);
             }

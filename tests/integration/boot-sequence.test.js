@@ -29,23 +29,25 @@ const setupBrowserMocks = () => {
     });
     global.cancelAnimationFrame = vi.fn();
 
-    // Mock AudioContext
-    global.AudioContext = vi.fn().mockImplementation(() => ({
-        createGain: vi.fn().mockReturnValue({
+    // Mock AudioContext - must use regular function for 'new' to work
+    global.AudioContext = vi.fn(function() {
+        this.createGain = vi.fn().mockReturnValue({
             gain: { value: 1, setValueAtTime: vi.fn() },
             connect: vi.fn()
-        }),
-        createOscillator: vi.fn().mockReturnValue({
+        });
+        this.createOscillator = vi.fn().mockReturnValue({
             type: 'sine',
             frequency: { value: 440 },
             connect: vi.fn(),
             start: vi.fn(),
             stop: vi.fn()
-        }),
-        destination: {},
-        state: 'running',
-        resume: vi.fn().mockResolvedValue(undefined)
-    }));
+        });
+        this.destination = {};
+        this.state = 'running';
+        this.resume = vi.fn().mockResolvedValue(undefined);
+        return this;
+    });
+    window.AudioContext = global.AudioContext;
 
     // Mock WebGL
     HTMLCanvasElement.prototype.getContext = vi.fn((type) => {

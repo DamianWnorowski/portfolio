@@ -52,13 +52,15 @@ export class Testimonials {
     }
 
     createContainer() {
-        // Find insertion point (after assets panel or in main grid)
+        this.container = document.createElement('section');
+        this.container.id = 'testimonials';
+        this.container.className = 'panel testimonials-panel';
+
         const assetsPanel = document.querySelector('.assets');
-        if (assetsPanel) {
-            this.container = document.createElement('section');
-            this.container.id = 'testimonials';
-            this.container.className = 'panel testimonials-panel';
+        if (assetsPanel && assetsPanel.parentNode) {
             assetsPanel.parentNode.insertBefore(this.container, assetsPanel.nextSibling);
+        } else {
+            document.body.appendChild(this.container);
         }
     }
 

@@ -34,7 +34,7 @@ export class LoadingScreen {
                 <div class="loader-subtitle">EXECUTIVE TERMINAL v13</div>
                 <div class="loader-progress">
                     <div class="progress-bar">
-                        <div class="progress-fill" id="progress-fill"></div>
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
                         <div class="progress-glow"></div>
                     </div>
                     <div class="progress-text" id="progress-text">0%</div>

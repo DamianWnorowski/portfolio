@@ -73,12 +73,11 @@ describe('Performance Tests', () => {
 
         it('reports LCP via PerformanceObserver', () => {
             let observerCallback;
-            global.PerformanceObserver = vi.fn().mockImplementation((callback) => {
+            global.PerformanceObserver = vi.fn(function(callback) {
                 observerCallback = callback;
-                return {
-                    observe: vi.fn(),
-                    disconnect: vi.fn()
-                };
+                this.observe = vi.fn();
+                this.disconnect = vi.fn();
+                return this;
             });
 
             const observer = new PerformanceObserver((list) => {

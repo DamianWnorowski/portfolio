@@ -28,17 +28,19 @@ describe('AnalyticsService', () => {
         delete window.plausible;
         delete window.umami;
 
-        // Mock PerformanceObserver
-        global.PerformanceObserver = vi.fn().mockImplementation(() => ({
-            observe: vi.fn(),
-            disconnect: vi.fn()
-        }));
+        // Mock PerformanceObserver as a proper constructor
+        global.PerformanceObserver = vi.fn().mockImplementation(function() {
+            this.observe = vi.fn();
+            this.disconnect = vi.fn();
+            return this;
+        });
 
-        // Mock MutationObserver
-        global.MutationObserver = vi.fn().mockImplementation(() => ({
-            observe: vi.fn(),
-            disconnect: vi.fn()
-        }));
+        // Mock MutationObserver as a proper constructor
+        global.MutationObserver = vi.fn().mockImplementation(function() {
+            this.observe = vi.fn();
+            this.disconnect = vi.fn();
+            return this;
+        });
 
         // Mock requestAnimationFrame
         global.requestAnimationFrame = vi.fn(cb => setTimeout(cb, 16));
@@ -456,7 +458,7 @@ describe('AnalyticsService', () => {
         });
 
         it('handles PerformanceObserver errors gracefully', () => {
-            global.PerformanceObserver = vi.fn().mockImplementation(() => {
+            global.PerformanceObserver = vi.fn().mockImplementation(function() {
                 throw new Error('Not supported');
             });
 

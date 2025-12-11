@@ -127,6 +127,28 @@
             transform: translateZ(50px); /* Pop out towards user */
         }
 
+        .todo-item {
+            padding: 10px;
+            border: 1px solid var(--border);
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .todo-item:hover {
+            background: var(--accent);
+            color: var(--void);
+            text-shadow: 0 0 10px var(--signal);
+            transform: scale(1.05);
+        }
+
+        .todo-item.completed {
+            text-decoration: line-through;
+            opacity: 0.5;
+            background: var(--glass-strong);
+        }
+
         /* --- HUD --- */
         #hud {
             position: fixed;
@@ -187,6 +209,14 @@
             <p>> ORIGIN: UNKNOWN</p>
             <p>> STACK: RAW MATH</p>
             <p>> STATUS: HUNTING</p>
+
+            <h2 style="margin-top: 40px;">ULTRA-HYPER-TODOS</h2>
+            <div id="todo-list">
+                <div class="todo-item">[ ] Stabilize the singularity matrix</div>
+                <div class="todo-item">[ ] Refactor temporal displacement shaders</div>
+                <div class="todo-item completed">[x] Calibrate the LIDAR-pulse engine</div>
+                <div class="todo-item">[ ] Deploy quantum-entangled comms</div>
+            </div>
         </div>
 
         <div class="face face-left">
@@ -334,6 +364,22 @@
             requestAnimationFrame(scrambleText);
         }
         scrambleText();
+
+        // --- 6. INTERACTIVE TODO LIST ---
+        const todoList = document.getElementById('todo-list');
+        if (todoList) {
+            todoList.addEventListener('click', (e) => {
+                if (e.target && e.target.classList.contains('todo-item')) {
+                    const item = e.target;
+                    item.classList.toggle('completed');
+                    if (item.classList.contains('completed')) {
+                        item.innerHTML = item.innerHTML.replace('[ ]', '[x]');
+                    } else {
+                        item.innerHTML = item.innerHTML.replace('[x]', '[ ]');
+                    }
+                }
+            });
+        }
 
     </script>
 </body>

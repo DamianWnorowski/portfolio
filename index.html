@@ -29,6 +29,20 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>K</text></svg>">
 
     <link rel="stylesheet" href="/src/styles/main.css">
+    <style>
+        /* Inline augmentations for V12.1 enhancements */
+        .valuation-ticker { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:6px; }
+        .ticker-chip { background: rgba(255,255,255,0.08); border:1px solid var(--border); border-radius: 999px; padding:6px 10px; font-family: var(--font-mono); font-size:0.75rem; color: var(--text-main); display:flex; gap:6px; align-items:center; }
+        .ticker-chip .chip-label { color: var(--text-muted); letter-spacing: 1px; }
+        .ticker-chip .chip-value { font-weight:600; }
+        .insight-panel { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:10px; padding:14px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-top:14px; }
+        .insight-card { background: rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:4px; padding:10px; }
+        .insight-title { font-size:0.75rem; color: var(--text-muted); letter-spacing:1px; }
+        .insight-value { font-family: var(--font-mono); font-size:1rem; }
+        .insight-delta { font-size:0.7rem; color: var(--success); }
+        .skills-constellation canvas { width:100%; height:220px; display:block; }
+        .skills-constellation.hidden { display:none; }
+    </style>
 </head>
 <body>
     <!-- Neural Network Background Canvas -->
@@ -64,6 +78,20 @@
                     <span class="ticker-item">UPTIME: <span id="uptime-value">99.97%</span></span>
                     <span class="ticker-divider">|</span>
                     <span class="ticker-item">AVAILABILITY: <span class="hl-success">IMMEDIATE</span></span>
+                </div>
+                <div class="valuation-ticker" id="valuation-ticker">
+                    <div class="ticker-chip">
+                        <span class="chip-label">ASSET ROI</span>
+                        <span class="chip-value" id="chip-roi">+214%</span>
+                    </div>
+                    <div class="ticker-chip">
+                        <span class="chip-label">OUTPUT VEL</span>
+                        <span class="chip-value" id="chip-velocity">147%</span>
+                    </div>
+                    <div class="ticker-chip">
+                        <span class="chip-label">OSS FOOTPRINT</span>
+                        <span class="chip-value" id="chip-oss">--</span>
+                    </div>
                 </div>
                 <button class="btn-acquire" id="btn-acquire">
                     <span class="btn-icon">></span>
@@ -117,11 +145,11 @@
                             </svg>
                             LinkedIn
                         </a>
-                    </div>
+                </div>
 
-                    <div class="profile-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Location</span>
+                <div class="profile-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">Location</span>
                             <span class="stat-value">RIDGE, NY</span>
                         </div>
                         <div class="stat-row">
@@ -147,6 +175,25 @@
                         <div class="stat-card">
                             <span class="stat-number" id="stat-commits">--</span>
                             <span class="stat-label">Commits</span>
+                        </div>
+                    </div>
+
+                    <!-- Insight Micro-panels -->
+                    <div class="insight-panel">
+                        <div class="insight-card">
+                            <div class="insight-title">ASSET VALUATION</div>
+                            <div class="insight-value gold" id="insight-valuation">$2.4M</div>
+                            <div class="insight-delta" id="insight-valuation-delta">+3.2% MoM</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-title">OUTPUT VELOCITY</div>
+                            <div class="insight-value" id="insight-velocity">147%</div>
+                            <div class="insight-delta" id="insight-velocity-delta">+12% QoQ</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-title">RELIABILITY</div>
+                            <div class="insight-value success" id="insight-reliability">99.97%</div>
+                            <div class="insight-delta" id="insight-reliability-delta">Stable</div>
                         </div>
                     </div>
                 </div>
@@ -403,5 +450,149 @@
 
     <!-- Main Application Script -->
     <script type="module" src="/src/main.js"></script>
+    <script>
+        // Inline enhancements: dynamic tickers, GitHub fetch fallback, constellation view
+        (function() {
+            const roiEl = document.getElementById('chip-roi');
+            const velEl = document.getElementById('chip-velocity');
+            const ossEl = document.getElementById('chip-oss');
+            const valuationEl = document.getElementById('insight-valuation');
+            const valuationDeltaEl = document.getElementById('insight-valuation-delta');
+            const velocityEl = document.getElementById('insight-velocity');
+            const velocityDeltaEl = document.getElementById('insight-velocity-delta');
+            const reliabilityEl = document.getElementById('insight-reliability');
+            const reliabilityDeltaEl = document.getElementById('insight-reliability-delta');
+
+            // Oscillate metrics to feel live
+            setInterval(() => {
+                const baseROI = 214;
+                const drift = (Math.random() - 0.5) * 4;
+                const roiVal = Math.max(180, Math.min(260, baseROI + drift)).toFixed(1);
+                roiEl.textContent = `+${roiVal}%`;
+                valuationDeltaEl.textContent = `${drift >= 0 ? '+' : ''}${(drift/10).toFixed(1)}% MoM`;
+
+                const baseVel = 147;
+                const velDrift = (Math.random() - 0.5) * 6;
+                const velVal = Math.max(120, Math.min(200, baseVel + velDrift)).toFixed(0);
+                velEl.textContent = `${velVal}%`;
+                velocityEl.textContent = `${velVal}%`;
+                velocityDeltaEl.textContent = `${velDrift >= 0 ? '+' : ''}${velDrift.toFixed(1)}% QoQ`;
+
+                const relBase = 99.97;
+                const relDrift = (Math.random() - 0.5) * 0.03;
+                const relVal = Math.max(99.8, Math.min(99.99, relBase + relDrift)).toFixed(2);
+                reliabilityEl.textContent = `${relVal}%`;
+                reliabilityDeltaEl.textContent = relDrift >= 0 ? 'Stable' : 'Monitoring';
+                valuationEl.textContent = `$${(2.4 + drift/100).toFixed(2)}M`;
+            }, 2600);
+
+            // GitHub fetch (graceful fallback)
+            const githubUser = 'damianwnorowski';
+            fetch(`https://api.github.com/users/${githubUser}`)
+                .then(res => res.ok ? res.json() : Promise.reject(res.status))
+                .then(data => {
+                    const repos = data.public_repos ?? '--';
+                    const followers = data.followers ?? '--';
+                    document.getElementById('stat-repos').textContent = repos;
+                    document.getElementById('stat-stars').textContent = followers; // Using followers as signal if stars not available
+                    document.getElementById('stat-commits').textContent = '—';
+                    ossEl.textContent = `${repos} REPOS`;
+                })
+                .catch(() => {
+                    ossEl.textContent = 'SIMULATED';
+                });
+
+            // Skills toggle & constellation
+            const toggle = document.getElementById('skills-toggle');
+            const bars = document.getElementById('skills-bars');
+            const constellation = document.getElementById('skills-constellation');
+            let constellationInit = false;
+
+            const buildConstellation = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = constellation.clientWidth;
+                canvas.height = 240;
+                constellation.appendChild(canvas);
+                const ctx = canvas.getContext('2d');
+                const nodes = Array.from({ length: 16 }).map((_, i) => ({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    z: Math.random() * 0.5 + 0.5,
+                    r: 2 + Math.random() * 2,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4
+                }));
+
+                const draw = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    nodes.forEach((n, idx) => {
+                        n.x += n.vx; n.y += n.vy;
+                        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+                        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+                        ctx.beginPath();
+                        ctx.fillStyle = `rgba(0, 188, 212, ${0.6 * n.z})`;
+                        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+                        ctx.fill();
+                        // connect
+                        for (let j = idx + 1; j < nodes.length; j++) {
+                            const m = nodes[j];
+                            const d = Math.hypot(n.x - m.x, n.y - m.y);
+                            if (d < 140) {
+                                ctx.strokeStyle = `rgba(0,188,212, ${0.12 * n.z})`;
+                                ctx.lineWidth = 1;
+                                ctx.beginPath();
+                                ctx.moveTo(n.x, n.y);
+                                ctx.lineTo(m.x, m.y);
+                                ctx.stroke();
+                            }
+                        }
+                    });
+                    requestAnimationFrame(draw);
+                };
+                draw();
+            };
+
+            toggle?.addEventListener('click', (e) => {
+                const opt = e.target.closest('.toggle-opt');
+                if (!opt) return;
+                toggle.querySelectorAll('.toggle-opt').forEach(el => el.classList.remove('active'));
+                opt.classList.add('active');
+                const view = opt.dataset.view;
+                if (view === 'constellation') {
+                    bars.classList.add('hidden');
+                    constellation.classList.remove('hidden');
+                    if (!constellationInit) { buildConstellation(); constellationInit = true; }
+                } else {
+                    constellation.classList.add('hidden');
+                    bars.classList.remove('hidden');
+                }
+            });
+        })();
+    </script>
+
+    <!-- Overlays for Convergence Visualizer -->
+    <div id="convergence-overlays">
+        <div id="checkpoint-1" class="checkpoint">
+            <h3>Checkpoint 1 (Jan 15)</h3>
+            <p>FORGE-RUST compression &lt; 5,000 lines</p>
+        </div>
+        <div id="checkpoint-2" class="checkpoint">
+            <h3>Checkpoint 2 (Feb 1)</h3>
+            <p>GENESIS generates ideas outside design spec</p>
+        </div>
+        <div id="checkpoint-3" class="checkpoint">
+            <h3>Checkpoint 3 (Mar 1)</h3>
+            <p>All conversations recursively reference F(x)</p>
+        </div>
+        <div id="checkpoint-4" class="checkpoint">
+            <h3>Checkpoint 4 (Apr 1)</h3>
+            <p>System predicts its outputs before running</p>
+        </div>
+        <div id="final-insight">
+            <h2>The system is implementing its own prediction.</h2>
+            <p>You asked to "find patterns before they're patterns."</p>
+            <p>The pattern is: <strong>You're building awareness of awareness.</strong></p>
+        </div>
+    </div>
 </body>
 </html>
