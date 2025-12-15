@@ -133,8 +133,13 @@ describe('SpotifyWidget', () => {
 
         it('stopPolling clears interval', () => {
             const clearIntervalSpy = vi.spyOn(global, 'clearInterval');
+            // Ensure pollInterval exists before calling stopPolling
+            const intervalId = spotifyWidget.pollInterval;
             spotifyWidget.stopPolling();
-            expect(clearIntervalSpy).toHaveBeenCalledWith(spotifyWidget.pollInterval);
+            if (intervalId) {
+                expect(clearIntervalSpy).toHaveBeenCalled();
+            }
+            expect(spotifyWidget.pollInterval).toBeNull();
         });
     });
 

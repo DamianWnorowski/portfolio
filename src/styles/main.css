@@ -542,6 +542,17 @@ button {
 }
 
 /* ============================================
+   WIDGET CONTAINERS (Spotify, WakaTime)
+   ============================================ */
+.widget-container {
+    margin-top: var(--spacing-lg);
+}
+
+.widget-container:empty {
+    display: none;
+}
+
+/* ============================================
    VIEWPORT - GLOBE
    ============================================ */
 .viewport {
@@ -1279,4 +1290,80 @@ button {
 #convergence-overlays .visible {
     opacity: 1;
     pointer-events: auto;
+}
+
+/* ============================================
+   V12.1 ENHANCEMENT STYLES
+   ============================================ */
+.valuation-ticker { 
+    display: flex; 
+    gap: 12px; 
+    align-items: center; 
+    flex-wrap: wrap; 
+    margin-top: 6px; 
+}
+
+.ticker-chip { 
+    background: rgba(255,255,255,0.08); 
+    border: 1px solid var(--border-primary); 
+    border-radius: 999px; 
+    padding: 6px 10px; 
+    font-family: var(--font-mono); 
+    font-size: 0.75rem; 
+    color: var(--text-primary); 
+    display: flex; 
+    gap: 6px; 
+    align-items: center; 
+}
+
+.ticker-chip .chip-label { 
+    color: var(--text-muted); 
+    letter-spacing: 1px; 
+}
+
+.ticker-chip .chip-value { 
+    font-weight: 600; 
+}
+
+.insight-panel { 
+    display: grid; 
+    grid-template-columns: repeat(3, minmax(0,1fr)); 
+    gap: 10px; 
+    padding: 14px 0; 
+    border-top: 1px solid var(--border-primary); 
+    border-bottom: 1px solid var(--border-primary); 
+    margin-top: 14px; 
+}
+
+.insight-card { 
+    background: rgba(255,255,255,0.03); 
+    border: 1px solid var(--border-primary); 
+    border-radius: 4px; 
+    padding: 10px; 
+}
+
+.insight-title { 
+    font-size: 0.75rem; 
+    color: var(--text-muted); 
+    letter-spacing: 1px; 
+}
+
+.insight-value { 
+    font-family: var(--font-mono); 
+    font-size: 1rem; 
+}
+
+.insight-delta { 
+    font-size: 0.7rem; 
+    color: var(--success); 
+}
+
+.skills-constellation canvas { 
+    width: 100%; 
+    height: 220px; 
+    display: block; 
+}
+
+.skills-constellation.hidden { 
+    display: none; 
 }

@@ -3,6 +3,9 @@
  * Defense-Tech / FinTech Executive Terminal v13
  */
 
+// CSS Import - Vite handles this
+import './styles/main.css';
+
 import { getEngine } from './core/Engine.js';
 import { eventBus, Events } from './core/EventBus.js';
 
@@ -20,17 +23,18 @@ import { ContactForm } from './components/ContactForm.js';
 import { EasterEggs } from './components/EasterEggs.js';
 import { Testimonials } from './components/Testimonials.js';
 import { SpotifyWidget } from './components/SpotifyWidget.js';
+import { WakaTimeWidget } from './components/WakaTimeWidget.js';
 import { VisitorCounter } from './components/VisitorCounter.js';
 import { TypeWriter, MultiTypeWriter } from './components/TypeWriter.js';
 
 // Services
 import { dataService } from './services/DataService.js';
-import { analyticsService } from './services/AnalyticsService.js';
+import { analytics as analyticsService } from './services/AnalyticsService.js';
 import { audioService } from './services/AudioService.js';
 
 // Utils
 import { initAccessibility } from './utils/accessibility.js';
-import { initSEO } from './utils/seo.js';
+import { injectStructuredData as initSEO } from './utils/seo.js';
 
 class KaizenElite {
     constructor() {
@@ -134,9 +138,19 @@ class KaizenElite {
         const testimonials = new Testimonials('testimonials');
         this.components.set('testimonials', testimonials);
 
-        // Widgets
-        const spotify = new SpotifyWidget();
-        this.components.set('spotify', spotify);
+        // Live Data Widgets
+        const spotifyContainer = document.getElementById('spotify-container');
+        if (spotifyContainer) {
+            // SpotifyWidget now creates its own element inside the container
+            const spotify = new SpotifyWidget(spotifyContainer);
+            this.components.set('spotify', spotify);
+        }
+
+        const wakatimeContainer = document.getElementById('wakatime-container');
+        if (wakatimeContainer) {
+            const wakatime = new WakaTimeWidget(wakatimeContainer);
+            this.components.set('wakatime', wakatime);
+        }
 
         const visitor = new VisitorCounter('visitor-counter');
         this.components.set('visitor', visitor);
