@@ -24,6 +24,7 @@ import { EasterEggs } from './components/EasterEggs.js';
 import { Testimonials } from './components/Testimonials.js';
 import { SpotifyWidget } from './components/SpotifyWidget.js';
 import { WakaTimeWidget } from './components/WakaTimeWidget.js';
+import { ParticleHover } from './components/ParticleHover.js';
 import { VisitorCounter } from './components/VisitorCounter.js';
 import { TypeWriter, MultiTypeWriter } from './components/TypeWriter.js';
 
@@ -35,6 +36,7 @@ import { audioService } from './services/AudioService.js';
 // Utils
 import { initAccessibility } from './utils/accessibility.js';
 import { injectStructuredData as initSEO } from './utils/seo.js';
+import { ScrollAnimations } from './utils/scrollAnimations.js';
 
 class KaizenElite {
     constructor() {
@@ -65,6 +67,14 @@ class KaizenElite {
 
             // Hide loading screen
             loadingScreen.hide();
+
+            // Initialize scroll animations
+            const scrollAnims = new ScrollAnimations();
+            this.components.set('scrollAnimations', scrollAnims);
+
+            // Initialize particle hover effects
+            const particles = new ParticleHover();
+            this.components.set('particles', particles);
 
             // Start engine
             const engine = getEngine();
