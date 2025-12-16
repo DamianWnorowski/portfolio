@@ -4,6 +4,7 @@
  */
 
 import { eventBus, Events } from '../core/EventBus.js';
+import { escapeHtml } from '../utils/security.js';
 
 export class WakaTimeWidget {
     constructor(container) {
@@ -232,12 +233,11 @@ export class WakaTimeWidget {
         try {
             const response = await fetch('/api/wakatime');
             if (!response.ok) throw new Error('Failed to fetch');
-            
+
             this.data = await response.json();
             this.updateUI();
-            
+
         } catch (error) {
-            console.warn('[WakaTimeWidget] Fetch error:', error);
             this.showError();
         }
     }
@@ -263,41 +263,98 @@ export class WakaTimeWidget {
             'Markdown': '#083fa1'
         };
         
-        content.innerHTML = `
-            <div class="wakatime-stats">
-                <div class="wakatime-stat">
-                    <div class="wakatime-stat-value">${this.data.totalHours}<span>h</span></div>
-                    <div class="wakatime-stat-label">Total Time</div>
-                </div>
-                <div class="wakatime-stat">
-                    <div class="wakatime-stat-value">${this.data.dailyAverageHours}<span>h</span></div>
-                    <div class="wakatime-stat-label">Daily Average</div>
-                </div>
-            </div>
-            
-            <div class="wakatime-languages">
-                <div class="wakatime-languages-title">Languages</div>
-                ${this.data.languages.slice(0, 5).map(lang => `
-                    <div class="wakatime-language">
-                        <span class="wakatime-language-name">${lang.name}</span>
-                        <div class="wakatime-language-bar">
-                            <div class="wakatime-language-fill" 
-                                 style="width: ${lang.percent}%; background: ${languageColors[lang.name] || '#6e7681'}">
-                            </div>
-                        </div>
-                        <span class="wakatime-language-percent">${lang.percent}%</span>
-                    </div>
-                `).join('')}
-            </div>
-            
-            ${this.data.editors ? `
-                <div class="wakatime-editors">
-                    ${this.data.editors.map(e => `
-                        <span class="wakatime-editor">${e.name} ${e.percent}%</span>
-                    `).join('')}
-                </div>
-            ` : ''}
-        `;
+        // Clear content first
+        content.innerHTML = '';
+
+        // Create stats section
+        const statsDiv = document.createElement('div');
+        statsDiv.className = 'wakatime-stats';
+
+        const totalStat = document.createElement('div');
+        totalStat.className = 'wakatime-stat';
+        const totalValue = document.createElement('div');
+        totalValue.className = 'wakatime-stat-value';
+        totalValue.textContent = escapeHtml(String(this.data.totalHours));
+        const totalSpan = document.createElement('span');
+        totalSpan.textContent = 'h';
+        totalValue.appendChild(totalSpan);
+        const totalLabel = document.createElement('div');
+        totalLabel.className = 'wakatime-stat-label';
+        totalLabel.textContent = 'Total Time';
+        totalStat.appendChild(totalValue);
+        totalStat.appendChild(totalLabel);
+
+        const dailyStat = document.createElement('div');
+        dailyStat.className = 'wakatime-stat';
+        const dailyValue = document.createElement('div');
+        dailyValue.className = 'wakatime-stat-value';
+        dailyValue.textContent = escapeHtml(String(this.data.dailyAverageHours));
+        const dailySpan = document.createElement('span');
+        dailySpan.textContent = 'h';
+        dailyValue.appendChild(dailySpan);
+        const dailyLabel = document.createElement('div');
+        dailyLabel.className = 'wakatime-stat-label';
+        dailyLabel.textContent = 'Daily Average';
+        dailyStat.appendChild(dailyValue);
+        dailyStat.appendChild(dailyLabel);
+
+        statsDiv.appendChild(totalStat);
+        statsDiv.appendChild(dailyStat);
+        content.appendChild(statsDiv);
+
+        // Create languages section
+        const langsDiv = document.createElement('div');
+        langsDiv.className = 'wakatime-languages';
+
+        const langsTitle = document.createElement('div');
+        langsTitle.className = 'wakatime-languages-title';
+        langsTitle.textContent = 'Languages';
+        langsDiv.appendChild(langsTitle);
+
+        this.data.languages.slice(0, 5).forEach(lang => {
+            const langDiv = document.createElement('div');
+            langDiv.className = 'wakatime-language';
+
+            const langName = document.createElement('span');
+            langName.className = 'wakatime-language-name';
+            langName.textContent = escapeHtml(lang.name);
+
+            const langBar = document.createElement('div');
+            langBar.className = 'wakatime-language-bar';
+
+            const langFill = document.createElement('div');
+            langFill.className = 'wakatime-language-fill';
+            langFill.style.width = `${parseFloat(lang.percent)}%`;
+            langFill.style.background = languageColors[lang.name] || '#6e7681';
+
+            langBar.appendChild(langFill);
+
+            const langPercent = document.createElement('span');
+            langPercent.className = 'wakatime-language-percent';
+            langPercent.textContent = `${escapeHtml(String(lang.percent))}%`;
+
+            langDiv.appendChild(langName);
+            langDiv.appendChild(langBar);
+            langDiv.appendChild(langPercent);
+            langsDiv.appendChild(langDiv);
+        });
+
+        content.appendChild(langsDiv);
+
+        // Create editors section if available
+        if (this.data.editors) {
+            const editorsDiv = document.createElement('div');
+            editorsDiv.className = 'wakatime-editors';
+
+            this.data.editors.forEach(e => {
+                const editorSpan = document.createElement('span');
+                editorSpan.className = 'wakatime-editor';
+                editorSpan.textContent = `${escapeHtml(e.name)} ${escapeHtml(String(e.percent))}%`;
+                editorsDiv.appendChild(editorSpan);
+            });
+
+            content.appendChild(editorsDiv);
+        }
         
         eventBus.emit(Events.DATA_LOADED, { type: 'wakatime', data: this.data });
     }

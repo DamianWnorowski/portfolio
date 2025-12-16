@@ -42,10 +42,11 @@ class KaizenElite {
     constructor() {
         this.components = new Map();
         this.isInitialized = false;
+        this.isDev = import.meta.env?.DEV ?? false;
     }
 
     async init() {
-        console.log('[KAIZEN] Initializing Executive Terminal v13...');
+        if (this.isDev) console.log('[KAIZEN] Initializing Executive Terminal v13...');
 
         try {
             // Show loading screen
@@ -81,13 +82,13 @@ class KaizenElite {
             engine.init();
 
             this.isInitialized = true;
-            console.log('[KAIZEN] Executive Terminal ready.');
+            if (this.isDev) console.log('[KAIZEN] Executive Terminal ready.');
 
             // Play boot sound
             audioService.play('boot');
 
         } catch (error) {
-            console.error('[KAIZEN] Initialization failed:', error);
+            if (this.isDev) console.error('[KAIZEN] Initialization failed:', error);
         }
     }
 
@@ -103,7 +104,7 @@ class KaizenElite {
             const neural = new NeuralBackground('neural-bg');
             this.components.set('neural', neural);
         } catch (e) {
-            console.warn('[KAIZEN] NeuralBackground skipped:', e.message);
+            if (this.isDev) console.warn('[KAIZEN] NeuralBackground skipped:', e.message);
         }
 
         // Globe visualization
@@ -111,7 +112,7 @@ class KaizenElite {
             const globe = new HolographicGlobe('globe-container');
             this.components.set('globe', globe);
         } catch (e) {
-            console.warn('[KAIZEN] HolographicGlobe skipped:', e.message);
+            if (this.isDev) console.warn('[KAIZEN] HolographicGlobe skipped:', e.message);
         }
 
         // Terminal
@@ -123,7 +124,7 @@ class KaizenElite {
             const skills = new SkillsConstellation('skills-constellation');
             this.components.set('skills', skills);
         } catch (e) {
-            console.warn('[KAIZEN] SkillsConstellation skipped:', e.message);
+            if (this.isDev) console.warn('[KAIZEN] SkillsConstellation skipped:', e.message);
         }
 
         // UI Components

@@ -12,6 +12,7 @@ class DataService {
         this.cache = new Map();
         this.cacheTTL = 5 * 60 * 1000; // 5 minutes
         this.githubUsername = 'damianwnorowski';
+        this.isDev = import.meta.env?.DEV ?? false;
     }
 
     /**
@@ -74,7 +75,7 @@ class DataService {
             eventBus.emit(Events.GITHUB_LOADED, data);
             return data;
         } catch (error) {
-            console.error('DataService.fetchGitHubData error:', error);
+            if (this.isDev) console.error('DataService.fetchGitHubData error:', error);
             return null;
         }
     }
@@ -113,7 +114,7 @@ class DataService {
 
             return this.getFallbackStats();
         } catch (error) {
-            console.error('DataService.fetchStats error:', error);
+            if (this.isDev) console.error('DataService.fetchStats error:', error);
             return this.getFallbackStats();
         }
     }
@@ -131,7 +132,7 @@ class DataService {
 
             return data;
         } catch (error) {
-            console.error('DataService.fetchContributions error:', error);
+            if (this.isDev) console.error('DataService.fetchContributions error:', error);
             return this.getFallbackContributions();
         }
     }
@@ -144,7 +145,7 @@ class DataService {
             const data = await response.json();
             return data.logs;
         } catch (error) {
-            console.error('DataService.fetchLogs error:', error);
+            if (this.isDev) console.error('DataService.fetchLogs error:', error);
             return [];
         }
     }

@@ -3,12 +3,15 @@
  * Graceful fallback when WebGL isn't available or fails
  */
 
+import { escapeHtml } from '../utils/security.js';
+
 export class WebGLErrorBoundary {
     constructor() {
         this.hasWebGL = false;
         this.hasWebGL2 = false;
         this.errors = [];
         this.fallbackMode = false;
+        this.isDev = import.meta.env?.DEV ?? false;
 
         this.checkSupport();
         this.setupErrorHandling();
@@ -37,15 +40,17 @@ export class WebGLErrorBoundary {
                 this.vendor = gl.getParameter(gl.VENDOR);
                 this.renderer = gl.getParameter(gl.RENDERER);
 
-                console.log('[WebGL] Support detected:', {
-                    webgl2: this.hasWebGL2,
-                    webgl: this.hasWebGL,
-                    vendor: this.vendor,
-                    renderer: this.renderer
-                });
+                if (this.isDev) {
+                    console.log('[WebGL] Support detected:', {
+                        webgl2: this.hasWebGL2,
+                        webgl: this.hasWebGL,
+                        vendor: this.vendor,
+                        renderer: this.renderer
+                    });
+                }
             }
         } catch (error) {
-            console.warn('[WebGL] Detection failed:', error);
+            if (this.isDev) console.warn('[WebGL] Detection failed:', error);
             this.hasWebGL = false;
             this.hasWebGL2 = false;
         }
@@ -60,12 +65,12 @@ export class WebGLErrorBoundary {
         // Global error handler for WebGL context loss
         window.addEventListener('webglcontextlost', (e) => {
             e.preventDefault();
-            console.error('[WebGL] Context lost');
+            if (this.isDev) console.error('[WebGL] Context lost');
             this.handleContextLoss();
         });
 
         window.addEventListener('webglcontextrestored', () => {
-            console.log('[WebGL] Context restored');
+            if (this.isDev) console.log('[WebGL] Context restored');
             this.handleContextRestore();
         });
 
@@ -120,7 +125,7 @@ export class WebGLErrorBoundary {
         if (this.fallbackMode) return;
 
         this.fallbackMode = true;
-        console.warn('[WebGL] Enabling fallback mode:', reason);
+        if (this.isDev) console.warn('[WebGL] Enabling fallback mode:', reason);
 
         // Add fallback class to body
         document.body.classList.add('webgl-fallback');
@@ -224,16 +229,37 @@ export class WebGLErrorBoundary {
         if (globeContainer) {
             const fallback = document.createElement('div');
             fallback.className = 'globe-fallback';
-            fallback.innerHTML = `
-                <div class="globe-fallback-content">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M2 12h20"/>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                    <p>Global Deployments Active</p>
-                </div>
-            `;
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'globe-fallback-content';
+
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.setAttribute('fill', 'none');
+            svg.setAttribute('stroke', 'currentColor');
+            svg.setAttribute('stroke-width', '1');
+
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', '12');
+            circle.setAttribute('cy', '12');
+            circle.setAttribute('r', '10');
+
+            const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path1.setAttribute('d', 'M2 12h20');
+
+            const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path2.setAttribute('d', 'M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z');
+
+            svg.appendChild(circle);
+            svg.appendChild(path1);
+            svg.appendChild(path2);
+
+            const p = document.createElement('p');
+            p.textContent = 'Global Deployments Active';
+
+            contentDiv.appendChild(svg);
+            contentDiv.appendChild(p);
+            fallback.appendChild(contentDiv);
             globeContainer.appendChild(fallback);
         }
 
@@ -243,7 +269,15 @@ export class WebGLErrorBoundary {
             const skills = ['TypeScript', 'React', 'Node.js', 'Python', 'Rust', 'AWS', 'Docker', 'GraphQL'];
             const fallback = document.createElement('div');
             fallback.className = 'constellation-fallback';
-            fallback.innerHTML = skills.map(s => `<span class="skill-badge">${s}</span>`).join('');
+
+            // Create skill badges programmatically
+            skills.forEach(skill => {
+                const badge = document.createElement('span');
+                badge.className = 'skill-badge';
+                badge.textContent = skill;
+                fallback.appendChild(badge);
+            });
+
             skillsContainer.appendChild(fallback);
         }
     }
@@ -258,10 +292,30 @@ export class WebGLErrorBoundary {
 
         const notification = document.createElement('div');
         notification.className = 'webgl-notification';
-        notification.innerHTML = `
-            <span class="notification-icon">${type === 'error' ? '!' : type === 'warning' ? '!' : 'i'}</span>
-            <span class="notification-text">${message}</span>
+
+        const iconSpan = document.createElement('span');
+        iconSpan.className = 'notification-icon';
+        iconSpan.textContent = type === 'error' ? '!' : type === 'warning' ? '!' : 'i';
+        iconSpan.style.cssText = `
+            background: ${colors[type]};
+            color: #0a0c10;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.75rem;
         `;
+
+        const textSpan = document.createElement('span');
+        textSpan.className = 'notification-text';
+        textSpan.textContent = message;
+
+        notification.appendChild(iconSpan);
+        notification.appendChild(textSpan);
+
         notification.style.cssText = `
             position: fixed;
             top: 20px;
@@ -303,20 +357,6 @@ export class WebGLErrorBoundary {
             `;
             document.head.appendChild(style);
         }
-
-        const iconEl = notification.querySelector('.notification-icon');
-        iconEl.style.cssText = `
-            background: ${colors[type]};
-            color: #0a0c10;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.75rem;
-        `;
 
         document.body.appendChild(notification);
 

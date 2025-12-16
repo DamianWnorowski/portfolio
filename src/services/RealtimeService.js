@@ -11,6 +11,7 @@ class RealtimeService {
         this.reconnectAttempts = new Map();
         this.maxReconnectAttempts = 5;
         this.reconnectDelay = 1000;
+        this.isDev = import.meta.env?.DEV ?? false;
     }
 
     /**
@@ -18,7 +19,7 @@ class RealtimeService {
      */
     connect(name, url, handlers = {}) {
         if (this.connections.has(name)) {
-            console.warn(`Connection ${name} already exists`);
+            if (this.isDev) console.warn(`Connection ${name} already exists`);
             return;
         }
 
@@ -26,7 +27,7 @@ class RealtimeService {
             const eventSource = new EventSource(url);
 
             eventSource.onopen = () => {
-                console.log(`[RealtimeService] Connected to ${name}`);
+                if (this.isDev) console.log(`[RealtimeService] Connected to ${name}`);
                 this.reconnectAttempts.set(name, 0);
 
                 if (handlers.onOpen) {
@@ -49,12 +50,12 @@ class RealtimeService {
                         eventBus.emit(Events.METRICS_UPDATE, data);
                     }
                 } catch (e) {
-                    console.error(`[RealtimeService] Parse error:`, e);
+                    if (this.isDev) console.error(`[RealtimeService] Parse error:`, e);
                 }
             };
 
             eventSource.onerror = (error) => {
-                console.error(`[RealtimeService] Error on ${name}:`, error);
+                if (this.isDev) console.error(`[RealtimeService] Error on ${name}:`, error);
 
                 if (handlers.onError) {
                     handlers.onError(error);
@@ -67,7 +68,7 @@ class RealtimeService {
             this.connections.set(name, eventSource);
 
         } catch (error) {
-            console.error(`[RealtimeService] Failed to connect to ${name}:`, error);
+            if (this.isDev) console.error(`[RealtimeService] Failed to connect to ${name}:`, error);
 
             // Fallback to polling
             this.startPolling(name, url, handlers);
@@ -81,7 +82,7 @@ class RealtimeService {
         const attempts = this.reconnectAttempts.get(name) || 0;
 
         if (attempts >= this.maxReconnectAttempts) {
-            console.warn(`[RealtimeService] Max reconnect attempts reached for ${name}`);
+            if (this.isDev) console.warn(`[RealtimeService] Max reconnect attempts reached for ${name}`);
             this.disconnect(name);
 
             // Fall back to polling
@@ -92,7 +93,7 @@ class RealtimeService {
         this.reconnectAttempts.set(name, attempts + 1);
 
         const delay = this.reconnectDelay * Math.pow(2, attempts);
-        console.log(`[RealtimeService] Reconnecting to ${name} in ${delay}ms...`);
+        if (this.isDev) console.log(`[RealtimeService] Reconnecting to ${name} in ${delay}ms...`);
 
         setTimeout(() => {
             this.disconnect(name);
@@ -104,7 +105,7 @@ class RealtimeService {
      * Fallback polling when SSE is not available
      */
     startPolling(name, url, handlers = {}, interval = 5000) {
-        console.log(`[RealtimeService] Starting polling for ${name}`);
+        if (this.isDev) console.log(`[RealtimeService] Starting polling for ${name}`);
 
         const pollUrl = url.replace('/stream', '');
 
@@ -119,7 +120,7 @@ class RealtimeService {
                     }
                 }
             } catch (e) {
-                console.error(`[RealtimeService] Polling error:`, e);
+                if (this.isDev) console.error(`[RealtimeService] Polling error:`, e);
             }
         };
 

@@ -5,6 +5,7 @@
 
 import { eventBus, Events } from '../core/EventBus.js';
 import { audioService } from '../services/AudioService.js';
+import { escapeHtml } from '../utils/security.js';
 
 const COMMANDS = [
     // Navigation
@@ -361,8 +362,14 @@ export class CommandPalette {
     }
 
     renderList() {
+        // Clear list first
+        this.list.innerHTML = '';
+
         if (this.filteredCommands.length === 0) {
-            this.list.innerHTML = '<div class="cmd-empty">No commands found</div>';
+            const emptyDiv = document.createElement('div');
+            emptyDiv.className = 'cmd-empty';
+            emptyDiv.textContent = 'No commands found';
+            this.list.appendChild(emptyDiv);
             return;
         }
 
@@ -375,36 +382,47 @@ export class CommandPalette {
             grouped[cmd.category].push(cmd);
         });
 
-        let html = '';
         let globalIndex = 0;
 
         Object.entries(grouped).forEach(([category, commands]) => {
-            html += `<div class="cmd-category">${category}</div>`;
+            // Create category header
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'cmd-category';
+            categoryDiv.textContent = escapeHtml(category);
+            this.list.appendChild(categoryDiv);
+
+            // Create command items
             commands.forEach(cmd => {
-                html += `
-                    <div class="cmd-item ${globalIndex === this.selectedIndex ? 'selected' : ''}"
-                         data-index="${globalIndex}"
-                         data-id="${cmd.id}">
-                        <span class="cmd-item-icon">${cmd.icon}</span>
-                        <span class="cmd-item-label">${cmd.label}</span>
-                    </div>
-                `;
+                const itemDiv = document.createElement('div');
+                itemDiv.className = `cmd-item ${globalIndex === this.selectedIndex ? 'selected' : ''}`;
+                itemDiv.dataset.index = globalIndex;
+                itemDiv.dataset.id = cmd.id;
+
+                const iconSpan = document.createElement('span');
+                iconSpan.className = 'cmd-item-icon';
+                iconSpan.textContent = cmd.icon;
+
+                const labelSpan = document.createElement('span');
+                labelSpan.className = 'cmd-item-label';
+                labelSpan.textContent = cmd.label;
+
+                itemDiv.appendChild(iconSpan);
+                itemDiv.appendChild(labelSpan);
+                this.list.appendChild(itemDiv);
+
+                // Add click handler
+                itemDiv.addEventListener('click', () => {
+                    this.selectedIndex = parseInt(itemDiv.dataset.index);
+                    this.executeSelected();
+                });
+
+                // Add mouseenter handler
+                itemDiv.addEventListener('mouseenter', () => {
+                    this.selectedIndex = parseInt(itemDiv.dataset.index);
+                    this.updateSelection();
+                });
+
                 globalIndex++;
-            });
-        });
-
-        this.list.innerHTML = html;
-
-        // Add click handlers
-        this.list.querySelectorAll('.cmd-item').forEach(item => {
-            item.addEventListener('click', () => {
-                this.selectedIndex = parseInt(item.dataset.index);
-                this.executeSelected();
-            });
-
-            item.addEventListener('mouseenter', () => {
-                this.selectedIndex = parseInt(item.dataset.index);
-                this.updateSelection();
             });
         });
     }

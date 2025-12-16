@@ -24,8 +24,6 @@ export function initAccessibility() {
 
     // Screen reader announcements
     setupAnnouncer();
-
-    console.log('[A11y] Accessibility features initialized');
 }
 
 function addSkipLink() {

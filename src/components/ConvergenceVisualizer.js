@@ -42,8 +42,6 @@ export class ConvergenceVisualizer {
         this.createCodeCompressionStream();
         this.createOmegaSingularity();
         this.createTopology();
-
-        console.log("Convergence Visualizer Initialized with all visual metaphors.");
     }
 
     getOverlayElements() {

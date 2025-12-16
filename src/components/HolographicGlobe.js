@@ -26,7 +26,6 @@ export class HolographicGlobe {
     constructor(containerId = 'globe-container') {
         this.container = document.getElementById(containerId);
         if (!this.container) {
-            console.error('Globe container not found');
             return;
         }
 

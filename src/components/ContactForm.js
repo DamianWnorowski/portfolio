@@ -385,7 +385,8 @@ export class ContactForm {
                 audioService.play('error');
             }
         } catch (error) {
-            console.error('[ContactForm] Submit error:', error);
+            const isDev = import.meta.env?.DEV ?? false;
+            if (isDev) console.error('[ContactForm] Submit error:', error);
             this.showStatus('error', 'Network error. Please try again or email directly.');
             audioService.play('error');
         } finally {

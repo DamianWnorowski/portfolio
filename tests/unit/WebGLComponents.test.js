@@ -230,11 +230,8 @@ describe('NeuralBackground', () => {
         });
 
         it('handles missing canvas gracefully', () => {
-            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-            new NeuralBackground('nonexistent');
-
-            expect(consoleSpy).toHaveBeenCalled();
+            // Console logging removed in production cleanup - just verify no throw
+            expect(() => new NeuralBackground('nonexistent')).not.toThrow();
         });
 
         it('creates WebGL renderer', () => {
@@ -389,11 +386,8 @@ describe('HolographicGlobe', () => {
         });
 
         it('handles missing container gracefully', () => {
-            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-            new HolographicGlobe('nonexistent');
-
-            expect(consoleSpy).toHaveBeenCalled();
+            // Console logging removed in production cleanup - just verify no throw
+            expect(() => new HolographicGlobe('nonexistent')).not.toThrow();
         });
 
         it('creates renderer and appends to container', () => {

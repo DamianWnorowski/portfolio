@@ -13,13 +13,17 @@ export class Engine {
         this.components = new Map();
         this.isRunning = false;
 
+        // Store bound handlers for cleanup
+        this.boundMouseMove = this.onMouseMove.bind(this);
+        this.boundResize = this.onResize.bind(this);
+
         this.init();
     }
 
     init() {
         // Setup mouse tracking
-        window.addEventListener('mousemove', this.onMouseMove.bind(this));
-        window.addEventListener('resize', this.onResize.bind(this));
+        window.addEventListener('mousemove', this.boundMouseMove);
+        window.addEventListener('resize', this.boundResize);
 
         // Start animation loop
         this.isRunning = true;
@@ -69,6 +73,12 @@ export class Engine {
 
     destroy() {
         this.isRunning = false;
+
+        // Remove event listeners
+        window.removeEventListener('mousemove', this.boundMouseMove);
+        window.removeEventListener('resize', this.boundResize);
+
+        // Destroy all components
         this.components.forEach(component => {
             if (component.destroy) {
                 component.destroy();

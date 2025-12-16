@@ -48,12 +48,9 @@ describe('Accessibility Utilities', () => {
             expect(document.getElementById('aria-alert')).not.toBeNull();
         });
 
-        it('logs initialization message', () => {
-            const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
-
-            initAccessibility();
-
-            expect(consoleSpy).toHaveBeenCalledWith('[A11y] Accessibility features initialized');
+        it('initializes without errors', () => {
+            // Console logging removed in production cleanup - verify init completes
+            expect(() => initAccessibility()).not.toThrow();
         });
     });
 

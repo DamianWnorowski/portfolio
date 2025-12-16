@@ -9,13 +9,13 @@ export class AnalyticsService {
         this.provider = null;
         this.sessionId = this.generateSessionId();
         this.queue = [];
+        this.isDev = import.meta.env?.DEV ?? false;
 
         // Check for Do Not Track
         this.respectsDNT = navigator.doNotTrack === '1' ||
                           window.doNotTrack === '1';
 
         if (this.respectsDNT) {
-            console.log('[Analytics] Do Not Track respected - analytics disabled');
             return;
         }
 
@@ -26,16 +26,12 @@ export class AnalyticsService {
         // Detect available providers
         if (typeof window.va !== 'undefined') {
             this.provider = 'vercel';
-            console.log('[Analytics] Using Vercel Analytics');
         } else if (typeof window.plausible !== 'undefined') {
             this.provider = 'plausible';
-            console.log('[Analytics] Using Plausible');
         } else if (typeof window.umami !== 'undefined') {
             this.provider = 'umami';
-            console.log('[Analytics] Using Umami');
         } else {
             this.provider = 'internal';
-            console.log('[Analytics] Using internal analytics');
         }
 
         this.initialized = true;
@@ -95,7 +91,7 @@ export class AnalyticsService {
                 break;
         }
 
-        console.log('[Analytics] Event:', eventName, eventData);
+        if (this.isDev) console.log('[Analytics] Event:', eventName, eventData);
     }
 
     async trackInternal(eventName, data) {

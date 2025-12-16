@@ -30,11 +30,12 @@ class EventBus {
     emit(event, data) {
         if (!this.events.has(event)) return;
 
+        const isDev = import.meta.env?.DEV ?? false;
         this.events.get(event).forEach(callback => {
             try {
                 callback(data);
             } catch (error) {
-                console.error(`EventBus error in ${event}:`, error);
+                if (isDev) console.error(`EventBus error in ${event}:`, error);
             }
         });
     }

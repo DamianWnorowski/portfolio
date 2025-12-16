@@ -161,7 +161,6 @@ export class NeuralBackground {
     constructor(canvasId = 'neural-bg') {
         this.canvas = document.getElementById(canvasId);
         if (!this.canvas) {
-            console.error('Neural background canvas not found');
             return;
         }
 

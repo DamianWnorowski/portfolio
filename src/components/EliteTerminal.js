@@ -4,6 +4,7 @@
  */
 
 import { eventBus, Events } from '../core/EventBus.js';
+import { escapeHtml } from '../utils/security.js';
 
 // Log message templates (used when real data isn't available)
 const LOG_TEMPLATES = [
@@ -198,8 +199,9 @@ export class EliteTerminal {
     }
 
     executeCommand(cmd) {
-        // Echo command
-        this.addLine(`$ ${cmd}`, 'command');
+        // Echo command (sanitize user input)
+        const sanitizedCmd = escapeHtml(cmd);
+        this.addLine(`$ ${sanitizedCmd}`, 'command');
 
         const command = COMMANDS[cmd];
         if (command) {
@@ -212,7 +214,7 @@ export class EliteTerminal {
                 }
             }
         } else {
-            this.addLine(`Command not found: ${cmd}. Type "help" for available commands.`, 'error');
+            this.addLine(`Command not found: ${sanitizedCmd}. Type "help" for available commands.`, 'error');
         }
 
         eventBus.emit(Events.TERMINAL_COMMAND, cmd);
@@ -222,12 +224,23 @@ export class EliteTerminal {
         const line = document.createElement('div');
         line.className = `term-line ${type}`;
 
-        const prefix = this.getPrefix(type);
-        line.innerHTML = `
-            <span class="term-time">${this.getTimestamp()}</span>
-            <span class="term-prefix">${prefix}</span>
-            <span class="term-msg">${this.highlightText(text)}</span>
-        `;
+        // Create elements programmatically for security
+        const timeSpan = document.createElement('span');
+        timeSpan.className = 'term-time';
+        timeSpan.textContent = this.getTimestamp();
+
+        const prefixSpan = document.createElement('span');
+        prefixSpan.className = 'term-prefix';
+        prefixSpan.textContent = this.getPrefix(type);
+
+        const msgSpan = document.createElement('span');
+        msgSpan.className = 'term-msg';
+        // Use innerHTML only after sanitizing and highlighting
+        msgSpan.innerHTML = this.highlightText(escapeHtml(text));
+
+        line.appendChild(timeSpan);
+        line.appendChild(prefixSpan);
+        line.appendChild(msgSpan);
 
         // Fade in effect
         line.style.opacity = '0';
@@ -263,6 +276,7 @@ export class EliteTerminal {
     }
 
     highlightText(text) {
+        // Text is already escaped at this point, safe to add highlighting spans
         return text
             .replace(/SUCCESS|OPERATIONAL|HEALTHY|OK/g, '<span class="hl-success">$&</span>')
             .replace(/ERROR|FAIL|CRITICAL/g, '<span class="hl-error">$&</span>')

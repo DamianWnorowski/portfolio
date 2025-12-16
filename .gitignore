@@ -35,3 +35,5 @@ coverage/
 # Misc
 *.local
 Thumbs.db
+playwright-report/
+test-results/

@@ -93,11 +93,9 @@ describe('ProjectModal', () => {
         });
 
         it('handles invalid project id', () => {
-            const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-
+            // Console logging removed in production cleanup - just verify modal stays hidden
             modal.open('nonexistent-project');
 
-            expect(warnSpy).toHaveBeenCalled();
             expect(modal.overlay.classList.contains('hidden')).toBe(true);
         });
     });

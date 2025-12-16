@@ -190,7 +190,6 @@ export class SpotifyWidget {
             this.data = await response.json();
 
         } catch (error) {
-            console.warn('[SpotifyWidget] Fetch error:', error);
             this.data = null;
         }
     }

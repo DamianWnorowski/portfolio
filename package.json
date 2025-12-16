@@ -4,7 +4,7 @@
   "description": "KAIZEN Elite Portfolio - Real-time Executive Terminal",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0 --port 0 --strictPort=false",
     "build": "vite build",
     "preview": "vite preview",
     "deploy": "vercel --prod",

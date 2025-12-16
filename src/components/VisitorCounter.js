@@ -4,6 +4,7 @@
  */
 
 import { dataService } from '../services/DataService.js';
+import { escapeHtml } from '../utils/security.js';
 
 export class VisitorCounter {
     constructor(containerId) {
@@ -167,7 +168,6 @@ export class VisitorCounter {
                 this.showWelcome();
             }
         } catch (error) {
-            console.warn('[VisitorCounter] Using fallback');
             this.targetCount = 1247 + Math.floor(Math.random() * 100);
             this.animateCount();
         }
@@ -212,10 +212,18 @@ export class VisitorCounter {
     showWelcome() {
         const toast = document.createElement('div');
         toast.className = 'visitor-welcome';
-        toast.innerHTML = `
-            <span class="welcome-icon">👋</span>
-            <span class="welcome-text">Welcome! You're visitor #${this.targetCount}</span>
-        `;
+
+        const iconSpan = document.createElement('span');
+        iconSpan.className = 'welcome-icon';
+        iconSpan.textContent = '👋';
+
+        const textSpan = document.createElement('span');
+        textSpan.className = 'welcome-text';
+        textSpan.textContent = `Welcome! You're visitor #${this.targetCount}`;
+
+        toast.appendChild(iconSpan);
+        toast.appendChild(textSpan);
+
         toast.style.cssText = `
             position: fixed;
             bottom: 80px;

@@ -42,7 +42,6 @@ export class AudioService {
             this.masterGain.connect(this.context.destination);
             this.initialized = true;
         } catch (e) {
-            console.warn('[AudioService] Web Audio not supported');
             this.enabled = false;
         }
     }

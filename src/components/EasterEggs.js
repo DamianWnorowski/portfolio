@@ -5,6 +5,7 @@
 
 import { eventBus, Events } from '../core/EventBus.js';
 import { audioService } from '../services/AudioService.js';
+import { escapeHtml } from '../utils/security.js';
 
 // Konami Code sequence
 const KONAMI_CODE = [
@@ -65,7 +66,6 @@ export class EasterEggs {
     }
 
     triggerKonami() {
-        console.log('[EasterEgg] KONAMI CODE ACTIVATED!');
         audioService.play('success');
 
         // Matrix rain effect
@@ -251,12 +251,14 @@ export class EasterEggs {
             '[Click anywhere to exit]'
         ];
 
-        let html = '';
+        // Create message divs programmatically for security
         messages.forEach((msg, i) => {
-            html += `<div style="animation: hack-type 0.5s ease ${i * 0.3}s both; opacity: 0;">${msg}</div>`;
+            const msgDiv = document.createElement('div');
+            msgDiv.style.cssText = `animation: hack-type 0.5s ease ${i * 0.3}s both; opacity: 0;`;
+            msgDiv.textContent = msg;
+            overlay.appendChild(msgDiv);
         });
 
-        overlay.innerHTML = html;
         document.body.appendChild(overlay);
 
         // Add animation
@@ -378,13 +380,29 @@ export class EasterEggs {
 
         const toast = document.createElement('div');
         toast.id = 'achievement-toast';
-        toast.innerHTML = `
-            <div class="achievement-icon">🏆</div>
-            <div class="achievement-content">
-                <div class="achievement-title">${title}</div>
-                <div class="achievement-message">${message}</div>
-            </div>
-        `;
+
+        // Create structure programmatically for security
+        const iconDiv = document.createElement('div');
+        iconDiv.className = 'achievement-icon';
+        iconDiv.textContent = '🏆';
+
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'achievement-content';
+
+        const titleDiv = document.createElement('div');
+        titleDiv.className = 'achievement-title';
+        titleDiv.textContent = escapeHtml(title);
+
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'achievement-message';
+        messageDiv.textContent = escapeHtml(message);
+
+        contentDiv.appendChild(titleDiv);
+        contentDiv.appendChild(messageDiv);
+
+        toast.appendChild(iconDiv);
+        toast.appendChild(contentDiv);
+
         toast.style.cssText = `
             position: fixed;
             bottom: 30px;

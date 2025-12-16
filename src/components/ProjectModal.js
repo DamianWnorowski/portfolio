@@ -394,7 +394,6 @@ export class ProjectModal {
     open(projectId) {
         const project = PROJECT_DATA[projectId];
         if (!project) {
-            console.warn(`Project not found: ${projectId}`);
             return;
         }
 
