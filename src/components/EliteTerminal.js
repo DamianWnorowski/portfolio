@@ -277,12 +277,20 @@ export class EliteTerminal {
 
     highlightText(text) {
         // Text is already escaped at this point, safe to add highlighting spans
-        return text
-            .replace(/SUCCESS|OPERATIONAL|HEALTHY|OK/g, '<span class="hl-success">$&</span>')
-            .replace(/ERROR|FAIL|CRITICAL/g, '<span class="hl-error">$&</span>')
-            .replace(/\d+ms|\d+%|\$[\d,]+/g, '<span class="hl-metric">$&</span>')
-            .replace(/v[\d.]+/g, '<span class="hl-version">$&</span>')
-            .replace(/\[[\w-]+\]/g, '<span class="hl-tag">$&</span>');
+        // Only highlight safe literal patterns that can't contain malicious content
+        const patterns = [
+            { regex: /\b(SUCCESS|OPERATIONAL|HEALTHY|OK)\b/g, cls: 'hl-success' },
+            { regex: /\b(ERROR|FAIL|CRITICAL)\b/g, cls: 'hl-error' },
+            { regex: /\b\d+ms\b|\b\d+%\b|\$[\d,]+/g, cls: 'hl-metric' },
+            { regex: /\bv\d+\.\d+(\.\d+)?\b/g, cls: 'hl-version' },
+            { regex: /\[[\w-]+\]/g, cls: 'hl-tag' }
+        ];
+
+        let result = text;
+        for (const { regex, cls } of patterns) {
+            result = result.replace(regex, `<span class="${cls}">$&</span>`);
+        }
+        return result;
     }
 
     startLogStream() {

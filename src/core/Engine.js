@@ -55,7 +55,11 @@ export class Engine {
     animate() {
         if (!this.isRunning) return;
 
-        requestAnimationFrame(this.animate.bind(this));
+        // Use cached bound function to prevent creating new function each frame
+        if (!this.boundAnimate) {
+            this.boundAnimate = this.animate.bind(this);
+        }
+        requestAnimationFrame(this.boundAnimate);
 
         const delta = this.clock.getDelta();
         const elapsed = this.clock.getElapsedTime();
@@ -96,4 +100,15 @@ export function getEngine() {
         engineInstance = new Engine();
     }
     return engineInstance;
+}
+
+export function resetEngine() {
+    if (engineInstance) {
+        engineInstance.destroy();
+        engineInstance = null;
+    }
+}
+
+export function hasEngine() {
+    return engineInstance !== null;
 }

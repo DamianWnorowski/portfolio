@@ -271,23 +271,37 @@ export class MagneticCursor {
         // Update cursor position
         this.cursor.style.transform = `translate(${this.cursorX}px, ${this.cursorY}px)`;
 
-        // Magnetic effect on elements
+        // Magnetic effect on elements (optimized to avoid layout thrashing)
+        // Only update elements near the cursor using cached rects
+        const maxDistance = 150;
+        const now = performance.now();
+
+        // Cache rects every 100ms instead of every frame
+        if (!this.lastRectUpdate || now - this.lastRectUpdate > 100) {
+            this.cachedRects = new WeakMap();
+            this.magneticElements.forEach(el => {
+                this.cachedRects.set(el, el.getBoundingClientRect());
+            });
+            this.lastRectUpdate = now;
+        }
+
         this.magneticElements.forEach(el => {
-            const rect = el.getBoundingClientRect();
+            const rect = this.cachedRects.get(el);
+            if (!rect) return;
+
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
 
             const deltaX = this.mouseX - centerX;
             const deltaY = this.mouseY - centerY;
             const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-            const maxDistance = 150;
 
             if (distance < maxDistance) {
                 const strength = (1 - distance / maxDistance) * this.magnetStrength;
                 const moveX = deltaX * strength;
                 const moveY = deltaY * strength;
                 el.style.transform = `translate(${moveX}px, ${moveY}px)`;
-            } else {
+            } else if (el.style.transform) {
                 el.style.transform = '';
             }
         });

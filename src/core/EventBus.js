@@ -5,6 +5,8 @@
 class EventBus {
     constructor() {
         this.events = new Map();
+        this.emitDepth = 0;
+        this.maxEmitDepth = 10;
     }
 
     on(event, callback) {
@@ -30,14 +32,27 @@ class EventBus {
     emit(event, data) {
         if (!this.events.has(event)) return;
 
+        // Prevent infinite recursion
+        if (this.emitDepth >= this.maxEmitDepth) {
+            const isDev = import.meta.env?.DEV ?? false;
+            if (isDev) console.warn(`EventBus: Max emit depth (${this.maxEmitDepth}) reached for ${event}`);
+            return;
+        }
+
+        this.emitDepth++;
         const isDev = import.meta.env?.DEV ?? false;
-        this.events.get(event).forEach(callback => {
+
+        // Clone callbacks array to prevent issues if callbacks modify the list
+        const callbacks = [...this.events.get(event)];
+        callbacks.forEach(callback => {
             try {
                 callback(data);
             } catch (error) {
                 if (isDev) console.error(`EventBus error in ${event}:`, error);
             }
         });
+
+        this.emitDepth--;
     }
 
     once(event, callback) {

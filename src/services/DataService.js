@@ -13,6 +13,45 @@ class DataService {
         this.cacheTTL = 5 * 60 * 1000; // 5 minutes
         this.githubUsername = 'damianwnorowski';
         this.isDev = import.meta.env?.DEV ?? false;
+
+        // Rate limiting for GitHub API (60 requests/hour for unauthenticated)
+        this.rateLimitRemaining = 60;
+        this.rateLimitReset = 0;
+        this.retryDelays = [1000, 2000, 4000]; // Exponential backoff
+    }
+
+    /**
+     * Fetch with rate limit handling and exponential backoff
+     */
+    async fetchWithRateLimit(url, retryCount = 0) {
+        // Check if we're rate limited
+        if (this.rateLimitRemaining <= 0 && Date.now() < this.rateLimitReset) {
+            const waitTime = this.rateLimitReset - Date.now();
+            if (this.isDev) console.warn(`GitHub rate limited. Retry in ${Math.ceil(waitTime / 1000)}s`);
+            return null;
+        }
+
+        const response = await fetch(url);
+
+        // Update rate limit info from headers
+        const remaining = response.headers.get('X-RateLimit-Remaining');
+        const reset = response.headers.get('X-RateLimit-Reset');
+        if (remaining !== null) this.rateLimitRemaining = parseInt(remaining, 10);
+        if (reset !== null) this.rateLimitReset = parseInt(reset, 10) * 1000;
+
+        // Handle rate limiting (403 or 429)
+        if (response.status === 403 || response.status === 429) {
+            if (retryCount < this.retryDelays.length) {
+                const delay = this.retryDelays[retryCount];
+                if (this.isDev) console.warn(`GitHub rate limited. Retrying in ${delay}ms...`);
+                await new Promise(r => setTimeout(r, delay));
+                return this.fetchWithRateLimit(url, retryCount + 1);
+            }
+            return null;
+        }
+
+        if (!response.ok) return null;
+        return response.json();
     }
 
     /**
@@ -23,15 +62,13 @@ class DataService {
             const cached = this.getFromCache('github');
             if (cached) return cached;
 
-            // Fetch user data
-            const userResponse = await fetch(`https://api.github.com/users/${this.githubUsername}`);
-            if (!userResponse.ok) throw new Error('GitHub user fetch failed');
-            const userData = await userResponse.json();
+            // Fetch user data with rate limiting
+            const userData = await this.fetchWithRateLimit(`https://api.github.com/users/${this.githubUsername}`);
+            if (!userData) throw new Error('GitHub user fetch failed');
 
-            // Fetch repos
-            const reposResponse = await fetch(`https://api.github.com/users/${this.githubUsername}/repos?per_page=100&sort=updated`);
-            if (!reposResponse.ok) throw new Error('GitHub repos fetch failed');
-            const repos = await reposResponse.json();
+            // Fetch repos with rate limiting
+            const repos = await this.fetchWithRateLimit(`https://api.github.com/users/${this.githubUsername}/repos?per_page=100&sort=updated`);
+            if (!repos) throw new Error('GitHub repos fetch failed');
 
             // Calculate stats from real data
             const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
