@@ -1,0 +1,29 @@
+# Build artifacts
+node_modules/
+.git/
+.cache/
+.DS_Store
+
+# Test files
+tests/
+*.test.js
+*.spec.js
+playwright-report/
+test-results/
+
+# Development files
+.env.local
+.env.development
+*.log
+*.md
+!README.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Unoptimized source files
+src/**/*.unoptimized.*
+public/**/*.unoptimized.*
