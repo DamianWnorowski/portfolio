@@ -4,47 +4,22 @@
  * Hyperlist Validator
  * CI gate that verifies all changed features have RIF = 0
  *
- * Usage: node hyperlist-validator.js [--fail-on-missing] [--verbose]
- *
- * Blocks merge if:
- * 1. RIF > 0 in any hyperlist
- * 2. --fail-on-missing: missing hyperlist for changed files
- * 3. Structurality < 80%
+ * Usage: node scripts/hyperlist-validator.js [--fail-on-missing] [--verbose]
  */
 
-const fs = require('fs');
-const path = require('path');
-const { exec } = require('child_process');
-const { promisify } = require('util');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const execAsync = promisify(exec);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const HYPERLIST_PATTERN = /HYPERLIST[_\-][\w]+\.md/;
 const RIF_PATTERN = /^-\s*\*\*RIF\s*=\s*(\d+)\*\*/m;
 const STRUCTURALITY_PATTERN = /\*\*Structurality Score:\s*([\d.]+)%\*\*/;
 
-interface HyperlintResult {
-  path: string;
-  rif: number;
-  structurality: number;
-  valid: boolean;
-  errors: string[];
-}
-
-async function getChangedFiles(baseBranch = 'main') {
-  try {
-    const { stdout } = await execAsync(`git diff --name-only ${baseBranch}...HEAD`);
-    return stdout.trim().split('\n').filter(f => f);
-  } catch (error) {
-    console.warn('[hyperlist-validator] Could not get changed files, scanning all');
-    return fs.readdirSync('.', { recursive: true })
-      .filter(f => typeof f === 'string');
-  }
-}
-
 function findHyperlists() {
-  const hyperlists: string[] = [];
-  const scanDir = (dir: string) => {
+  const hyperlists = [];
+  const scanDir = (dir) => {
     try {
       const files = fs.readdirSync(dir);
       files.forEach(file => {
@@ -60,16 +35,16 @@ function findHyperlists() {
         }
       });
     } catch (e) {
-      // Skip directories we can't read
+      // Skip
     }
   };
 
-  scanDir('.');
+  scanDir(path.join(__dirname, '..'));
   return hyperlists;
 }
 
-function validateHyperlist(filePath: string): HyperlintResult {
-  const errors: string[] = [];
+function validateHyperlist(filePath) {
+  const errors = [];
 
   try {
     const content = fs.readFileSync(filePath, 'utf-8');
@@ -113,12 +88,12 @@ function validateHyperlist(filePath: string): HyperlintResult {
       rif: -1,
       structurality: -1,
       valid: false,
-      errors: [`Failed to read: ${error instanceof Error ? error.message : String(error)}`],
+      errors: [`Failed to read: ${error.message}`],
     };
   }
 }
 
-async function main() {
+function main() {
   const args = process.argv.slice(2);
   const failOnMissing = args.includes('--fail-on-missing');
   const verbose = args.includes('--verbose');
@@ -175,7 +150,4 @@ async function main() {
   process.exit(0);
 }
 
-main().catch(err => {
-  console.error('[hyperlist-validator] Error:', err);
-  process.exit(1);
-});
+main();
