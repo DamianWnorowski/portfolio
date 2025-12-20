@@ -87,5 +87,17 @@ export const Events = {
 
     // System events
     READY: 'system:ready',
-    ERROR: 'system:error'
+    ERROR: 'system:error',
+
+    // Collaboration events
+    USER_JOINED: 'collab:user_joined',
+    USER_LEFT: 'collab:user_left',
+    USER_STATUS_CHANGE: 'collab:user_status_change',
+    USER_LOCATION_UPDATE: 'collab:user_location_update',
+    DOCUMENT_UPDATED: 'collab:document_updated',
+    DOCUMENT_SYNCED: 'collab:document_synced',
+    ANNOTATION_CREATED: 'collab:annotation_created',
+    ANNOTATION_UPDATED: 'collab:annotation_updated',
+    ANNOTATION_DELETED: 'collab:annotation_deleted',
+    ANNOTATION_RESOLVED: 'collab:annotation_resolved'
 };
