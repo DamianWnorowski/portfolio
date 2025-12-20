@@ -33,6 +33,11 @@
     --text-secondary: #94a3b8;
     --text-muted: #64748b;
 
+    /* Metric states (LiveMetricsTicker invariants) */
+    --metric-fresh: var(--success);
+    --metric-stale: var(--warning);
+    --metric-error: var(--error);
+
     /* Typography - Fluid with clamp() */
     --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
@@ -297,6 +302,7 @@ button {
     gap: var(--grid-gap);
     flex: 1;
     min-height: 0;
+    overflow-y: auto;
 }
 
 /* ============================================
@@ -312,6 +318,25 @@ button {
     flex-direction: column;
     overflow: hidden;
     box-shadow: var(--shadow-panel);
+}
+
+.nav-focus {
+    animation: navFocusPulse 700ms ease-out;
+}
+
+@keyframes navFocusPulse {
+    0% {
+        box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+        border-color: var(--border-primary);
+    }
+    40% {
+        box-shadow: var(--shadow-glow-gold);
+        border-color: var(--accent-gold);
+    }
+    100% {
+        box-shadow: var(--shadow-panel);
+        border-color: var(--border-primary);
+    }
 }
 
 .panel-header {
@@ -621,9 +646,14 @@ button {
     grid-row: span 2;
 }
 
-.assets-list {
+.assets-scroll {
     flex: 1;
     overflow-y: auto;
+}
+
+.assets-list {
+    flex: 0;
+    overflow: visible;
 }
 
 .asset-card {
@@ -698,6 +728,140 @@ button {
 .asset-metrics {
     display: flex;
     gap: var(--spacing-md);
+}
+
+.assets-divider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-top: 1px solid var(--border-primary);
+    border-bottom: 1px solid var(--border-primary);
+    background: rgba(10, 15, 25, 0.25);
+}
+
+.divider-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+.divider-status {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 1px;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+}
+
+.github-projects-list {
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.github-project-card {
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    background: rgba(20, 25, 35, 0.35);
+    padding: var(--spacing-md);
+    transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.github-project-card:hover {
+    background: var(--bg-panel-hover);
+    transform: translateY(-1px);
+}
+
+.github-project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--spacing-md);
+}
+
+.github-project-name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.github-project-badge {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-primary);
+    color: var(--text-muted);
+    background: rgba(15, 20, 30, 0.6);
+    flex-shrink: 0;
+}
+
+.github-project-badge.private {
+    border-color: rgba(201, 162, 39, 0.45);
+    color: var(--accent-gold);
+}
+
+.github-project-desc {
+    margin-top: var(--spacing-xs);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.github-project-meta {
+    margin-top: var(--spacing-sm);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.github-project-chip {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    background: rgba(15, 20, 30, 0.6);
+    border: 1px solid var(--border-primary);
+    color: var(--text-muted);
+}
+
+.github-project-chip.strong {
+    color: var(--text-primary);
+}
+
+.github-project-card.skeleton {
+    opacity: 0.55;
+    position: relative;
+    overflow: hidden;
+}
+
+.github-project-card.skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.06),
+        transparent
+    );
+    animation: skeletonShimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes skeletonShimmer {
+    0% { left: -60%; }
+    100% { left: 120%; }
 }
 
 .asset-metric {
@@ -1156,6 +1320,7 @@ button {
     .main-grid {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
+        overflow: visible;
     }
 
     .sidebar, .viewport, .assets, .terminal, .skills {
@@ -1364,6 +1529,50 @@ button {
     display: block; 
 }
 
-.skills-constellation.hidden { 
-    display: none; 
+.skills-constellation.hidden {
+    display: none;
+}
+
+/* ============================================
+   METRIC TICKER STATE INDICATORS
+   LiveMetricsTicker state machine CSS
+   ============================================ */
+
+/* I1: Fresh state (normal display) */
+[id^="chip-"],
+[id^="metric-"] {
+    transition: color 0.3s ease, opacity 0.3s ease;
+    position: relative;
+}
+
+[id^="chip-"]:not(.stale):not(.error),
+[id^="metric-"]:not(.stale):not(.error) {
+    color: var(--metric-fresh);
+    opacity: 1;
+}
+
+/* I1: Stale state (warning) */
+[id^="chip-"].stale,
+[id^="metric-"].stale {
+    color: var(--metric-stale);
+    opacity: 0.8;
+    animation: pulse-warn 2s ease-in-out infinite;
+}
+
+/* I2: Error state (explicit failure) */
+[id^="chip-"].error,
+[id^="metric-"].error {
+    color: var(--metric-error);
+    opacity: 0.7;
+    animation: pulse-error 1s ease-in-out infinite;
+}
+
+@keyframes pulse-warn {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes pulse-error {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 0.4; }
 }

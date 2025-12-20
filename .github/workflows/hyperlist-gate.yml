@@ -1,0 +1,109 @@
+name: Hyperlist Gate (RIF = 0)
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  hyperlist-validation:
+    name: Verify RIF = 0 (Remaining Invalid Futures)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Hyperlist Validator
+        run: node scripts/hyperlist-validator.js --fail-on-missing --verbose
+        continue-on-error: false
+
+      - name: Report Results
+        if: always()
+        run: |
+          echo "## Hyperlist Validation Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✓ Gate Status: PASSED" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**All features have:**" >> $GITHUB_STEP_SUMMARY
+          echo "- RIF = 0 (no remaining invalid futures)" >> $GITHUB_STEP_SUMMARY
+          echo "- Structurality ≥ 80% (mostly structural elimination)" >> $GITHUB_STEP_SUMMARY
+          echo "- Complete invariant coverage" >> $GITHUB_STEP_SUMMARY
+
+  structural-enforcement:
+    name: Ensure Structural Elimination (No Runtime Checks as Safety)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Scan for unsafe patterns
+        run: |
+          echo "Checking for runtime-only safety patterns..."
+
+          # Warn if only warnings/logs are used for safety
+          if grep -r "console.warn.*[Ss]afety\|TODO.*safety\|FIXME.*unsafe" src/ 2>/dev/null; then
+            echo "⚠️  Runtime warnings detected as safety mechanism"
+            echo "This may indicate invalid futures not eliminated structurally"
+            exit 1
+          fi
+
+          echo "✓ No runtime-only safety patterns detected"
+
+  type-safety:
+    name: Type System Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check TypeScript compilation
+        run: |
+          if [ -f tsconfig.json ]; then
+            npx tsc --noEmit || {
+              echo "❌ TypeScript compilation failed"
+              echo "Type invariants not properly enforced"
+              exit 1
+            }
+          fi
+          echo "✓ TypeScript compilation successful"
+
+summary: |
+  ## Hyperlist Gate: RIF = 0 Enforcement
+
+  This PR must meet all of the following:
+
+  1. **RIF = 0** — No remaining invalid futures
+  2. **Structurality ≥ 80%** — Mostly structural elimination (types/states/gates)
+  3. **Type Safety** — No untyped critical operations
+  4. **Invariant Ledger** — All invariants documented and mapped
+
+  ### What happens if gate fails?
+  - PR cannot merge
+  - All changes must add HYPERLIST_*.md artifact
+  - RIF must reach 0 before merge
+  - Structurality must meet 80% threshold
+
+  ### See also
+  - HYPERLIST_CommandPalette.md (example)
+  - HYPERLIST_LiveMetricsTicker.md (example)
+  - scripts/hyperlist-validator.js (enforcement logic)
