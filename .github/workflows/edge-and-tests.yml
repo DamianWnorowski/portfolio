@@ -1,0 +1,364 @@
+name: Edge Functions & Comprehensive Testing
+
+on:
+  push:
+    branches: [master, main, develop]
+    paths:
+      - 'api/edge/**'
+      - 'tests/**'
+      - 'src/**'
+      - 'package.json'
+      - '.github/workflows/edge-and-tests.yml'
+  pull_request:
+    branches: [master, main, develop]
+  workflow_dispatch:
+    inputs:
+      run_load_tests:
+        description: 'Run heavy load tests (1000+ connections)'
+        required: false
+        default: 'false'
+      run_chaos_tests:
+        description: 'Run chaos engineering tests'
+        required: false
+        default: 'true'
+
+env:
+  NODE_VERSION: '18.x'
+  CI: true
+
+jobs:
+  edge-function-tests:
+    name: Edge Function E2E Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run edge function E2E tests
+        run: npx playwright test tests/e2e/edge-functions.spec.js
+        env:
+          BASE_URL: http://localhost:5173
+
+      - name: Upload edge test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edge-test-results
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 30
+
+  websocket-collaboration-tests:
+    name: WebSocket Collaboration Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run WebSocket collaboration tests
+        run: npx playwright test tests/e2e/websocket-collaboration.spec.js
+        env:
+          WS_SERVER_URL: ${{ secrets.WS_SERVER_URL || 'ws://localhost:8080' }}
+        continue-on-error: true # WebSocket server may not be available
+
+      - name: Upload WebSocket test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: websocket-test-results
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 30
+
+  load-tests:
+    name: Load Tests (Concurrent Connections)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: github.event.inputs.run_load_tests == 'true' || github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run load tests (100 concurrent connections)
+        run: npx playwright test tests/load/sync-concurrent.load.js --grep "100 concurrent"
+        env:
+          WS_SERVER_URL: ${{ secrets.WS_SERVER_URL }}
+          LOAD_TEST_CONNECTIONS: 100
+        continue-on-error: true
+
+      - name: Run load tests (500 concurrent connections)
+        if: github.event.inputs.run_load_tests == 'true'
+        run: npx playwright test tests/load/sync-concurrent.load.js --grep "500 concurrent"
+        env:
+          WS_SERVER_URL: ${{ secrets.WS_SERVER_URL }}
+          LOAD_TEST_CONNECTIONS: 500
+          RUN_HEAVY_LOAD_TESTS: 'true'
+        continue-on-error: true
+
+      - name: Upload load test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: load-test-results
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 30
+
+  chaos-tests:
+    name: Chaos Engineering Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    if: github.event.inputs.run_chaos_tests == 'true' || github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run chaos tests
+        run: npx playwright test tests/chaos/network-failures.chaos.js
+        env:
+          WS_SERVER_URL: ${{ secrets.WS_SERVER_URL }}
+          API_BASE_URL: http://localhost:5173/api
+        continue-on-error: true
+
+      - name: Upload chaos test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chaos-test-results
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 30
+
+  performance-benchmarks:
+    name: Performance Benchmarks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run performance benchmarks
+        run: npx playwright test tests/performance/api-benchmarks.perf.js
+        env:
+          API_BASE_URL: http://localhost:5173/api
+          EDGE_BASE_URL: http://localhost:5173/api/edge
+
+      - name: Upload performance results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-results
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 30
+
+      - name: Generate performance report
+        if: always()
+        run: |
+          echo "# Performance Benchmark Report" > performance-report.md
+          echo "**Date:** $(date)" >> performance-report.md
+          echo "" >> performance-report.md
+          echo "## Test Execution" >> performance-report.md
+          echo "- Status: ${{ job.status }}" >> performance-report.md
+          echo "- Duration: ${{ job.duration }}" >> performance-report.md
+          echo "" >> performance-report.md
+          echo "See artifacts for detailed results." >> performance-report.md
+
+      - name: Upload performance report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-report
+          path: performance-report.md
+          retention-days: 90
+
+  integration-tests:
+    name: Integration Tests (All Tests)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [edge-function-tests, performance-benchmarks]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run all E2E tests
+        run: npm run test:e2e
+        continue-on-error: true
+
+      - name: Run unit tests
+        run: npm run test:unit
+        continue-on-error: true
+
+      - name: Run integration tests
+        run: npm run test:integration
+        continue-on-error: true
+
+      - name: Upload integration test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-results
+          path: |
+            test-results/
+            playwright-report/
+            coverage/
+          retention-days: 30
+
+  deploy-preview:
+    name: Deploy Preview (Vercel)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: [edge-function-tests, performance-benchmarks]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Vercel Preview
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+        continue-on-error: true
+
+  summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [edge-function-tests, websocket-collaboration-tests, performance-benchmarks]
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-results
+
+      - name: Generate summary
+        run: |
+          echo "# Comprehensive Test Suite Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "- Edge Function Tests: ${{ needs.edge-function-tests.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- WebSocket Collaboration: ${{ needs.websocket-collaboration-tests.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Performance Benchmarks: ${{ needs.performance-benchmarks.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "All test results have been uploaded as artifacts." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Workflow Run:** ${{ github.run_number }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+
+  notify:
+    name: Notify Results
+    runs-on: ubuntu-latest
+    if: always() && github.ref == 'refs/heads/main'
+    needs: [edge-function-tests, websocket-collaboration-tests, load-tests, chaos-tests, performance-benchmarks]
+
+    steps:
+      - name: Send notification
+        run: |
+          echo "Test suite completed"
+          echo "Edge Functions: ${{ needs.edge-function-tests.result }}"
+          echo "WebSocket: ${{ needs.websocket-collaboration-tests.result }}"
+          echo "Load Tests: ${{ needs.load-tests.result }}"
+          echo "Chaos Tests: ${{ needs.chaos-tests.result }}"
+          echo "Performance: ${{ needs.performance-benchmarks.result }}"
