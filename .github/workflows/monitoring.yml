@@ -1,0 +1,112 @@
+name: Production Monitoring
+
+on:
+  deployment_status:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    name: Health Check
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: Check Production Health
+        run: |
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://kaizen-elite.vercel.app/api/health)
+          if [ $RESPONSE -ne 200 ]; then
+            echo "Health check failed with status $RESPONSE"
+            exit 1
+          fi
+          echo "Health check passed"
+
+      - name: Check API Endpoints
+        run: |
+          ENDPOINTS=("github/projects" "metrics")
+          for endpoint in "${ENDPOINTS[@]}"; do
+            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://kaizen-elite.vercel.app/api/$endpoint)
+            if [ $RESPONSE -ne 200 ]; then
+              echo "Endpoint $endpoint failed with status $RESPONSE"
+              exit 1
+            fi
+            echo "Endpoint $endpoint is healthy"
+          done
+
+  lighthouse-audit:
+    name: Lighthouse Performance Audit
+    runs-on: ubuntu-latest
+    if: github.event.deployment_status.state == 'success'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            https://kaizen-elite.vercel.app
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+  deployment-notification:
+    name: Deployment Status Notification
+    runs-on: ubuntu-latest
+    if: github.event.deployment_status
+    
+    steps:
+      - name: Log Deployment Status
+        run: |
+          echo "Deployment state: ${{ github.event.deployment_status.state }}"
+          echo "Environment: ${{ github.event.deployment_status.environment }}"
+          echo "URL: ${{ github.event.deployment_status.target_url }}"
+
+      - name: Verify Deployment
+        if: github.event.deployment_status.state == 'success'
+        run: |
+          URL="${{ github.event.deployment_status.target_url }}"
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $URL)
+          if [ $RESPONSE -ne 200 ]; then
+            echo "Deployment verification failed"
+            exit 1
+          fi
+          echo "Deployment verified successfully"
+
+  performance-metrics:
+    name: Collect Performance Metrics
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: Measure API Response Times
+        run: |
+          ENDPOINTS=("github/projects" "metrics" "health")
+          for endpoint in "${ENDPOINTS[@]}"; do
+            START=$(date +%s%3N)
+            curl -s https://kaizen-elite.vercel.app/api/$endpoint > /dev/null
+            END=$(date +%s%3N)
+            DURATION=$((END - START))
+            echo "Endpoint $endpoint: ${DURATION}ms"
+          done
+
+      - name: Check Bundle Size
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install Dependencies
+        run: npm ci
+        
+      - name: Build
+        run: npm run build
+        
+      - name: Analyze Bundle
+        run: |
+          DIST_SIZE=$(du -sh dist | cut -f1)
+          echo "Total dist size: $DIST_SIZE"
+          find dist/assets -name "*.js" -exec du -h {} \; | sort -rh | head -10
