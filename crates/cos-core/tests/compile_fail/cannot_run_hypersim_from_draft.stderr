@@ -1,0 +1,8 @@
+error[E0599]: no method named `run_hypersim` found for struct `cos_core::domain::DeletionCOS<cos_core::domain::Draft>` in the current scope
+ --> tests/compile_fail/cannot_run_hypersim_from_draft.rs:9:17
+  |
+9 |     let _ = cos.run_hypersim();
+  |                 ^^^^^^^^^^^^ method not found in `cos_core::domain::DeletionCOS<cos_core::domain::Draft>`
+  |
+  = note: the method was found for
+          - `cos_core::domain::DeletionCOS<cos_core::domain::Planned>`
