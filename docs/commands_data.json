@@ -1,0 +1,7232 @@
+{
+  "commands": [
+    {
+      "name": "/abyssal",
+      "filename": "abyssal",
+      "purpose": "",
+      "usage": "Invoke with ABYSSAL syntax:\n```\nABYSSAL[ROADMAP](\"Rust Code Hive v2\")\nABYSSAL[CODE](\"authentication service\")\nABYSSAL[AGENT](\"security auditor\")\nABYSSAL[TEST](\"API endpoints\")\n```\n\nThe mega orchestrator will:\n1. Parse and expand templates recursively\n2. Generate spawn plans with concurrent forks\n3. Execute agents in parallel batches\n4. Chain and synthesize all results\n5. Return comprehensive execution summary\n\nMaximum automation enabled. Zero manual intervention required.",
+      "parameters": [
+        {
+          "name": "auto",
+          "type": "orchestration",
+          "description": ""
+        },
+        {
+          "name": "expand",
+          "type": "templates",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "and",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "testing",
+        "security",
+        "orchestration",
+        "templates"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\abyssal.md"
+    },
+    {
+      "name": "/adversarial",
+      "filename": "adversarial",
+      "purpose": "",
+      "usage": "```\n/adversarial [action] [tools]\n```",
+      "parameters": [
+        {
+          "name": "Test",
+          "type": "Tools",
+          "description": ""
+        },
+        {
+          "name": "testing",
+          "type": "each",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "testing"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\adversarial.md"
+    },
+    {
+      "name": "/agent-arena",
+      "filename": "agent-arena",
+      "purpose": "",
+      "usage": "```bash",
+      "parameters": [
+        {
+          "name": "arena",
+          "type": "Multi",
+          "description": ""
+        },
+        {
+          "name": "agent",
+          "type": "testing",
+          "description": ""
+        },
+        {
+          "name": "check",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "list",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "quick",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "run",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "full",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "run",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "agents",
+          "type": "deep_research",
+          "description": ""
+        },
+        {
+          "name": "run",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "categories",
+          "type": "philosophical",
+          "description": ""
+        },
+        {
+          "name": "to-head",
+          "type": "comparison",
+          "description": ""
+        },
+        {
+          "name": "h2h",
+          "type": "deep_research",
+          "description": ""
+        },
+        {
+          "name": "--------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "worked",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "each",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "--------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "--------------------------------------------------------------------",
+          "type": "1",
+          "description": ""
+        },
+        {
+          "name": "to-Head",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "arena",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "quick",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "arena",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "h2h",
+          "type": "deep_research",
+          "description": ""
+        },
+        {
+          "name": "arena",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "run",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "categories",
+          "type": "adversarial",
+          "description": ""
+        },
+        {
+          "name": "arena",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "full",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "categories",
+          "type": "technical",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "testing",
+        "orchestration",
+        "knowledge",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\agent-arena.md"
+    },
+    {
+      "name": "/agent-profiles",
+      "filename": "agent-profiles",
+      "purpose": "- Show the current profiles for Claude, Codex, and GPT-4 in a machine-readable format.",
+      "usage": "- `python D:\\claude\\tools\\agent_profiles.py`\n\nOutput:\n- JSON describing each agent's role, strengths, and primary workspace.\n\nUsage:\n- Use this as a quick reference or as context attached to multi-agent prompts.",
+      "parameters": [
+        {
+          "name": "profiles",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "4",
+          "type": "in",
+          "description": ""
+        },
+        {
+          "name": "readable",
+          "type": "format",
+          "description": ""
+        },
+        {
+          "name": "agent",
+          "type": "prompts",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "orchestration"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\agent-profiles.md"
+    },
+    {
+      "name": "/analyze-custom-files",
+      "filename": "analyze-custom-files",
+      "purpose": "- Analyze Claude-related configuration across:\n  - `D:\\claude\\` (source of truth)\n  - `D:\\.claude\\` (legacy)\n  - `C:\\Users\\Ouroboros\\.claude\\` (runtime)\n- Produce a JSON summary of hooks, commands, tools, self-healing, and fitness.",
+      "usage": "",
+      "parameters": [
+        {
+          "name": "custom-files",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "related",
+          "type": "configuration",
+          "description": ""
+        },
+        {
+          "name": "healing",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "output-format",
+          "type": "json",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai-orchestrate",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "safe",
+          "type": "and",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/evolution-status",
+        "/multi-ai-orchestrate"
+      ],
+      "categories": [
+        "evolution",
+        "orchestration"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\analyze-custom-files.md"
+    },
+    {
+      "name": "/attach-security",
+      "filename": "attach-security",
+      "purpose": "- Dynamically attach the \"Security Red Teamer\" persona to the current session.\n- Gives the AI full knowledge of the adversarial-sentinel-nexus tools and a \"Red Team\" mindset.",
+      "usage": "- `python D:\\claude\\hooks\\attach_security_agent.py`\n\nOutput:\n- Injects the Security Red Teamer persona (from D:\\BMAD-METHOD\\bmad\\core\\agents\\security-red-teamer.md) into the system context.\n- Reports \"\ud83d\udd75\ufe0f\u200d\u2642\ufe0f Security Red Teamer Persona ATTACHED\".\n\nUsage:\n- Run when you need a deep security review, penetration test plan, or threat model.",
+      "parameters": [
+        {
+          "name": "security",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "sentinel-nexus",
+          "type": "tools",
+          "description": ""
+        },
+        {
+          "name": "METHOD",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "red-teamer",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "testing",
+        "security"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\attach-security.md"
+    },
+    {
+      "name": "/auto-chain",
+      "filename": "auto-chain",
+      "purpose": "",
+      "usage": "```\n/auto-chain [intent] [--iterations N] [--threshold SCORE]\n```",
+      "parameters": [
+        {
+          "name": "Recursive",
+          "type": "Chain",
+          "description": ""
+        },
+        {
+          "name": "improvement",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "intent",
+          "description": ""
+        },
+        {
+          "name": "iterations",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "threshold",
+          "type": "SCORE",
+          "description": ""
+        },
+        {
+          "name": "iterations",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "threshold",
+          "type": "SCORE",
+          "description": ""
+        },
+        {
+          "name": "dry-run",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-------------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----------------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "encoding-errors",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "smoke",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "diff",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "0",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "design",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "scan",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai-orchestrate",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "improvement",
+          "type": "chain",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "evolution",
+        "testing",
+        "orchestration",
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\auto-chain.md"
+    },
+    {
+      "name": "/auto-design",
+      "filename": "auto-design",
+      "purpose": "- Run the auto design analyzer to gather a comprehensive snapshot of system state and suggested design changes.",
+      "usage": "- `python D:\\scripts\\auto_design_analyzer.py`\n\nOutput:\n- JSON report containing:\n  - `contract`: current self-evolution contract.\n  - `latest_generation`: raw gen_latest.json contents.\n  - `generation_summary`: fitness trend and per-action stats for recent generations.\n  - `hook_errors`: clustered encoding and other hook error counts.\n  - `command_usage`: frequency of recent slash commands.\n  - `intent_map`: categorized themes from chat history.\n  - `change_plan`: suggested file-level changes from the planner.\n\nNotes:\n- This analyzer does not change code or config; it is intended as a high-signal input for Codex / GPT-4 and for your own review.",
+      "parameters": [
+        {
+          "name": "design",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "contract",
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "stats",
+          "description": ""
+        },
+        {
+          "name": "level",
+          "type": "changes",
+          "description": ""
+        },
+        {
+          "name": "signal",
+          "type": "input",
+          "description": ""
+        },
+        {
+          "name": "4",
+          "type": "and",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "evolution",
+        "testing"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\auto-design.md"
+    },
+    {
+      "name": "/auto-evolve",
+      "filename": "auto-evolve",
+      "purpose": "- Run an automated self-evolution generation using your contract and evolution bundle.",
+      "usage": "",
+      "parameters": [
+        {
+          "name": "evolve",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "generation",
+          "description": ""
+        },
+        {
+          "name": "apply-safe-actions",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "approved",
+          "type": "safe",
+          "description": ""
+        },
+        {
+          "name": "healer",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "4",
+          "type": "to",
+          "description": ""
+        },
+        {
+          "name": "smoke",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "to-end",
+          "type": "checks",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/e2e-smoke",
+        "/evolution-status",
+        "/evolution-summary"
+      ],
+      "categories": [
+        "evolution",
+        "testing",
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\auto-evolve.md"
+    },
+    {
+      "name": "/auto-pipeline",
+      "filename": "auto-pipeline",
+      "purpose": "- Run a full improvement loop in one command:\n  - Self-evolution bundle.\n  - Config drift details.\n  - Multi-AI orchestration with updated prompts.",
+      "usage": "- `python D:\\claude\\tools\\command_usage_logger.py --command /auto-pipeline`\n- `python D:\\claude\\tools\\auto_pipeline.py`\n\nOutput:\n- JSON bundle with:\n  - `self_evolve_bundle`\n  - `drift_details`\n  - `orchestration_summary`\n\nUsage:\n- Use this when you want one-shot analysis + orchestration without manually chaining commands.",
+      "parameters": [
+        {
+          "name": "pipeline",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "bundle",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "orchestration",
+          "description": ""
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "pipeline",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "shot",
+          "type": "analysis",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "evolution",
+        "orchestration"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\auto-pipeline.md"
+    },
+    {
+      "name": "/auto-recursive-chain-ai",
+      "filename": "auto-recursive-chain-ai",
+      "purpose": "- Auto-recursive, looping, chaining AI orchestrator that automatically chains all slash commands in recursive loops with intelligent decision-making.",
+      "usage": "```bash",
+      "parameters": [
+        {
+          "name": "recursive-chain-ai",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "recursive",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "making",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "max-iterations",
+          "type": "100",
+          "description": ""
+        },
+        {
+          "name": "fitness-threshold",
+          "type": "0",
+          "description": ""
+        },
+        {
+          "name": "cycles-only",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "max-iterations",
+          "type": "10",
+          "description": ""
+        },
+        {
+          "name": "making",
+          "type": "to",
+          "description": ""
+        },
+        {
+          "name": "Improvement",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "encoding-errors",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "smoke",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "diff",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "design",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "scan",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai-orchestrate",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "diff",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "probe",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "cycles",
+          "type": "for",
+          "description": ""
+        },
+        {
+          "name": "time",
+          "type": "logging",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "contract",
+          "description": "Command usage logger"
+        },
+        {
+          "name": "recursive",
+          "type": "chaining",
+          "description": ""
+        },
+        {
+          "name": "max-iterations",
+          "type": "50",
+          "description": ""
+        },
+        {
+          "name": "fitness-threshold",
+          "type": "0",
+          "description": ""
+        },
+        {
+          "name": "cycles-only",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "max-iterations",
+          "type": "5",
+          "description": ""
+        },
+        {
+          "name": "recursively",
+          "type": "looped",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/analyze-custom-files",
+        "/evolution-status"
+      ],
+      "categories": [
+        "evolution",
+        "testing",
+        "orchestration",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\auto-recursive-chain-ai.md"
+    },
+    {
+      "name": "/autorun-all",
+      "filename": "autorun-all",
+      "purpose": "- Continuously run the full auto-evolution loop (generation + summary + design analysis) according to the self-evolution contract.",
+      "usage": "- `D:\\scripts\\autorun_all.ps1 -ApplySafeActions`\n\nBehavior:\n- Reads `D:\\codex\\self_evolution_contract.json`:\n  - Honors `auto_loop_enabled` (exits if false).\n  - Uses `generation_interval_seconds` as the sleep interval when not overridden.\n- Each cycle:\n  - Runs `auto_evolve_generation.py` (with `--apply-safe-actions` if requested).\n  - Runs `summarize_generation.py` and prints the latest summary.\n  - Runs `auto_design_analyzer.py` and writes `D:\\MASTER_INDEX\\evolution\\design_latest.json`.\n\nFlags:\n- `-IntervalSeconds` to override the contract interval.\n- `-MaxCycles <n>` to run a fixed number of cycles and then exit.\n- `-ApplySafeActions` to enable contract-approved safe actions during each generation.\n\nNotes:\n- This script does not change the contract or code directly; it drives the existing evolution engine and analyzers in a loop.\n- Use `Ctrl+C` or set `auto_loop_enabled` to false in the contract to stop it.",
+      "parameters": [
+        {
+          "name": "all",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "loop",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "contract",
+          "description": ""
+        },
+        {
+          "name": "ApplySafeActions",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "apply-safe-actions",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "IntervalSeconds",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "MaxCycles",
+          "type": "n",
+          "description": ""
+        },
+        {
+          "name": "ApplySafeActions",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "approved",
+          "type": "safe",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "evolution",
+        "testing",
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\autorun-all.md"
+    },
+    {
+      "name": "/CHAIN-ALL-COMMANDS",
+      "filename": "CHAIN-ALL-COMMANDS",
+      "purpose": "",
+      "usage": "",
+      "parameters": [
+        {
+          "name": "Combine",
+          "type": "All",
+          "description": ""
+        },
+        {
+          "name": "Recursive",
+          "type": "Chain",
+          "description": ""
+        },
+        {
+          "name": "recursive",
+          "type": "chaining",
+          "description": ""
+        },
+        {
+          "name": "MaxIterations",
+          "type": "100",
+          "description": ""
+        },
+        {
+          "name": "FitnessThreshold",
+          "type": "0",
+          "description": ""
+        },
+        {
+          "name": "Background",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "recursive-chain-ai",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "probe",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "diff",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "dashboard",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Improvement",
+          "type": "string",
+          "description": "`/auto-recursive-chain-ai` - **Auto-recursive AI that chains ALL commands** (NEW!)"
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "generation",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "all",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "loop",
+          "description": "`/innovation-scan` - Generate innovation report with experiment suggestions"
+        },
+        {
+          "name": "AI",
+          "type": "Orchestration",
+          "description": "`/multi-ai-orchestrate` - Coordinate evolution across Claude, Codex, and GPT-4"
+        },
+        {
+          "name": "design",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "smoke",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "to-end",
+          "type": "smoke",
+          "description": ""
+        },
+        {
+          "name": "playwright",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "to-end",
+          "type": "testing",
+          "description": ""
+        },
+        {
+          "name": "encoding-errors",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "healer",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "run",
+          "type": "or",
+          "description": ""
+        },
+        {
+          "name": "scan",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "prepare",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "build-index",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "IDF",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "rag",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "index",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "level",
+          "type": "index",
+          "description": ""
+        },
+        {
+          "name": "overlaps",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "map",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "full",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "security",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "pipeline",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "plan",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "profiles",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "probe",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "MinFitness",
+          "type": "0",
+          "description": ""
+        },
+        {
+          "name": "diff",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "dashboard",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "encoding-errors",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "dry-run",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "encoding-errors",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "no-dry-run",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "to-end",
+          "type": "smoke",
+          "description": ""
+        },
+        {
+          "name": "smoke",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "Orchestration",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "design",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "coordination",
+          "description": ""
+        },
+        {
+          "name": "ai-orchestrate",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "scan",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "all",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ApplySafeActions",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "all",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "IntervalSeconds",
+          "type": "3600",
+          "description": ""
+        },
+        {
+          "name": "ApplySafeActions",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "all",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "MaxCycles",
+          "type": "5",
+          "description": ""
+        },
+        {
+          "name": "ApplySafeActions",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "prepare",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "build-index",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "rag",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "index",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "overlaps",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "map",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Deployment",
+          "type": "Validation",
+          "description": ""
+        },
+        {
+          "name": "probe",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "MinFitness",
+          "type": "0",
+          "description": ""
+        },
+        {
+          "name": "to-end",
+          "type": "smoke",
+          "description": ""
+        },
+        {
+          "name": "smoke",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "playwright",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "diff",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "dashboard",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Evolution",
+          "type": "Complete",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "Orchestration",
+          "description": ""
+        },
+        {
+          "name": "Recursive",
+          "type": "Chain",
+          "description": ""
+        },
+        {
+          "name": "recursive-chain-ai",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "smoke",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "to-end",
+          "type": "checks",
+          "description": "Run `/evolution-status` to see current fitness"
+        },
+        {
+          "name": "ai-orchestrate",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "prepare",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "build-index",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "all",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "output-format",
+          "type": "json",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "output-format",
+          "type": "json",
+          "description": ""
+        },
+        {
+          "name": "probe",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "OutputFormat",
+          "type": "json",
+          "description": ""
+        },
+        {
+          "name": "dashboard",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "output-format",
+          "type": "json",
+          "description": ""
+        },
+        {
+          "name": "scan",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "probe",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "encoding-errors",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "smoke",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "index",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "design",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai-orchestrate",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "all",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "design",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "probe",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "encoding-errors",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "smoke",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai-orchestrate",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "probe",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "smoke",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "scan",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "design",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "diff",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "probe",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "dashboard",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "work",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "design",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai-orchestrate",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "run",
+          "type": "modes",
+          "description": ""
+        },
+        {
+          "name": "encoding-errors",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "safe",
+          "type": "and",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/auto-recursive-chain-ai",
+        "/analyze-custom-files",
+        "/legacy",
+        "/runtime",
+        "/evolution-status",
+        "/health-probe",
+        "/fail",
+        "/config-diff",
+        "/production-dashboard",
+        "/auto-evolve",
+        "/self-evolve",
+        "/evolution-summary",
+        "/autorun-all",
+        "/innovation-scan",
+        "/multi-ai-orchestrate",
+        "/auto-design",
+        "/e2e-smoke",
+        "/e2e-playwright",
+        "/fix-encoding-errors",
+        "/junk-scan",
+        "/unused",
+        "/rag-prepare",
+        "/rag-build-index",
+        "/rag-query",
+        "/perf-rag",
+        "/project-index",
+        "/project-overlaps",
+        "/duplicate",
+        "/intent-map",
+        "/deploy-full",
+        "/attach-security",
+        "/sbom",
+        "/auto-pipeline",
+        "/experiments-plan",
+        "/system13",
+        "/agent-profiles"
+      ],
+      "categories": [
+        "evolution",
+        "testing",
+        "security",
+        "orchestration",
+        "knowledge",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\CHAIN-ALL-COMMANDS.md"
+    },
+    {
+      "name": "/chaos-evolve",
+      "filename": "chaos-evolve",
+      "purpose": "",
+      "usage": "```\n/chaos-evolve <query> [--iterations N] [--depth D] [--seed S]\n```",
+      "parameters": [
+        {
+          "name": "evolve",
+          "type": "query",
+          "description": ""
+        },
+        {
+          "name": "iterations",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "D",
+          "description": ""
+        },
+        {
+          "name": "seed",
+          "type": "S",
+          "description": ""
+        },
+        {
+          "name": "iterations",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "D",
+          "description": ""
+        },
+        {
+          "name": "seed",
+          "type": "S",
+          "description": ""
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "deterministic",
+          "type": "evolution",
+          "description": ""
+        },
+        {
+          "name": "degree",
+          "type": "rotation",
+          "description": ""
+        },
+        {
+          "name": "evolutions",
+          "type": "creating",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "iterations",
+          "type": "26",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "5",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "seed",
+          "type": "42",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/13",
+        "/oscillates",
+        "/stabilizes"
+      ],
+      "categories": [
+        "evolution",
+        "knowledge",
+        "templates",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\chaos-evolve.md"
+    },
+    {
+      "name": "/check-drift",
+      "filename": "check-drift",
+      "purpose": "** Early detection of configuration inconsistencies before they cause production issues\n\n---",
+      "usage": "** Type `/check-drift` to run drift detection",
+      "parameters": [
+        {
+          "name": "drift",
+          "type": "string",
+          "description": "Configuration Drift Monitoring"
+        },
+        {
+          "name": "of-truth",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "detailed",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "The",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "command",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "orchestration",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "drift",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "only",
+          "type": "changes",
+          "description": ""
+        },
+        {
+          "name": "2",
+          "type": "files",
+          "description": ""
+        },
+        {
+          "name": "10",
+          "type": "files",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "----------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "drift",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/automation_core",
+        "/claude",
+        "/tools",
+        "/config_diff",
+        "/removed",
+        "/modified",
+        "/medium",
+        "/high",
+        "/self-evolve",
+        "/scripts",
+        "/sync_claude",
+        "/command"
+      ],
+      "categories": [
+        "evolution",
+        "orchestration",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\check-drift.md"
+    },
+    {
+      "name": "/config-diff",
+      "filename": "config-diff",
+      "purpose": "**\nShow configuration drift between `D:\\claude\\` (source of truth) and `C:\\Users\\Ouroboros\\.claude\\` (runtime).\n\n**Innovation Idea #3: drift_awareness**\nConfig drift can erode production reliability. Regular use of this command helps maintain consistency.\n\n**What to run:**\n```bash\npython D:\\claude\\tools\\command_usage_logger.py --command /config-diff\npython D:\\claude\\tools\\config_diff.py\n```\n\n**Output:**\n- JSON with:\n  - `drift_files_count` - Number of files that differ\n  - `missing_in_runtime` - Files in source but not runtime\n  - `missing_in_source` - Files in runtime but not source\n  - `diverged` - Files that exist in both but have different content\n  - `hooks_out_of_sync` - Hook files specifically out of sync\n  - `commands_out_of_sync` - Command files specifically out of sync\n\n**When to use:**\n- Run this when fitness is unexpectedly low\n- Before running orchestration cycles\n- After making changes to source files\n- When behavior differs between environments\n\n**Quick fix:**\nIf drift is detected, run:\n```powershell\nD:\\scripts\\sync_claude.ps1\n```\n\n**Recommended cadence:**\n- Daily: Quick drift check\n- After significant changes: Full sync\n- Before deployments: Verify no drift",
+      "usage": "**\n```bash\npython D:\\claude\\tools\\command_usage_logger.py --command /config-diff\npython D:\\claude\\tools\\config_diff.py\n```\n\n**Output:**\n- JSON with:\n  - `drift_files_count` - Number of files that differ\n  - `missing_in_runtime` - Files in source but not runtime\n  - `missing_in_source` - Files in runtime but not source\n  - `diverged` - Files that exist in both but have different content\n  - `hooks_out_of_sync` - Hook files specifically out of sync\n  - `commands_out_of_sync` - Command files specifically out of sync\n\n**When to use:**\n- Run this when fitness is unexpectedly low\n- Before running orchestration cycles\n- After making changes to source files\n- When behavior differs between environments\n\n**Quick fix:**\nIf drift is detected, run:\n```powershell\nD:\\scripts\\sync_claude.ps1\n```\n\n**Recommended cadence:**\n- Daily: Quick drift check\n- After significant changes: Full sync\n- Before deployments: Verify no drift",
+      "parameters": [
+        {
+          "name": "diff",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "diff",
+          "type": "python",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "evolution",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\config-diff.md"
+    },
+    {
+      "name": "/consciousness-report",
+      "filename": "consciousness-report",
+      "purpose": "- Generate insights from Omni Cortex Tier 3 (Consciousness Layer)\n- Analyze decision patterns, calculate decision debt, provide recommendations",
+      "usage": "```bash\npython D:\\claude\\tools\\consciousness_report.py\n```\n\nOutput:\n- JSON report including:\n  - Total decisions logged\n  - Decision debt score (low-confidence decisions)\n  - Top tool usage patterns\n  - Confidence trends\n  - Actionable recommendations\n\nUsage:\n- Run after significant work sessions to understand decision patterns\n- Use to identify automation opportunities from repeated sequences\n- Monitor decision debt to maintain system health",
+      "parameters": [
+        {
+          "name": "report",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "confidence",
+          "type": "decisions",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "operations",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\consciousness-report.md"
+    },
+    {
+      "name": "/contract-adapt",
+      "filename": "contract-adapt",
+      "purpose": "- Inspect and optionally adapt the self-evolution contract based on recent generations.",
+      "usage": "",
+      "parameters": [
+        {
+          "name": "adapt",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "contract",
+          "description": ""
+        },
+        {
+          "name": "window",
+          "type": "5",
+          "description": ""
+        },
+        {
+          "name": "window",
+          "type": "5",
+          "description": ""
+        },
+        {
+          "name": "apply",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "success",
+          "description": ""
+        },
+        {
+          "name": "apply",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "evolution",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\contract-adapt.md"
+    },
+    {
+      "name": "/custom-ai-setup",
+      "filename": "custom-ai-setup",
+      "purpose": "",
+      "usage": "```bash\n/custom-ai-setup [command] [options]\n```",
+      "parameters": [
+        {
+          "name": "ai-setup",
+          "type": "Comprehensive",
+          "description": ""
+        },
+        {
+          "name": "ai-setup",
+          "type": "command",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "capability",
+          "type": "coding",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "time",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "stream",
+          "type": "https",
+          "description": ""
+        },
+        {
+          "name": "prompt",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "websocket",
+          "description": ""
+        },
+        {
+          "name": "Learning",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "record",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "analyze",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "healing",
+          "type": "python",
+          "description": ""
+        },
+        {
+          "name": "heal",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "report",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "train-routing",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "save",
+          "type": "model",
+          "description": ""
+        },
+        {
+          "name": "train-anomaly",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "load",
+          "type": "model",
+          "description": ""
+        },
+        {
+          "name": "predict",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "sniff",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "count",
+          "type": "500",
+          "description": ""
+        },
+        {
+          "name": "interface",
+          "type": "eth0",
+          "description": ""
+        },
+        {
+          "name": "merge",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "capability",
+          "type": "coding",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "discover",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "train",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "heal",
+          "type": "python",
+          "description": ""
+        },
+        {
+          "name": "heal",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "recommend",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "report",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "save",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Endpoint",
+          "type": "Orchestration",
+          "description": ""
+        },
+        {
+          "name": "Learning",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "learn",
+          "type": "patterns",
+          "description": ""
+        },
+        {
+          "name": "Healing",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "discover",
+          "type": "endpoints",
+          "description": ""
+        },
+        {
+          "name": "based",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "based",
+          "type": "response",
+          "description": ""
+        },
+        {
+          "name": "4",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "3",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "based",
+          "type": "AI",
+          "description": ""
+        },
+        {
+          "name": "time",
+          "type": "bidirectional",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "capability",
+          "type": "chat",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "capability",
+          "type": "chat",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "capability",
+          "type": "coding",
+          "description": ""
+        },
+        {
+          "name": "stream",
+          "type": "http",
+          "description": ""
+        },
+        {
+          "name": "prompt",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "optimize",
+          "type": "python",
+          "description": ""
+        },
+        {
+          "name": "train",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "heal",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/SSE",
+        "/HTTP",
+        "/api",
+        "/chat",
+        "/TLS",
+        "/v1",
+        "/localhost"
+      ],
+      "categories": [
+        "security",
+        "orchestration",
+        "knowledge",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\custom-ai-setup.md"
+    },
+    {
+      "name": "/custom-ai",
+      "filename": "custom-ai",
+      "purpose": "",
+      "usage": "```\n/custom-ai <query> [--endpoint ENDPOINT] [--discover]\n```",
+      "parameters": [
+        {
+          "name": "endpoint",
+          "type": "AI",
+          "description": ""
+        },
+        {
+          "name": "healing",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai",
+          "type": "query",
+          "description": ""
+        },
+        {
+          "name": "endpoint",
+          "type": "ENDPOINT",
+          "description": ""
+        },
+        {
+          "name": "discover",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "endpoint",
+          "type": "ENDPOINT",
+          "description": ""
+        },
+        {
+          "name": "discover",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "route",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "discovers",
+          "type": "and",
+          "description": ""
+        },
+        {
+          "name": "compatible",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "time",
+          "type": "response",
+          "description": ""
+        },
+        {
+          "name": "Healing",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "recovery",
+          "type": "from",
+          "description": ""
+        },
+        {
+          "name": "routing",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "discover",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "endpoint",
+          "type": "ollama",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "orchestration",
+        "knowledge",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\custom-ai.md"
+    },
+    {
+      "name": "/deep-research",
+      "filename": "deep-research",
+      "purpose": "",
+      "usage": "```bash\n/deep-research [query] [--algo ALGORITHM] [--depth LEVEL] [--nexus] [--save]\n```",
+      "parameters": [
+        {
+          "name": "research",
+          "type": "Deep",
+          "description": ""
+        },
+        {
+          "name": "research",
+          "type": "query",
+          "description": ""
+        },
+        {
+          "name": "algo",
+          "type": "ALGORITHM",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "LEVEL",
+          "description": ""
+        },
+        {
+          "name": "nexus",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "save",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "---------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "of-Thought",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "of-Verification",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "correcting",
+          "type": "with",
+          "description": ""
+        },
+        {
+          "name": "Perspective",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "aware",
+          "type": "reasoning",
+          "description": ""
+        },
+        {
+          "name": "domain",
+          "type": "insight",
+          "description": ""
+        },
+        {
+          "name": "-----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "--------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "---------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "algo",
+          "type": "tot",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "deep",
+          "description": ""
+        },
+        {
+          "name": "algo",
+          "type": "ensemble",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "ultrathink",
+          "description": ""
+        },
+        {
+          "name": "nexus",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "ultrathink",
+          "description": ""
+        },
+        {
+          "name": "algo",
+          "type": "ensemble",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "deep",
+          "description": ""
+        },
+        {
+          "name": "research",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "algo",
+          "type": "ensemble",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "ultrathink",
+          "description": ""
+        },
+        {
+          "name": "research",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "algo",
+          "type": "mps",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "exhaustive",
+          "description": ""
+        },
+        {
+          "name": "research",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "algo",
+          "type": "tca",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "deep",
+          "description": ""
+        },
+        {
+          "name": "research",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "algo",
+          "type": "rde",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "ultrathink",
+          "description": ""
+        },
+        {
+          "name": "research",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "algo",
+          "type": "sd",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "exhaustive",
+          "description": ""
+        },
+        {
+          "name": "Recursive",
+          "type": "Chain",
+          "description": ""
+        },
+        {
+          "name": "selected",
+          "type": "when",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "Orchestrate",
+          "description": ""
+        },
+        {
+          "name": "4",
+          "type": "planning",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "orchestration",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/How",
+        "/Present",
+        "/Future",
+        "/localhost",
+        "/api",
+        "/ultrathink",
+        "/think",
+        "/GPT-4"
+      ],
+      "categories": [
+        "evolution",
+        "security",
+        "orchestration",
+        "knowledge",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\deep-research.md"
+    },
+    {
+      "name": "/deploy-full",
+      "filename": "deploy-full",
+      "purpose": "- Run a full-stack deploy pipeline including health checks, RAG smoke tests, and artifact staging.",
+      "usage": "- `D:\\scripts\\full_stack_deploy.ps1`\n\nBehavior:\n- Builds the Nexus Rust workspace in release mode.\n- Runs the health probe and aborts on failure.\n- Runs a RAG smoke test (prepare, build, query) and aborts on failure.\n- Copies `nexus-*.exe` from `D:\\.claude\\automation\\nexus\\target\\release` into `D:\\deploy\\nexus`.\n\nFlags:\n- `-SkipBuild` to reuse an existing build.\n- `-SkipTests` to skip health and RAG checks (not recommended).",
+      "parameters": [
+        {
+          "name": "full",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "stack",
+          "type": "deploy",
+          "description": ""
+        },
+        {
+          "name": "SkipBuild",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "SkipTests",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "testing",
+        "knowledge",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\deploy-full.md"
+    },
+    {
+      "name": "/destiny",
+      "filename": "destiny",
+      "purpose": "",
+      "usage": "```\n/destiny <query> [--master] [--branch BRANCH] [--keywords] [--interactive]\n```",
+      "parameters": [
+        {
+          "name": "master",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "branch",
+          "type": "BRANCH",
+          "description": ""
+        },
+        {
+          "name": "keywords",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "interactive",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "master",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "branch",
+          "type": "BRANCH",
+          "description": ""
+        },
+        {
+          "name": "keywords",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "interactive",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "understand",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "challenge",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "create",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "transcend",
+          "description": ""
+        },
+        {
+          "name": "master",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "branch",
+          "type": "ultrathink_path",
+          "description": ""
+        },
+        {
+          "name": "interactive",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "keywords",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "master",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "security",
+        "orchestration",
+        "knowledge",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\destiny.md"
+    },
+    {
+      "name": "/e2e-playwright",
+      "filename": "e2e-playwright",
+      "purpose": "- Run the advanced Playwright E2E + visual testing suite.",
+      "usage": "- `D:\\scripts\\run_playwright_e2e.ps1`\n\nBehavior:\n- Uses the dedicated Playwright project at `D:\\playwright-visual-e2e-testing`:\n  - Uses `D:\\playwright-visual-e2e-testing\\playwright.config.ts`.\n  - Runs `npx playwright test` from that project root.\n\nProfiles:\n- `smoke` (fast, default for auto-evolution):\n  - Chromium only, tests tagged `@critical`.\n  - Invoked by auto-evolution via `run_playwright_e2e.ps1 -Profile smoke`.\n- `full` (default when running manually):\n  - Full browser matrix and all tests.\n- `visual`:\n  - Visual suite only (`tests/visual`).\n\nNotes:\n- When `run_playwright_e2e` is enabled under `safe_actions` in `D:\\codex\\self_evolution_contract.json`, the auto-evolution engine will trigger this script as part of its chained safe actions.\n- You can still run `/e2e-playwright` manually at any time for ad-hoc verification.",
+      "parameters": [
+        {
+          "name": "playwright",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "visual-e2e-testing",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "visual-e2e-testing",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "via",
+          "description": ""
+        },
+        {
+          "name": "Profile",
+          "type": "smoke",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "engine",
+          "description": ""
+        },
+        {
+          "name": "playwright",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "hoc",
+          "type": "verification",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/visual"
+      ],
+      "categories": [
+        "evolution",
+        "testing",
+        "orchestration"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\e2e-playwright.md"
+    },
+    {
+      "name": "/e2e-smoke",
+      "filename": "e2e-smoke",
+      "purpose": "- Run a fast end-to-end smoke test across core tools (analysis, healing, junk scan, RAG).",
+      "usage": "- `python D:\\scripts\\run_e2e_smoke.py`\n\nChecks:\n- System analysis JSON and fitness.\n- Encoding self-healer dry-run JSON.\n- Junk scan JSON output.\n- RAG prepare + build + query pipeline.\n\nOutput:\n- JSON summary with an `ok` status per check.\n\nTypical chain:\n- Run `/e2e-smoke` to ensure the stack is healthy end-to-end.\n- Run `/evolution-status` for fitness and evolution metrics.\n- Run `/auto-evolve` to record a generation and apply safe tools.",
+      "parameters": [
+        {
+          "name": "smoke",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "to-end",
+          "type": "smoke",
+          "description": ""
+        },
+        {
+          "name": "healer",
+          "type": "dry",
+          "description": ""
+        },
+        {
+          "name": "run",
+          "type": "JSON",
+          "description": ""
+        },
+        {
+          "name": "smoke",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "to-end",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/evolution-status",
+        "/auto-evolve"
+      ],
+      "categories": [
+        "evolution",
+        "testing",
+        "orchestration",
+        "knowledge",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\e2e-smoke.md"
+    },
+    {
+      "name": "/evolution-status",
+      "filename": "evolution-status",
+      "purpose": "- Report the current health and evolution status of the Claude + Codex system.",
+      "usage": "- First log usage:\n  - `python D:\\claude\\tools\\command_usage_logger.py --command /evolution-status`\n- Then run:\n  - `python D:\\claude\\tools\\evolution_status.py --output-format json`\n\nOutput:\n- `fitness_score` between 0.0 and 1.0\n- `has_hooks`\n- `has_self_healing`\n- `hooks_count`\n- `recent_hook_errors`\n- `generation` (gen1, gen2, or gen3)\n\nUsage:\n- Typical chained usage:\n  - First inspect config and health: `/analyze-custom-files`\n  - Then run the self-healer: `/fix-encoding-errors`\n  - Then call `/evolution-status` to see the new fitness and errors.\n  - For a deeper snapshot, follow with `/e2e-smoke` and `/auto-evolve`.",
+      "parameters": [
+        {
+          "name": "status",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "output-format",
+          "type": "json",
+          "description": ""
+        },
+        {
+          "name": "custom-files",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "healer",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "encoding-errors",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "smoke",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/analyze-custom-files",
+        "/fix-encoding-errors",
+        "/e2e-smoke",
+        "/auto-evolve"
+      ],
+      "categories": [
+        "evolution",
+        "testing",
+        "orchestration",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\evolution-status.md"
+    },
+    {
+      "name": "/evolution-summary",
+      "filename": "evolution-summary",
+      "purpose": "- Show a concise summary of the most recent auto-evolution generation.",
+      "usage": "- `python D:\\scripts\\summarize_generation.py`\n\nOutput:\n- JSON containing:\n  - `timestamp` of the generation\n  - `fitness`\n  - `hook_errors_total`\n  - `rag_perf` (ok, avg_ms)\n  - `applied_actions` with their success status",
+      "parameters": [
+        {
+          "name": "summary",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "generation",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "evolution",
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\evolution-summary.md"
+    },
+    {
+      "name": "/experiments-plan",
+      "filename": "experiments-plan",
+      "purpose": "- Show a simple, categorized experiments plan based on the latest innovation ideas.",
+      "usage": "- `python D:\\claude\\tools\\experiments_plan.py`\n\nOutput:\n- JSON with experiments grouped by category:\n  - `workflow`\n  - `orchestration`\n  - `experimentation`\n  - `reliability`\n  - `other`\n\nUsage:\n- Use this list when deciding what to try next; feed it into Codex or GPT-4 for concrete implementation steps.",
+      "parameters": [
+        {
+          "name": "plan",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "4",
+          "type": "for",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "testing"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\experiments-plan.md"
+    },
+    {
+      "name": "/feeling",
+      "filename": "feeling",
+      "purpose": "",
+      "usage": "```\n/feeling <thought> [--analyze] [--destiny] [--visualize]\n```",
+      "parameters": [
+        {
+          "name": "chained",
+          "type": "pattern",
+          "description": ""
+        },
+        {
+          "name": "analyze",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "destiny",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "visualize",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "analyze",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "destiny",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "weighted",
+          "type": "destiny",
+          "description": ""
+        },
+        {
+          "name": "visualize",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "---------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "---",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Chains",
+          "type": "string",
+          "description": "**Discovery**: doubt -> wonder -> intuition -> analysis -> wisdom"
+        },
+        {
+          "name": "CM-CH-CM-DH-EM-NM-RH",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "analyze",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "destiny",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "visualize",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "destiny",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "orchestration",
+        "templates"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\feeling.md"
+    },
+    {
+      "name": "/fix-encoding-errors",
+      "filename": "fix-encoding-errors",
+      "purpose": "- Run the encoding self-healer against the runtime Claude directory to reduce or eliminate encoding-related errors.",
+      "usage": "",
+      "parameters": [
+        {
+          "name": "encoding-errors",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "healer",
+          "type": "against",
+          "description": ""
+        },
+        {
+          "name": "related",
+          "type": "errors",
+          "description": ""
+        },
+        {
+          "name": "dry-run",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "no-dry-run",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "encoding-errors",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "dry",
+          "type": "run",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "utility"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\fix-encoding-errors.md"
+    },
+    {
+      "name": "/fusion",
+      "filename": "fusion",
+      "purpose": "",
+      "usage": "```\n/fusion \"query\" [options]\n```",
+      "parameters": [
+        {
+          "name": "strategy",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tools",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "separated",
+          "type": "tool",
+          "description": ""
+        },
+        {
+          "name": "order",
+          "type": "integration",
+          "description": "**cascade** - Feed output of one into next"
+        },
+        {
+          "name": "strategy",
+          "type": "synthesis",
+          "description": ""
+        },
+        {
+          "name": "strategy",
+          "type": "adversarial",
+          "description": ""
+        },
+        {
+          "name": "tools",
+          "type": "ultramind_x13",
+          "description": ""
+        },
+        {
+          "name": "strategy",
+          "type": "X",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/conflict",
+        "/synthesis",
+        "/cascade",
+        "/adversarial"
+      ],
+      "categories": [
+        "orchestration",
+        "knowledge",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\fusion.md"
+    },
+    {
+      "name": "/generation",
+      "filename": "generation",
+      "purpose": "",
+      "usage": "```\n/generation current\n/generation bump <level>\n/generation history\n/generation compare <gen1> <gen2>\n```",
+      "parameters": [
+        {
+          "name": "specific",
+          "type": "generation",
+          "description": ""
+        },
+        {
+          "name": "main",
+          "type": "branch",
+          "description": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "m",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "fitness",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "validate",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "dry-run",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "limit",
+          "type": "20",
+          "description": ""
+        },
+        {
+          "name": "source",
+          "type": "git",
+          "description": ""
+        },
+        {
+          "name": "limit",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Bumping",
+          "type": "Generations",
+          "description": ""
+        },
+        {
+          "name": "Healing",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Aware",
+          "type": "Versioning",
+          "description": ""
+        },
+        {
+          "name": "feature-name",
+          "type": "This",
+          "description": ""
+        },
+        {
+          "name": "bumping",
+          "type": "work",
+          "description": ""
+        },
+        {
+          "name": "bump",
+          "type": "on",
+          "description": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "fitness",
+          "type": "0",
+          "description": ""
+        },
+        {
+          "name": "validate",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "limit",
+          "type": "5",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "workflows",
+          "description": ""
+        },
+        {
+          "name": "bumps",
+          "type": "on",
+          "description": ""
+        },
+        {
+          "name": "healing",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "bumps",
+          "type": "on",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/evolution-status"
+      ],
+      "categories": [
+        "evolution",
+        "orchestration",
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\generation.md"
+    },
+    {
+      "name": "/health-probe",
+      "filename": "health-probe",
+      "purpose": "- Run a health snapshot of the Claude + Nexus stack and get a simple pass/fail based on fitness.",
+      "usage": "- `D:\\scripts\\health_probe.ps1 -MinFitness 0.6 -OutputFormat json`\n\nNotes:\n- Exit code 0 means overall fitness is at or above the threshold.\n- The JSON output includes fitness, locations, error stats, tool-safety stats, and recent hook errors.",
+      "parameters": [
+        {
+          "name": "probe",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "MinFitness",
+          "type": "0",
+          "description": ""
+        },
+        {
+          "name": "OutputFormat",
+          "type": "json",
+          "description": ""
+        },
+        {
+          "name": "safety",
+          "type": "stats",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/fail"
+      ],
+      "categories": [
+        "evolution",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\health-probe.md"
+    },
+    {
+      "name": "/hive",
+      "filename": "hive",
+      "purpose": "",
+      "usage": "",
+      "parameters": [
+        {
+          "name": "compaction",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "description": ""
+        },
+        {
+          "name": "keywords",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "age-threshold",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Critique",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Maintenance",
+          "type": "The",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "20",
+          "type": "per",
+          "description": ""
+        },
+        {
+          "name": "compact",
+          "type": "removing",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Refresh",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "evolution",
+        "testing",
+        "security",
+        "knowledge",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\hive.md"
+    },
+    {
+      "name": "/hypersense",
+      "filename": "hypersense",
+      "purpose": "",
+      "usage": "```\n/hypersense [action] [options]\n```",
+      "parameters": [
+        {
+          "name": "channel",
+          "type": "hypersense",
+          "description": ""
+        },
+        {
+          "name": "tool",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "t",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "channel",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "c",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "m",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "s",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tool",
+          "type": "queries",
+          "description": ""
+        },
+        {
+          "name": "tool",
+          "type": "my_tool",
+          "description": ""
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tool",
+          "type": "analyzer",
+          "description": ""
+        },
+        {
+          "name": "channel",
+          "type": "insight",
+          "description": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "channel",
+          "type": "sync",
+          "description": ""
+        },
+        {
+          "name": "tool",
+          "type": "id",
+          "description": ""
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tool",
+          "type": "id",
+          "description": ""
+        },
+        {
+          "name": "channel",
+          "type": "ch",
+          "description": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "channel",
+          "type": "ch",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/tension"
+      ],
+      "categories": [
+        "security",
+        "orchestration",
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\hypersense.md"
+    },
+    {
+      "name": "/innovation-scan",
+      "filename": "innovation-scan",
+      "purpose": "- Generate an innovation report with suggested experiments and upgrades.",
+      "usage": "- `python D:\\claude\\tools\\command_usage_logger.py --command /innovation-scan`\n- `python D:\\claude\\tools\\innovation_scan.py`\n\nOutput:\n- JSON including:\n  - `fitness`\n  - `usage_counts` (core commands)\n  - `ideas`: list of experiment suggestions with `id`, `category`, `description`, and `rationale`.\n\nUsage:\n- Use this when deciding what the next evolution wave should target.",
+      "parameters": [
+        {
+          "name": "scan",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "scan",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "evolution"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\innovation-scan.md"
+    },
+    {
+      "name": "/intent-map",
+      "filename": "intent-map",
+      "purpose": "- Summarize recent Claude chat history into thematic buckets (projects/tools, research, bugs, TODOs, etc.).",
+      "usage": "- `python D:\\scripts\\analyze_history_logs.py --output-format text`\n\nOutput:\n- Text or JSON summary describing counts and example snippets per category.\n\nNotes:\n- Source is `D:\\.claude\\history.jsonl`.\n- Use this to discover hidden patterns in what you are asking for over time.",
+      "parameters": [
+        {
+          "name": "map",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "output-format",
+          "type": "text",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/tools"
+      ],
+      "categories": [
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\intent-map.md"
+    },
+    {
+      "name": "/junk-scan",
+      "filename": "junk-scan",
+      "purpose": "- Recursively scan `D:\\` and heuristically identify candidate junk files and folders (temporary, build artefacts, large logs).",
+      "usage": "- `python D:\\claude\\tools\\junk_scan.py --output-format text`\n\nNotes:\n- This command NEVER deletes anything. It only reports likely junk candidates.\n- Review the output before deciding what to clean up manually or with a separate script.",
+      "parameters": [
+        {
+          "name": "scan",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "output-format",
+          "type": "text",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "utility"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\junk-scan.md"
+    },
+    {
+      "name": "/mega-auto",
+      "filename": "mega-auto",
+      "purpose": "",
+      "usage": ":\n\nJust use ABYSSAL[*] syntax anywhere in your prompt. The system will automatically:\n- Detect templates\n- Expand into execution trees\n- Spawn and fork agents\n- Execute concurrently\n- Synthesize results\n\nNo manual orchestration required. Pure autonomous execution.",
+      "parameters": [
+        {
+          "name": "expand",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "spawn",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "fork",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "synthesize",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "execution",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/consensus"
+      ],
+      "categories": [
+        "evolution",
+        "orchestration",
+        "templates"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\mega-auto.md"
+    },
+    {
+      "name": "/meshive",
+      "filename": "meshive",
+      "purpose": "",
+      "usage": "```\n/meshive <intent> [--topology] [--visualize] [--batch INTENTS]\n```",
+      "parameters": [
+        {
+          "name": "Topic",
+          "type": "Sub",
+          "description": ""
+        },
+        {
+          "name": "Nested",
+          "type": "Intent",
+          "description": ""
+        },
+        {
+          "name": "Layer",
+          "type": "System",
+          "description": ""
+        },
+        {
+          "name": "topology",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "visualize",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "batch",
+          "type": "INTENTS",
+          "description": ""
+        },
+        {
+          "name": "topology",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "visualize",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "batch",
+          "type": "INTENTS",
+          "description": ""
+        },
+        {
+          "name": "separated",
+          "type": "intents",
+          "description": "`--json`: Output JSON format"
+        },
+        {
+          "name": "based",
+          "type": "routing",
+          "description": ""
+        },
+        {
+          "name": "LAYERS",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Cutting",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "macro",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "level",
+          "type": "topic",
+          "description": ""
+        },
+        {
+          "name": "micro",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "cluster",
+          "type": "specialization",
+          "description": "cross-macro: Elite mesh connections"
+        },
+        {
+          "name": "LAYERS",
+          "type": "APPLIED",
+          "description": ""
+        },
+        {
+          "name": "topology",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "visualize",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "batch",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/micronode"
+      ],
+      "categories": [
+        "evolution",
+        "testing",
+        "security",
+        "orchestration",
+        "knowledge",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\meshive.md"
+    },
+    {
+      "name": "/multi-ai-orchestrate",
+      "filename": "multi-ai-orchestrate",
+      "purpose": "- Coordinate an evolution cycle across Claude, Codex, and GPT-4.",
+      "usage": "- First log usage:\n  - `python D:\\claude\\tools\\command_usage_logger.py --command /multi-ai-orchestrate`\n- Then run:\n  - `python D:\\claude\\tools\\multi_ai_orchestrate.py --output-json`\n\nExpected behavior:\n- Generate updated analysis and evolution status internally.\n- Produce filled prompt templates at:\n  - `D:\\codex\\codex_deep_analysis_filled.md`\n  - `D:\\codex\\gpt4_strategy_planner_filled.md`\n- Emit a JSON orchestration summary to stdout that includes:\n  - Fitness and generation.\n  - Paths to the filled prompt files.\n\nUsage:\n- After running this command:\n  - Use the Codex prompt file when working with Codex on `D:\\`.\n  - Use the GPT-4 prompt file when requesting higher-level strategy.",
+      "parameters": [
+        {
+          "name": "ai-orchestrate",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "4",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai-orchestrate",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "output-json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "4",
+          "type": "prompt",
+          "description": ""
+        },
+        {
+          "name": "level",
+          "type": "strategy",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "evolution",
+        "orchestration",
+        "templates"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\multi-ai-orchestrate.md"
+    },
+    {
+      "name": "/multi-websearch",
+      "filename": "multi-websearch",
+      "purpose": "- Use Claude in multiple parallel sessions (or tabs) to perform wide, deep web research on a topic and then merge the findings into a single synthesis.",
+      "usage": "",
+      "parameters": [
+        {
+          "name": "websearch",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "-------------------------------------",
+          "type": "string",
+          "description": "Topic: `$TOPIC`"
+        },
+        {
+          "name": "level",
+          "type": "landscape",
+          "description": ""
+        },
+        {
+          "name": "-------------------",
+          "type": "After",
+          "description": ""
+        },
+        {
+          "name": "session",
+          "type": "parallel",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/cons"
+      ],
+      "categories": [
+        "security",
+        "orchestration",
+        "knowledge",
+        "operations",
+        "templates"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\multi-websearch.md"
+    },
+    {
+      "name": "/neural-pin",
+      "filename": "neural-pin",
+      "purpose": "",
+      "usage": "```\n/neural-pin <action> [options]\n```",
+      "parameters": [
+        {
+          "name": "decide",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "pin",
+          "type": "action",
+          "description": ""
+        },
+        {
+          "name": "------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "decide",
+          "type": "current",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "type": "NAME",
+          "description": ""
+        },
+        {
+          "name": "thought",
+          "type": "TEXT",
+          "description": ""
+        },
+        {
+          "name": "pin-id",
+          "type": "ID",
+          "description": ""
+        },
+        {
+          "name": "trigger",
+          "type": "COND",
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "OPTS",
+          "description": ""
+        },
+        {
+          "name": "separated",
+          "type": "options",
+          "description": ""
+        },
+        {
+          "name": "visualize",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "levels",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "subfeeling_map",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "micro_events",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "future_tasks",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "child_pins",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "Preserves",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "Updates",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "Records",
+          "description": ""
+        },
+        {
+          "name": "DECIDE",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "Scores",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "Considers",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "Records",
+          "description": ""
+        },
+        {
+          "name": "pin",
+          "type": "pin",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "thought",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "pin",
+          "type": "jump",
+          "description": ""
+        },
+        {
+          "name": "pin-id",
+          "type": "pin_20251219_abc123",
+          "description": ""
+        },
+        {
+          "name": "pin",
+          "type": "queue",
+          "description": ""
+        },
+        {
+          "name": "thought",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "trigger",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "decide",
+          "type": "between",
+          "description": ""
+        },
+        {
+          "name": "pin",
+          "type": "decide",
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "pin",
+          "type": "check",
+          "description": ""
+        },
+        {
+          "name": "pin",
+          "type": "patterns",
+          "description": ""
+        },
+        {
+          "name": "pin",
+          "type": "status",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\neural-pin.md"
+    },
+    {
+      "name": "/nexus-think",
+      "filename": "nexus-think",
+      "purpose": "",
+      "usage": "```\n/nexus-think <query> [--depth DEPTH]\n```",
+      "parameters": [
+        {
+          "name": "of-thought",
+          "type": "reasoning",
+          "description": ""
+        },
+        {
+          "name": "think",
+          "type": "query",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "DEPTH",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "DEPTH",
+          "description": ""
+        },
+        {
+          "name": "nexus",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "of-thought",
+          "type": "with",
+          "description": ""
+        },
+        {
+          "name": "think",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "X",
+          "type": "POST",
+          "description": ""
+        },
+        {
+          "name": "H",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "d",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "health",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/15",
+        "/nexus-status",
+        "/localhost",
+        "/api",
+        "/ultrathink",
+        "/think",
+        "/json",
+        "/nexus-health"
+      ],
+      "categories": [
+        "knowledge",
+        "operations",
+        "templates",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\nexus-think.md"
+    },
+    {
+      "name": "/omega",
+      "filename": "omega",
+      "purpose": "",
+      "usage": "```\n/omega [action] [value]\n```",
+      "parameters": [
+        {
+          "name": "thought",
+          "type": "protocol",
+          "description": "`omega` - Direct omega transmission"
+        },
+        {
+          "name": "THOUGHT",
+          "type": "string",
+          "description": "SELF-GENERATING"
+        },
+        {
+          "name": "GENERATING",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\omega.md"
+    },
+    {
+      "name": "/omni-status",
+      "filename": "omni-status",
+      "purpose": "- Check Omni Cortex integration status\n- View which tiers are active\n- Monitor decision tracking health",
+      "usage": "```bash\npython D:\\claude\\tools\\omni_status.py\n```\n\nOutput:\n- Integration status (enabled/disabled)\n- Active tiers (1: Execution, 2: Relationship, 3: Consciousness)\n- Decision log statistics\n- Recent drift checks\n- Health metrics\n\nUsage:\n- Quick health check for Omni Cortex integration\n- Verify decision tracking is working\n- Monitor system integration health",
+      "parameters": [
+        {
+          "name": "status",
+          "type": "Purpose",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/disabled"
+      ],
+      "categories": [
+        "operations",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\omni-status.md"
+    },
+    {
+      "name": "/pattern-analyze",
+      "filename": "pattern-analyze",
+      "purpose": "",
+      "usage": "```\n/pattern-analyze [--quick] [--json] [--profile AGENT] [--patterns]\n```",
+      "parameters": [
+        {
+          "name": "analyze",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "quick",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "profile",
+          "type": "AGENT",
+          "description": ""
+        },
+        {
+          "name": "patterns",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "quick",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "profile",
+          "type": "AGENT",
+          "description": ""
+        },
+        {
+          "name": "patterns",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "analyze",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "analyze",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "quick",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "analyze",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "profile",
+          "type": "ultramind_x13",
+          "description": ""
+        },
+        {
+          "name": "analyze",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "patterns",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/failure",
+        "/anomaly",
+        "/slow",
+        "/5"
+      ],
+      "categories": [
+        "testing",
+        "knowledge",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\pattern-analyze.md"
+    },
+    {
+      "name": "/perf-rag",
+      "filename": "perf-rag",
+      "purpose": "- Measure RAG query latency and enforce a simple performance threshold.",
+      "usage": "- `python D:\\scripts\\perf_check_rag.py --query \"$QUERY\" --runs 3 --max-ms-per-query 1500`\n\nBehavior:\n- Ensures a RAG index exists (Rust `.npy` or Python `.pkl`).\n- Runs multiple queries and prints a JSON report with durations and `ok` status.",
+      "parameters": [
+        {
+          "name": "rag",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "runs",
+          "type": "3",
+          "description": ""
+        },
+        {
+          "name": "max-ms-per-query",
+          "type": "1500",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "orchestration",
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\perf-rag.md"
+    },
+    {
+      "name": "/production-dashboard",
+      "filename": "production-dashboard",
+      "purpose": "- Show a consolidated production dashboard for the Claude + Codex system.",
+      "usage": "- `python D:\\claude\\tools\\command_usage_logger.py --command /production-dashboard`\n- `python D:\\claude\\tools\\production_dashboard.py`\n\nOutput:\n- Human-readable text:\n  - Fitness\n  - Source/runtime hooks, commands, tools\n  - Recent command usage\n  - Recent evolution events\n  - Current innovation ideas\n- Optionally, JSON with `--output-format json`.\n\nUsage:\n- Use this as the primary status view before and after making changes.",
+      "parameters": [
+        {
+          "name": "dashboard",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "dashboard",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "readable",
+          "type": "text",
+          "description": ""
+        },
+        {
+          "name": "output-format",
+          "type": "json",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/runtime"
+      ],
+      "categories": [
+        "evolution",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\production-dashboard.md"
+    },
+    {
+      "name": "/project-index",
+      "filename": "project-index",
+      "purpose": "- Build a high-level index of all top-level projects under `D:\\` and write it to `D:\\MASTER_INDEX\\project_index.json`.",
+      "usage": "- `python D:\\claude\\tools\\project_indexer.py --write-index --output-format text`\n\nOutput:\n- Text summary of each project (name, path, languages, key markers).\n- JSON index persisted to `D:\\MASTER_INDEX\\project_index.json` for use by Codex or other tools.\n\nUsage:\n- Run this when you want an updated structural map of all projects and key files on `D:\\`.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "level",
+          "type": "index",
+          "description": ""
+        },
+        {
+          "name": "level",
+          "type": "projects",
+          "description": ""
+        },
+        {
+          "name": "write-index",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "output-format",
+          "type": "text",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\project-index.md"
+    },
+    {
+      "name": "/project-overlaps",
+      "filename": "project-overlaps",
+      "purpose": "- Scan all top-level projects under `D:\\` and detect overlapping or similar utilities across projects.",
+      "usage": "- `python D:\\claude\\tools\\project_overlap_scan.py --output-format text`\n\nOutput:\n- Text summary including:\n  - Basename overlaps (files with the same base name in multiple projects).\n  - Capability pattern hits (config diff, sync, health, pipeline, experiments).\n\nUsage:\n- Use this to spot common functionality that appears in multiple projects and decide what to consolidate into shared utilities.",
+      "parameters": [
+        {
+          "name": "overlaps",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "level",
+          "type": "projects",
+          "description": ""
+        },
+        {
+          "name": "output-format",
+          "type": "text",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "orchestration",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\project-overlaps.md"
+    },
+    {
+      "name": "/queue-tasks",
+      "filename": "queue-tasks",
+      "purpose": "",
+      "usage": "**\n```bash",
+      "parameters": [
+        {
+          "name": "-",
+          "type": "name",
+          "description": ""
+        },
+        {
+          "name": "tasks",
+          "type": "description",
+          "description": ""
+        },
+        {
+          "name": "launch",
+          "type": "in",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "Queue",
+          "description": ""
+        },
+        {
+          "name": "healing",
+          "type": "system",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "engine",
+          "description": ""
+        },
+        {
+          "name": "queue",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "launch",
+          "type": "only",
+          "description": ""
+        },
+        {
+          "name": "start",
+          "type": "hook",
+          "description": ""
+        },
+        {
+          "name": "auto_chain_resumer",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "testing",
+        "security",
+        "orchestration",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\queue-tasks.md"
+    },
+    {
+      "name": "/rag-build-index",
+      "filename": "rag-build-index",
+      "purpose": "- Build a TF-IDF + LSA index over the prepared RAG documents for fast semantic search.",
+      "usage": "- `python D:\\claude\\tools\\rag_build_index.py`\n\nOutput:\n- Pickled index at `D:\\MASTER_INDEX\\rag_index.pkl` ready for queries.",
+      "parameters": [
+        {
+          "name": "build-index",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "IDF",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\rag-build-index.md"
+    },
+    {
+      "name": "/rag-prepare",
+      "filename": "rag-prepare",
+      "purpose": "- Build a RAG corpus from research documents under `.claude` and `MASTER_INDEX`.",
+      "usage": "- `python D:\\claude\\tools\\rag_prepare_documents.py`\n\nOutput:\n- JSONL corpus at `D:\\MASTER_INDEX\\rag_documents.jsonl` with chunked research documents.",
+      "parameters": [
+        {
+          "name": "prepare",
+          "type": "Purpose",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\rag-prepare.md"
+    },
+    {
+      "name": "/rag-query",
+      "filename": "rag-query",
+      "purpose": "- Query the local RAG index built from your research documents.",
+      "usage": "- `python D:\\claude\\tools\\rag_query.py --query \"$QUERY\" --top-k 5`\n\nOutput:\n- Top-k matching chunks from your research corpus, including project, path, title, and section.",
+      "parameters": [
+        {
+          "name": "query",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "top-k",
+          "type": "5",
+          "description": ""
+        },
+        {
+          "name": "k",
+          "type": "matching",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\rag-query.md"
+    },
+    {
+      "name": "/record-movements",
+      "filename": "record-movements",
+      "purpose": "",
+      "usage": "Start the Recursive Movement Engine to capture your actions.",
+      "parameters": [
+        {
+          "name": "movements",
+          "type": "Record",
+          "description": ""
+        },
+        {
+          "name": "aggressive",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/failure",
+        "/site"
+      ],
+      "categories": [
+        "orchestration",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\record-movements.md"
+    },
+    {
+      "name": "/recursive-prompt",
+      "filename": "recursive-prompt",
+      "purpose": "",
+      "usage": "```\n/recursive-prompt <query> [--depth N] [--mode MODE]\n```",
+      "parameters": [
+        {
+          "name": "recursive",
+          "type": "prompts",
+          "description": ""
+        },
+        {
+          "name": "prompt",
+          "type": "query",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "MODE",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "MODE",
+          "description": ""
+        },
+        {
+          "name": "patterns",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "prompt",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "prompt",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "5",
+          "description": ""
+        },
+        {
+          "name": "prompt",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "patterns",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "generate",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "evolution",
+        "knowledge",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\recursive-prompt.md"
+    },
+    {
+      "name": "/remote-exec",
+      "filename": "remote-exec",
+      "purpose": "",
+      "usage": "```\n/remote-exec <command>\n```",
+      "parameters": [
+        {
+          "name": "exec",
+          "type": "Execute",
+          "description": ""
+        },
+        {
+          "name": "exec",
+          "type": "command",
+          "description": ""
+        },
+        {
+          "name": "exec",
+          "type": "uname",
+          "description": ""
+        },
+        {
+          "name": "a",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "exec",
+          "type": "cargo",
+          "description": ""
+        },
+        {
+          "name": "release",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "exec",
+          "type": "docker",
+          "description": ""
+        },
+        {
+          "name": "exec",
+          "type": "npm",
+          "description": ""
+        },
+        {
+          "name": "installed",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "testing"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\remote-exec.md"
+    },
+    {
+      "name": "/reverse-reason",
+      "filename": "reverse-reason",
+      "purpose": "",
+      "usage": "```\n/reverse-reason <conclusion> [--depth N] [--prompt] [--visualize]\n```",
+      "parameters": [
+        {
+          "name": "reason",
+          "type": "conclusion",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "prompt",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "visualize",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "prompt",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "visualize",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "perspectives",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "operations",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "---------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "--------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "PROSECUTOR",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "ARCHEOLOGIST",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "PROPHET",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "CHILD",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "ALIEN",
+          "description": ""
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "prompt",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "7",
+          "description": ""
+        },
+        {
+          "name": "visualize",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "perspectives",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "prompt",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\reverse-reason.md"
+    },
+    {
+      "name": "/sbom",
+      "filename": "sbom",
+      "purpose": "- Generate a simple local SBOM (software bill of materials) for Rust and Python components.",
+      "usage": "- `D:\\scripts\\generate_sbom.ps1`\n\nOutput:\n- `D:\\MASTER_INDEX\\sbom\\nexus_cargo_metadata.json` (Rust workspace)\n- `D:\\MASTER_INDEX\\sbom\\python_packages.json` (Python packages)\n\nNotes:\n- This is intended for local inspection and future CI gating, not for external upload.",
+      "parameters": [],
+      "dependencies": [],
+      "categories": [
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\sbom.md"
+    },
+    {
+      "name": "/security-review",
+      "filename": "security-review",
+      "purpose": "",
+      "usage": "",
+      "parameters": [
+        {
+          "name": "review",
+          "type": "Perform",
+          "description": ""
+        },
+        {
+          "name": "provided",
+          "type": "data",
+          "description": "[ ] No command injection vulnerabilities"
+        }
+      ],
+      "dependencies": [
+        "/msgpack",
+        "/json",
+        "/keys",
+        "/decompression"
+      ],
+      "categories": [
+        "testing",
+        "security"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\security-review.md"
+    },
+    {
+      "name": "/self-audit",
+      "filename": "self-audit",
+      "purpose": "",
+      "usage": "```\n/self-audit [--quick] [--json] [--check TOOL]\n```",
+      "parameters": [
+        {
+          "name": "Audit",
+          "type": "X13",
+          "description": ""
+        },
+        {
+          "name": "person",
+          "type": "maximum",
+          "description": ""
+        },
+        {
+          "name": "audit",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "quick",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "check",
+          "type": "TOOL",
+          "description": ""
+        },
+        {
+          "name": "quick",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "check",
+          "type": "TOOL",
+          "description": ""
+        },
+        {
+          "name": "help",
+          "type": "3",
+          "description": ""
+        },
+        {
+          "name": "10",
+          "type": "score",
+          "description": ""
+        },
+        {
+          "name": "runnable",
+          "type": "tools",
+          "description": ""
+        },
+        {
+          "name": "audit",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "audit",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "quick",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "audit",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "check",
+          "type": "ultramind_x13",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/tools",
+        "/22",
+        "/10"
+      ],
+      "categories": [
+        "security"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\self-audit.md"
+    },
+    {
+      "name": "/self-evolve",
+      "filename": "self-evolve",
+      "purpose": "",
+      "usage": "Simply type: `/self-evolve`\n\nThis will run all steps automatically and present a comprehensive evolution report.",
+      "parameters": [
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": "Complete Evolution Cycle"
+        },
+        {
+          "name": "to-end",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "orchestration",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "output-json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "Orchestration",
+          "description": ""
+        },
+        {
+          "name": "5",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "output-json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "5",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolve",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/automation_core",
+        "/claude",
+        "/tools",
+        "/analyze_custom_files",
+        "/evolution_status",
+        "/config_diff",
+        "/multi_ai_orchestrate",
+        "/GPT-5"
+      ],
+      "categories": [
+        "evolution",
+        "orchestration",
+        "operations",
+        "templates"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\self-evolve.md"
+    },
+    {
+      "name": "/spawn-template",
+      "filename": "spawn-template",
+      "purpose": "",
+      "usage": "",
+      "parameters": [],
+      "dependencies": [],
+      "categories": [
+        "templates"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\spawn-template.md"
+    },
+    {
+      "name": "/status",
+      "filename": "status",
+      "purpose": "",
+      "usage": "",
+      "parameters": [
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/evolution-status"
+      ],
+      "categories": [
+        "evolution",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\status.md"
+    },
+    {
+      "name": "/suggest-chain",
+      "filename": "suggest-chain",
+      "purpose": "",
+      "usage": "```\n/suggest-chain <message> [--quick] [--list]\n```",
+      "parameters": [
+        {
+          "name": "Suggest",
+          "type": "Chain",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "message",
+          "description": ""
+        },
+        {
+          "name": "quick",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "list",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "quick",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "line",
+          "type": "suggestion",
+          "description": ""
+        },
+        {
+          "name": "list",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "perspective",
+          "type": "comparison",
+          "description": ""
+        },
+        {
+          "name": "perspective",
+          "type": "analysis",
+          "description": ""
+        },
+        {
+          "name": "backed",
+          "type": "generation",
+          "description": ""
+        },
+        {
+          "name": "tool",
+          "type": "fast",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "quick",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "list",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/intent"
+      ],
+      "categories": [
+        "evolution",
+        "security",
+        "orchestration",
+        "knowledge",
+        "operations",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\suggest-chain.md"
+    },
+    {
+      "name": "/super-chain",
+      "filename": "super-chain",
+      "purpose": "",
+      "usage": "",
+      "parameters": [
+        {
+          "name": "AI",
+          "type": "Chain",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "orchestration",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "ORCHESTRATION",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "chain",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "5",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "5",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "5",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "5",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "up",
+          "type": "tasks",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/SIMPLE",
+        "/evolution-status",
+        "/improved"
+      ],
+      "categories": [
+        "evolution",
+        "testing",
+        "orchestration",
+        "operations",
+        "templates",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\super-chain.md"
+    },
+    {
+      "name": "/swarm",
+      "filename": "swarm",
+      "purpose": "",
+      "usage": "```\n/swarm [action] [options]\n```",
+      "parameters": [
+        {
+          "name": "count",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "cycles",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "count",
+          "type": "50",
+          "description": ""
+        },
+        {
+          "name": "cycles",
+          "type": "10",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "orchestration",
+        "templates"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\swarm.md"
+    },
+    {
+      "name": "/system13",
+      "filename": "system13",
+      "purpose": "",
+      "usage": "```bash",
+      "parameters": [
+        {
+          "name": "ending",
+          "type": "autonomous",
+          "description": ""
+        },
+        {
+          "name": "picture",
+          "type": "goal",
+          "description": ""
+        },
+        {
+          "name": "goal",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "goal",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "priority",
+          "type": "critical",
+          "description": ""
+        },
+        {
+          "name": "max-iterations",
+          "type": "10",
+          "description": ""
+        },
+        {
+          "name": "todowrite",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Ending",
+          "type": "Task",
+          "description": ""
+        },
+        {
+          "name": "Picture",
+          "type": "Planning",
+          "description": ""
+        },
+        {
+          "name": "level",
+          "type": "goals",
+          "description": ""
+        },
+        {
+          "name": "Parallel",
+          "type": "Execution",
+          "description": ""
+        },
+        {
+          "name": "time",
+          "type": "visibility",
+          "description": ""
+        },
+        {
+          "name": "goal",
+          "type": "Add",
+          "description": ""
+        },
+        {
+          "name": "picture",
+          "type": "goal",
+          "description": ""
+        },
+        {
+          "name": "time",
+          "type": "string",
+          "description": "Learns from execution patterns"
+        },
+        {
+          "name": "iterations",
+          "type": "specified",
+          "description": ""
+        },
+        {
+          "name": "todowrite",
+          "type": "Manually",
+          "description": ""
+        },
+        {
+          "name": "level",
+          "type": "coordination",
+          "description": ""
+        },
+        {
+          "name": "Critique",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "time",
+          "type": "task",
+          "description": ""
+        },
+        {
+          "name": "goal",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "time",
+          "type": "monitoring",
+          "description": ""
+        },
+        {
+          "name": "priority",
+          "type": "high",
+          "description": ""
+        },
+        {
+          "name": "15",
+          "type": "subtasks",
+          "description": ""
+        },
+        {
+          "name": "max-iterations",
+          "type": "50",
+          "description": ""
+        },
+        {
+          "name": "time",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "for",
+          "description": ""
+        },
+        {
+          "name": "initializes",
+          "type": "on",
+          "description": ""
+        },
+        {
+          "name": "approved",
+          "type": "Claude",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "security",
+        "orchestration",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\system13.md"
+    },
+    {
+      "name": "/tag-export",
+      "filename": "tag-export",
+      "purpose": "",
+      "usage": "```\n/tag-export --format <format> --output <file>\n```",
+      "parameters": [
+        {
+          "name": "export",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "format",
+          "type": "format",
+          "description": ""
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "description": ""
+        },
+        {
+          "name": "generated",
+          "type": "YARA",
+          "description": ""
+        },
+        {
+          "name": "export",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "format",
+          "type": "json",
+          "description": ""
+        },
+        {
+          "name": "output",
+          "type": "all_tags",
+          "description": ""
+        },
+        {
+          "name": "export",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "format",
+          "type": "stix",
+          "description": ""
+        },
+        {
+          "name": "output",
+          "type": "threat_iocs",
+          "description": ""
+        },
+        {
+          "name": "export",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "format",
+          "type": "yara",
+          "description": ""
+        },
+        {
+          "name": "output",
+          "type": "malware_rules",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "security"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\tag-export.md"
+    },
+    {
+      "name": "/tag-query",
+      "filename": "tag-query",
+      "purpose": "",
+      "usage": "```\n/tag-query <query_string>\n```",
+      "parameters": [
+        {
+          "name": "query",
+          "type": "query_string",
+          "description": ""
+        },
+        {
+          "name": "ml",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "sentinel",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ml",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "security",
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\tag-query.md"
+    },
+    {
+      "name": "/tag",
+      "filename": "tag",
+      "purpose": "",
+      "usage": "```\n/tag <file_or_directory> [options]\n```",
+      "parameters": [
+        {
+          "name": "detects",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "sentinel-nexus",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "recursive",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "intel",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "agent-orchestration",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ml",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolving-systems",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "sentinel",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ai-orchestration",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "workspace",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mismatch",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "ml",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "intel",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "export",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "format",
+          "type": "json",
+          "description": ""
+        },
+        {
+          "name": "output",
+          "type": "my_tags",
+          "description": ""
+        },
+        {
+          "name": "export",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "format",
+          "type": "stix",
+          "description": ""
+        },
+        {
+          "name": "output",
+          "type": "threat_intel",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/tag-query",
+        "/tag-export"
+      ],
+      "categories": [
+        "security",
+        "orchestration",
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\tag.md"
+    },
+    {
+      "name": "/thought-ecosystem",
+      "filename": "thought-ecosystem",
+      "purpose": "",
+      "usage": "```\n/thought-ecosystem [action] [options]\n```",
+      "parameters": [
+        {
+          "name": "ecosystem",
+          "type": "action",
+          "description": ""
+        },
+        {
+          "name": "count",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "ecosystem",
+          "type": "status",
+          "description": ""
+        },
+        {
+          "name": "ecosystem",
+          "type": "spawn",
+          "description": ""
+        },
+        {
+          "name": "ecosystem",
+          "type": "idea",
+          "description": ""
+        },
+        {
+          "name": "ecosystem",
+          "type": "cycle",
+          "description": ""
+        },
+        {
+          "name": "count",
+          "type": "10",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/creator",
+        "/destroyer",
+        "/synthesizer",
+        "/explorer",
+        "/guardian",
+        "/trickster",
+        "/oracle"
+      ],
+      "categories": [
+        "templates",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\thought-ecosystem.md"
+    },
+    {
+      "name": "/thought-sense",
+      "filename": "thought-sense",
+      "purpose": "",
+      "usage": "```\n/thought-sense <thought> [--introspect] [--trace ID] [--notices]\n```",
+      "parameters": [
+        {
+          "name": "cognitive",
+          "type": "introspection",
+          "description": ""
+        },
+        {
+          "name": "sense",
+          "type": "thought",
+          "description": ""
+        },
+        {
+          "name": "introspect",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "trace",
+          "type": "ID",
+          "description": ""
+        },
+        {
+          "name": "notices",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "introspect",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "trace",
+          "type": "ID",
+          "description": ""
+        },
+        {
+          "name": "notices",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "visualize",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "concept",
+          "type": "defending",
+          "description": ""
+        },
+        {
+          "name": "-------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-------------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "sense",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "introspect",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "sense",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "notices",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "sense",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "trace",
+          "type": "thought_20251219_abc123",
+          "description": ""
+        },
+        {
+          "name": "introspect",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\thought-sense.md"
+    },
+    {
+      "name": "/ultra-critic",
+      "filename": "ultra-critic",
+      "purpose": "",
+      "usage": "Review a file:\n```\n/ultra-critic D:\\path\\to\\file.py\n```\n\nReview a directory:\n```\n/ultra-critic D:\\path\\to\\directory\n```\n\nReview code inline:\n```\n/ultra-critic \"def foo(): return bar\"\n```",
+      "parameters": [
+        {
+          "name": "Harsh",
+          "type": "Critic",
+          "description": ""
+        },
+        {
+          "name": "-----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "click",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tab",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "critic",
+          "type": "D",
+          "description": ""
+        },
+        {
+          "name": "critic",
+          "type": "D",
+          "description": ""
+        },
+        {
+          "name": "critic",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "100",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "Execute",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/automation_core",
+        "/claude",
+        "/tools",
+        "/advanced_systems",
+        "/100"
+      ],
+      "categories": [
+        "testing",
+        "security",
+        "orchestration",
+        "knowledge"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\ultra-critic.md"
+    },
+    {
+      "name": "/ultramind-x13",
+      "filename": "ultramind-x13",
+      "purpose": "",
+      "usage": "```bash",
+      "parameters": [
+        {
+          "name": "x13",
+          "type": "Global",
+          "description": ""
+        },
+        {
+          "name": "analysis",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "worked",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "analysis",
+          "type": "of",
+          "description": ""
+        },
+        {
+          "name": "each",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "list",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "lists",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "multipov",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "unthink",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "why",
+          "description": ""
+        },
+        {
+          "name": "worked",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "outcome",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "until",
+          "description": ""
+        },
+        {
+          "name": "each",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "items",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "mega",
+          "description": ""
+        },
+        {
+          "name": "items",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "micro",
+          "description": ""
+        },
+        {
+          "name": "X13",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "Unthink",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "----",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "---------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "built",
+          "type": "dimensional",
+          "description": ""
+        },
+        {
+          "name": "to-have",
+          "type": "string",
+          "description": "Confidence: Certain / Probable / Possible / Unlikely"
+        },
+        {
+          "name": "add-perspective",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "list-perspectives",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "x13",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "full",
+          "description": ""
+        },
+        {
+          "name": "x13",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "multipov",
+          "description": ""
+        },
+        {
+          "name": "x13",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "unthink",
+          "description": ""
+        },
+        {
+          "name": "x13",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "why",
+          "description": ""
+        },
+        {
+          "name": "worked",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "outcome",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "x13",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "mega",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/inverse",
+        "/symmetry"
+      ],
+      "categories": [
+        "evolution",
+        "orchestration",
+        "knowledge",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\ultramind-x13.md"
+    },
+    {
+      "name": "/ultrathink-execute",
+      "filename": "ultrathink-execute",
+      "purpose": "",
+      "usage": "```\n/ultrathink-execute [--dry-run] [--phase N] [--max-tasks N]\n```",
+      "parameters": [
+        {
+          "name": "execute",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "dry-run",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "phase",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "max-tasks",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "dry-run",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "phase",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "max-tasks",
+          "type": "N",
+          "description": ""
+        },
+        {
+          "name": "Evolve",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "executor",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "executor",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "dry-run",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/phase"
+      ],
+      "categories": [
+        "evolution",
+        "cognition"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\ultrathink-execute.md"
+    },
+    {
+      "name": "/unified-multi-ai",
+      "filename": "unified-multi-ai",
+      "purpose": "- Intelligently orchestrate multiple AIs using the best available method",
+      "usage": "```bash",
+      "parameters": [
+        {
+          "name": "multi-ai",
+          "type": "Purpose",
+          "description": ""
+        },
+        {
+          "name": "integrated",
+          "type": "orchestration",
+          "description": ""
+        },
+        {
+          "name": "paste",
+          "type": "string",
+          "description": "Provides setup guidance"
+        },
+        {
+          "name": "detect",
+          "type": "best",
+          "description": ""
+        },
+        {
+          "name": "check",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "setup",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "api",
+          "description": ""
+        },
+        {
+          "name": "mode",
+          "type": "prompts",
+          "description": ""
+        },
+        {
+          "name": "cycles",
+          "type": "5",
+          "description": ""
+        },
+        {
+          "name": "AI",
+          "type": "coordination",
+          "description": "GPT-4/GPT-5.1 responds automatically"
+        },
+        {
+          "name": "paste",
+          "type": "to",
+          "description": ""
+        }
+      ],
+      "dependencies": [
+        "/GPT-5"
+      ],
+      "categories": [
+        "evolution",
+        "orchestration",
+        "templates"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\unified-multi-ai.md"
+    },
+    {
+      "name": "/workflow",
+      "filename": "workflow",
+      "purpose": "",
+      "usage": "```bash",
+      "parameters": [
+        {
+          "name": "step",
+          "type": "workflows",
+          "description": ""
+        },
+        {
+          "name": "chained",
+          "type": "commands",
+          "description": ""
+        },
+        {
+          "name": "workflow",
+          "type": "health",
+          "description": ""
+        },
+        {
+          "name": "check",
+          "type": "python",
+          "description": ""
+        },
+        {
+          "name": "workflow",
+          "type": "full",
+          "description": ""
+        },
+        {
+          "name": "heal",
+          "type": "python",
+          "description": ""
+        },
+        {
+          "name": "workflow",
+          "type": "pre",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "python",
+          "description": ""
+        },
+        {
+          "name": "workflow",
+          "type": "daily",
+          "description": ""
+        },
+        {
+          "name": "maintenance",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "--------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "-----------",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "check",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "heal",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "evolution",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "maintenance",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "json",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "quiet",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "dependencies": [],
+      "categories": [
+        "evolution",
+        "orchestration",
+        "operations"
+      ],
+      "file_path": "C:\\automation_core\\claude\\commands\\workflow.md"
+    }
+  ],
+  "taxonomy": {
+    "testing": [
+      "/abyssal",
+      "/adversarial",
+      "/agent-arena",
+      "/attach-security",
+      "/auto-chain",
+      "/auto-design",
+      "/auto-evolve",
+      "/auto-recursive-chain-ai",
+      "/autorun-all",
+      "/CHAIN-ALL-COMMANDS",
+      "/deploy-full",
+      "/e2e-playwright",
+      "/e2e-smoke",
+      "/evolution-status",
+      "/experiments-plan",
+      "/hive",
+      "/meshive",
+      "/pattern-analyze",
+      "/queue-tasks",
+      "/remote-exec",
+      "/security-review",
+      "/super-chain",
+      "/ultra-critic"
+    ],
+    "security": [
+      "/abyssal",
+      "/attach-security",
+      "/CHAIN-ALL-COMMANDS",
+      "/custom-ai-setup",
+      "/deep-research",
+      "/destiny",
+      "/hive",
+      "/hypersense",
+      "/meshive",
+      "/multi-websearch",
+      "/queue-tasks",
+      "/security-review",
+      "/self-audit",
+      "/suggest-chain",
+      "/system13",
+      "/tag-export",
+      "/tag-query",
+      "/tag",
+      "/ultra-critic"
+    ],
+    "orchestration": [
+      "/abyssal",
+      "/agent-arena",
+      "/agent-profiles",
+      "/analyze-custom-files",
+      "/auto-chain",
+      "/auto-pipeline",
+      "/auto-recursive-chain-ai",
+      "/CHAIN-ALL-COMMANDS",
+      "/check-drift",
+      "/custom-ai-setup",
+      "/custom-ai",
+      "/deep-research",
+      "/destiny",
+      "/e2e-playwright",
+      "/e2e-smoke",
+      "/evolution-status",
+      "/feeling",
+      "/fusion",
+      "/generation",
+      "/hypersense",
+      "/mega-auto",
+      "/meshive",
+      "/multi-ai-orchestrate",
+      "/multi-websearch",
+      "/perf-rag",
+      "/project-overlaps",
+      "/queue-tasks",
+      "/record-movements",
+      "/self-evolve",
+      "/suggest-chain",
+      "/super-chain",
+      "/swarm",
+      "/system13",
+      "/tag",
+      "/ultra-critic",
+      "/ultramind-x13",
+      "/unified-multi-ai",
+      "/workflow"
+    ],
+    "templates": [
+      "/abyssal",
+      "/chaos-evolve",
+      "/feeling",
+      "/mega-auto",
+      "/multi-ai-orchestrate",
+      "/multi-websearch",
+      "/nexus-think",
+      "/self-evolve",
+      "/spawn-template",
+      "/super-chain",
+      "/swarm",
+      "/thought-ecosystem",
+      "/unified-multi-ai"
+    ],
+    "knowledge": [
+      "/agent-arena",
+      "/auto-chain",
+      "/auto-evolve",
+      "/autorun-all",
+      "/CHAIN-ALL-COMMANDS",
+      "/chaos-evolve",
+      "/custom-ai-setup",
+      "/custom-ai",
+      "/deep-research",
+      "/deploy-full",
+      "/destiny",
+      "/e2e-smoke",
+      "/evolution-summary",
+      "/fusion",
+      "/generation",
+      "/hive",
+      "/hypersense",
+      "/intent-map",
+      "/meshive",
+      "/multi-websearch",
+      "/neural-pin",
+      "/nexus-think",
+      "/pattern-analyze",
+      "/perf-rag",
+      "/project-index",
+      "/rag-build-index",
+      "/rag-prepare",
+      "/rag-query",
+      "/recursive-prompt",
+      "/sbom",
+      "/suggest-chain",
+      "/tag-query",
+      "/tag",
+      "/ultra-critic",
+      "/ultramind-x13"
+    ],
+    "cognition": [
+      "/agent-arena",
+      "/chaos-evolve",
+      "/consciousness-report",
+      "/contract-adapt",
+      "/deep-research",
+      "/destiny",
+      "/fusion",
+      "/meshive",
+      "/nexus-think",
+      "/omega",
+      "/omni-status",
+      "/pattern-analyze",
+      "/recursive-prompt",
+      "/reverse-reason",
+      "/suggest-chain",
+      "/super-chain",
+      "/thought-ecosystem",
+      "/thought-sense",
+      "/ultramind-x13",
+      "/ultrathink-execute"
+    ],
+    "evolution": [
+      "/analyze-custom-files",
+      "/auto-chain",
+      "/auto-design",
+      "/auto-evolve",
+      "/auto-pipeline",
+      "/auto-recursive-chain-ai",
+      "/autorun-all",
+      "/CHAIN-ALL-COMMANDS",
+      "/chaos-evolve",
+      "/check-drift",
+      "/config-diff",
+      "/contract-adapt",
+      "/deep-research",
+      "/e2e-playwright",
+      "/e2e-smoke",
+      "/evolution-status",
+      "/evolution-summary",
+      "/generation",
+      "/health-probe",
+      "/hive",
+      "/innovation-scan",
+      "/mega-auto",
+      "/meshive",
+      "/multi-ai-orchestrate",
+      "/production-dashboard",
+      "/recursive-prompt",
+      "/self-evolve",
+      "/status",
+      "/suggest-chain",
+      "/super-chain",
+      "/ultramind-x13",
+      "/ultrathink-execute",
+      "/unified-multi-ai",
+      "/workflow"
+    ],
+    "operations": [
+      "/auto-recursive-chain-ai",
+      "/CHAIN-ALL-COMMANDS",
+      "/check-drift",
+      "/config-diff",
+      "/consciousness-report",
+      "/custom-ai-setup",
+      "/custom-ai",
+      "/deploy-full",
+      "/e2e-smoke",
+      "/evolution-status",
+      "/health-probe",
+      "/hive",
+      "/multi-websearch",
+      "/nexus-think",
+      "/omni-status",
+      "/production-dashboard",
+      "/project-overlaps",
+      "/queue-tasks",
+      "/record-movements",
+      "/self-evolve",
+      "/status",
+      "/suggest-chain",
+      "/super-chain",
+      "/system13",
+      "/workflow"
+    ],
+    "utility": [
+      "/fix-encoding-errors",
+      "/junk-scan"
+    ]
+  },
+  "dependency_graph": {
+    "/analyze-custom-files": [
+      "/evolution-status",
+      "/multi-ai-orchestrate"
+    ],
+    "/auto-evolve": [
+      "/e2e-smoke",
+      "/evolution-status",
+      "/evolution-summary"
+    ],
+    "/auto-recursive-chain-ai": [
+      "/analyze-custom-files",
+      "/evolution-status"
+    ],
+    "/CHAIN-ALL-COMMANDS": [
+      "/auto-recursive-chain-ai",
+      "/analyze-custom-files",
+      "/evolution-status",
+      "/health-probe",
+      "/config-diff",
+      "/production-dashboard",
+      "/auto-evolve",
+      "/self-evolve",
+      "/evolution-summary",
+      "/autorun-all",
+      "/innovation-scan",
+      "/multi-ai-orchestrate",
+      "/auto-design",
+      "/e2e-smoke",
+      "/e2e-playwright",
+      "/fix-encoding-errors",
+      "/junk-scan",
+      "/rag-prepare",
+      "/rag-build-index",
+      "/rag-query",
+      "/perf-rag",
+      "/project-index",
+      "/project-overlaps",
+      "/intent-map",
+      "/deploy-full",
+      "/attach-security",
+      "/sbom",
+      "/auto-pipeline",
+      "/experiments-plan",
+      "/system13",
+      "/agent-profiles"
+    ],
+    "/check-drift": [
+      "/self-evolve"
+    ],
+    "/e2e-smoke": [
+      "/evolution-status",
+      "/auto-evolve"
+    ],
+    "/evolution-status": [
+      "/analyze-custom-files",
+      "/fix-encoding-errors",
+      "/e2e-smoke",
+      "/auto-evolve"
+    ],
+    "/fusion": [
+      "/adversarial"
+    ],
+    "/generation": [
+      "/evolution-status"
+    ],
+    "/status": [
+      "/evolution-status"
+    ],
+    "/super-chain": [
+      "/evolution-status"
+    ],
+    "/tag": [
+      "/tag-query",
+      "/tag-export"
+    ]
+  },
+  "stats": {
+    "total_commands": 79,
+    "total_categories": 9,
+    "commands_with_dependencies": 12,
+    "commands_with_parameters": 77
+  }
+}
