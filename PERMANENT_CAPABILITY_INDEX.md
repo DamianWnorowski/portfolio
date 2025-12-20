@@ -18,7 +18,7 @@ This is the complete, permanent record of everything. Each document serves a spe
      - Every available slash command with description
      - Development tools (modern-stack, type-safety, testing)
      - Advanced orchestration (auto-chain, swarm, multi-AI)
-     - BMAD team agents (analyst, architect, dev, PM, QA)
+     - Supriseme team agents (analyst, architect, dev, PM, QA)
      - System monitoring (health-probe, production-dashboard)
      - Memory & persistence (hive, neural-pin, tag)
    - **Usage**: Consult when you need a capability

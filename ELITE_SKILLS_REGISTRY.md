@@ -100,7 +100,7 @@
 - `/tag-export` - Export tagged items
 - `/neural-pin` - Neural pin memory
 
-### Elite BMAD Agents (Team Orchestration)
+### Elite Supriseme Agents (Team Orchestration)
 - `/analyst` - Data analyst persona
 - `/architect` - System architect persona
 - `/dev` - Developer persona
@@ -109,8 +109,8 @@
 - `/qa` - QA engineer persona
 - `/sm` - Scrum master persona
 - `/ux-expert` - UX designer persona
-- `/bmad-master` - Master orchestrator
-- `/bmad-orchestrator` - Full team orchestration
+- `/supriseme-master` - Master orchestrator
+- `/supriseme-orchestrator` - Full team orchestration
 
 ### Advanced Tasks
 - `/brownfield-create-epic` - Create epic from brownfield
@@ -360,7 +360,7 @@
 | Multi-AI strategy | `/multi-ai-orchestrate` |
 | Deep analysis | `/deep-research` + Codex |
 | Fast iteration | `/auto-chain` (recursive) |
-| Team coordination | `/bmad-master` + agents |
+| Team coordination | `/supriseme-master` + agents |
 | System health | `/health-probe` + `/evolution-status` |
 | Code quality | `/security-review` + `/sbom` |
 | Deployment | `/deployment` skill |

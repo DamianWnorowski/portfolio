@@ -14,7 +14,7 @@ We've created a **permanent, git-backed capability storage system** that ensures
 
 #### 1. **ELITE_SKILLS_REGISTRY.md**
 - **80+ slash commands** documented and cataloged
-- All BMAD agents (analyst, architect, dev, PM, QA, etc.)
+- All Supriseme agents (analyst, architect, dev, PM, QA, etc.)
 - All orchestration skills (auto-chain, swarm, multi-AI)
 - All system commands
 - ✅ **Always available** at session start

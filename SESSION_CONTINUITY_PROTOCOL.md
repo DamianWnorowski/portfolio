@@ -203,7 +203,7 @@ These MUST be available every session:
 - ✅ `/deployment` - App deployment
 - ✅ `/testing-suite` - Test automation
 - ✅ `/security-review` - Security audit
-- ✅ BMAD agents - Team orchestration
+- ✅ Supriseme agents - Team orchestration
 
 ---
 
