@@ -37,6 +37,12 @@ import { audioService } from './services/AudioService.js';
 import { initAccessibility } from './utils/accessibility.js';
 import { injectStructuredData as initSEO } from './utils/seo.js';
 import { ScrollAnimations } from './utils/scrollAnimations.js';
+import { SecurityHeadersConfig } from './utils/ConfigureSecurityHeaders.js';
+
+// Observability
+import { logger } from './services/Logger.js';
+import { metrics } from './services/MetricsCollector.js';
+import { errorTracker } from './services/ErrorTracker.js';
 
 class KaizenElite {
     constructor() {
@@ -49,6 +55,13 @@ class KaizenElite {
         if (this.isDev) console.log('[KAIZEN] Initializing Executive Terminal v13...');
 
         try {
+            // Initialize security headers
+            SecurityHeadersConfig.init();
+
+            // Initialize observability
+            logger.info('Initializing KAIZEN Elite', { version: 'v13' });
+            const bootTimer = metrics.startTimer('app.boot');
+
             // Show loading screen
             const loadingScreen = new LoadingScreen();
             this.components.set('loading', loadingScreen);
@@ -84,10 +97,18 @@ class KaizenElite {
             this.isInitialized = true;
             if (this.isDev) console.log('[KAIZEN] Executive Terminal ready.');
 
+            // Record boot completion
+            metrics.endTimer(bootTimer, { status: 'success' });
+            metrics.incrementCounter('app.boots', 1);
+            logger.info('KAIZEN Elite initialized successfully', { bootTime: metrics.getHistogramStats('app.boot') });
+
             // Play boot sound
             audioService.play('boot');
 
         } catch (error) {
+            metrics.incrementCounter('app.boot_errors', 1);
+            errorTracker.captureError(error, { source: 'app_init' });
+            logger.error('Initialization failed', error, { version: 'v13' });
             if (this.isDev) console.error('[KAIZEN] Initialization failed:', error);
         }
     }

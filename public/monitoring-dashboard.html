@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaizen Elite - Production Monitoring Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #00ff88;
+            overflow-x: hidden;
+        }
+
+        .dashboard {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .status-indicator {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.healthy {
+            background: #00ff88;
+            box-shadow: 0 0 10px #00ff88;
+        }
+
+        .status-dot.degraded {
+            background: #ffaa00;
+            box-shadow: 0 0 10px #ffaa00;
+            animation: pulse-warning 1s infinite;
+        }
+
+        .status-dot.unhealthy {
+            background: #ff0055;
+            box-shadow: 0 0 10px #ff0055;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes pulse-warning {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .timestamp {
+            color: #00aaff;
+            font-size: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 20px;
+            background: rgba(0, 255, 136, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #00aaff;
+            background: rgba(0, 170, 255, 0.05);
+        }
+
+        .card-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            color: #00aaff;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .metric-label {
+            color: #888;
+            font-size: 12px;
+        }
+
+        .metric-value {
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .metric-unit {
+            color: #666;
+            font-size: 10px;
+            margin-left: 5px;
+        }
+
+        .chart-container {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .bar {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+
+        .bar-label {
+            width: 80px;
+            font-size: 11px;
+            color: #888;
+        }
+
+        .bar-value {
+            flex: 1;
+            height: 20px;
+            background: linear-gradient(90deg, rgba(0, 255, 136, 0.3), rgba(0, 170, 255, 0.3));
+            border-radius: 4px;
+            margin: 0 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-value::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00aaff);
+            animation: grow 1s ease-out;
+        }
+
+        @keyframes grow {
+            from { width: 0; }
+            to { width: var(--width, 50%); }
+        }
+
+        .bar-percent {
+            width: 40px;
+            text-align: right;
+            font-size: 11px;
+            color: #00ff88;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .table th {
+            border-bottom: 2px solid #00ff88;
+            padding: 10px;
+            text-align: left;
+            font-size: 12px;
+            color: #00aaff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .table td {
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .table tr:hover {
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .alert {
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .alert.error {
+            border-color: #ff0055;
+            background: rgba(255, 0, 85, 0.1);
+            color: #ff6688;
+        }
+
+        .alert.warning {
+            border-color: #ffaa00;
+            background: rgba(255, 170, 0, 0.1);
+            color: #ffbb55;
+        }
+
+        .alert.info {
+            border-color: #00aaff;
+            background: rgba(0, 170, 255, 0.1);
+            color: #55ddff;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .refresh-button {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-button:hover {
+            background: rgba(0, 255, 136, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 11px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(0, 255, 136, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <div>
+                <h1>⚡ KAIZEN ELITE - PRODUCTION MONITORING</h1>
+                <p class="timestamp" id="timestamp"></p>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot healthy" id="status-dot"></div>
+                <span id="status-text">HEALTHY</span>
+                <button class="refresh-button" onclick="refreshDashboard()">REFRESH</button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- System Health Card -->
+            <div class="card">
+                <div class="card-title">System Health</div>
+                <div class="metric">
+                    <span class="metric-label">Status</span>
+                    <span class="metric-value" id="health-status">HEALTHY</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Uptime</span>
+                    <span class="metric-value"><span id="uptime">0</span><span class="metric-unit">hrs</span></span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Memory Usage</span>
+                    <span class="metric-value"><span id="memory">0</span><span class="metric-unit">MB</span></span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Heap Used</span>
+                    <span class="metric-value"><span id="heap">0</span><span class="metric-unit">%</span></span>
+                </div>
+            </div>
+
+            <!-- Performance Metrics Card -->
+            <div class="card">
+                <div class="card-title">Performance</div>
+                <div class="metric">
+                    <span class="metric-label">Response Time (p95)</span>
+                    <span class="metric-value"><span id="response-time">0</span><span class="metric-unit">ms</span></span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Throughput</span>
+                    <span class="metric-value"><span id="throughput">0</span><span class="metric-unit">req/s</span></span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Error Rate</span>
+                    <span class="metric-value"><span id="error-rate">0</span><span class="metric-unit">%</span></span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Cache Hit Rate</span>
+                    <span class="metric-value"><span id="cache-hit">0</span><span class="metric-unit">%</span></span>
+                </div>
+            </div>
+
+            <!-- Error Tracking Card -->
+            <div class="card">
+                <div class="card-title">Error Tracking</div>
+                <div class="metric">
+                    <span class="metric-label">Total Errors</span>
+                    <span class="metric-value" id="total-errors">0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Unique Errors</span>
+                    <span class="metric-value" id="unique-errors">0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">24h Trend</span>
+                    <span class="metric-value" id="error-trend">↘ -5%</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Critical</span>
+                    <span class="metric-value" id="critical-errors">0</span>
+                </div>
+            </div>
+
+            <!-- Real-Time Collaboration Card -->
+            <div class="card">
+                <div class="card-title">Collaboration</div>
+                <div class="metric">
+                    <span class="metric-label">Active Users</span>
+                    <span class="metric-value" id="active-users">0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Active Documents</span>
+                    <span class="metric-value" id="active-docs">0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">WebSocket Connections</span>
+                    <span class="metric-value" id="ws-connections">0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Sync Latency (avg)</span>
+                    <span class="metric-value"><span id="sync-latency">0</span><span class="metric-unit">ms</span></span>
+                </div>
+            </div>
+
+            <!-- API Usage Card -->
+            <div class="card">
+                <div class="card-title">API Usage</div>
+                <div class="metric">
+                    <span class="metric-label">Requests (1h)</span>
+                    <span class="metric-value" id="api-requests">0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Rate Limited</span>
+                    <span class="metric-value" id="rate-limited">0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Avg Latency</span>
+                    <span class="metric-value"><span id="api-latency">0</span><span class="metric-unit">ms</span></span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Success Rate</span>
+                    <span class="metric-value" id="api-success">0%</span>
+                </div>
+            </div>
+
+            <!-- Dependencies Card -->
+            <div class="card">
+                <div class="card-title">Dependencies</div>
+                <div class="metric">
+                    <span class="metric-label">Database</span>
+                    <span class="metric-value" id="db-status" style="color: #00ff88;">✓ OK</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Cache Layer</span>
+                    <span class="metric-value" id="cache-status" style="color: #00ff88;">✓ OK</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">WebSocket Server</span>
+                    <span class="metric-value" id="ws-status" style="color: #00ff88;">✓ OK</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Edge Functions</span>
+                    <span class="metric-value" id="edge-status" style="color: #00ff88;">✓ OK</span>
+                </div>
+            </div>
+
+            <!-- Full Width: Alerts -->
+            <div class="card full-width">
+                <div class="card-title">Recent Alerts</div>
+                <div id="alerts-container">
+                    <div class="alert info">
+                        ⓘ System initialization completed at 08:39:24 UTC
+                    </div>
+                    <div class="alert info">
+                        ⓘ Real-time collaboration sync layer activated
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Width: Top Errors -->
+            <div class="card full-width">
+                <div class="card-title">Top Errors (24h)</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Error Type</th>
+                            <th>Count</th>
+                            <th>Last Seen</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="errors-table">
+                        <tr>
+                            <td>TypeError: Cannot read property 'length'</td>
+                            <td>5</td>
+                            <td>2 hours ago</td>
+                            <td><span style="color: #ffaa00;">⚠ Investigating</span></td>
+                        </tr>
+                        <tr>
+                            <td>ReferenceError: undefined variable</td>
+                            <td>3</td>
+                            <td>5 hours ago</td>
+                            <td><span style="color: #00ff88;">✓ Resolved</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Full Width: Request Distribution -->
+            <div class="card full-width">
+                <div class="card-title">Request Distribution (Last Hour)</div>
+                <div class="chart-container">
+                    <div class="bar">
+                        <span class="bar-label">GET</span>
+                        <div class="bar-value" style="--width: 65%;"></div>
+                        <span class="bar-percent">2,245</span>
+                    </div>
+                    <div class="bar">
+                        <span class="bar-label">POST</span>
+                        <div class="bar-value" style="--width: 28%;"></div>
+                        <span class="bar-percent">967</span>
+                    </div>
+                    <div class="bar">
+                        <span class="bar-label">PUT</span>
+                        <div class="bar-value" style="--width: 5%;"></div>
+                        <span class="bar-percent">173</span>
+                    </div>
+                    <div class="bar">
+                        <span class="bar-label">DELETE</span>
+                        <div class="bar-value" style="--width: 2%;"></div>
+                        <span class="bar-percent">69</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            KAIZEN ELITE v1.0.0 | Real-Time Collaborative Development Platform
+            | Last Updated: <span id="footer-timestamp">--:--:-- UTC</span>
+            | <a href="/api/monitoring/health" style="color: #00aaff; text-decoration: none;">API Health</a>
+            | <a href="/api/monitoring/metrics" style="color: #00aaff; text-decoration: none;">Metrics</a>
+        </div>
+    </div>
+
+    <script>
+        function updateTimestamp() {
+            const now = new Date();
+            document.getElementById('timestamp').textContent = now.toUTCString();
+            document.getElementById('footer-timestamp').textContent = now.toUTCString();
+        }
+
+        async function refreshDashboard() {
+            try {
+                const response = await fetch('/api/monitoring/health');
+                const health = await response.json();
+
+                // Update health status
+                document.getElementById('health-status').textContent = health.status.toUpperCase();
+                document.getElementById('uptime').textContent = (health.uptime / 3600).toFixed(1);
+
+                if (health.memory) {
+                    document.getElementById('memory').textContent = (health.memory.heapUsed / 1024 / 1024).toFixed(0);
+                    const heapPercent = (health.memory.heapUsed / health.memory.heapTotal) * 100;
+                    document.getElementById('heap').textContent = heapPercent.toFixed(0);
+                }
+
+                // Update status indicator
+                const statusDot = document.getElementById('status-dot');
+                const statusText = document.getElementById('status-text');
+                statusDot.className = `status-dot ${health.status}`;
+                statusText.textContent = health.status.toUpperCase();
+
+                updateTimestamp();
+            } catch (error) {
+                console.error('Failed to refresh dashboard:', error);
+            }
+        }
+
+        // Auto-refresh every 5 seconds
+        setInterval(refreshDashboard, 5000);
+
+        // Initial update
+        refreshDashboard();
+    </script>
+</body>
+</html>
