@@ -181,8 +181,8 @@ export class ScrollAnimations {
             }
         });
 
-        // Panels
-        document.querySelectorAll('.panel').forEach((el, i) => {
+        // Panels - only animate panels that are NOT in main-grid (above the fold)
+        document.querySelectorAll('.panel:not(.main-grid .panel)').forEach((el, i) => {
             if (!el.hasAttribute('data-animate')) {
                 el.setAttribute('data-animate', 'fade-up');
                 el.setAttribute('data-animate-delay', String(Math.min(i + 1, 4)));

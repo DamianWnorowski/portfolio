@@ -171,8 +171,8 @@ export class ErrorTracker {
 // Global error tracker instance
 export const errorTracker = new ErrorTracker({
   enableConsole: true,
-  enableRemote: process.env.ENABLE_REMOTE_ERROR_TRACKING === 'true',
-  remoteEndpoint: process.env.ERROR_TRACKING_ENDPOINT || 'https://errors.example.com/api/errors'
+  enableRemote: import.meta.env?.VITE_ENABLE_REMOTE_ERROR_TRACKING === 'true',
+  remoteEndpoint: import.meta.env?.VITE_ERROR_TRACKING_ENDPOINT || 'https://errors.example.com/api/errors'
 });
 
 // Set up global error handlers

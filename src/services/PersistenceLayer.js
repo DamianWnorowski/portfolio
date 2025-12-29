@@ -411,5 +411,5 @@ export class PersistenceLayer {
 export const persistence = new PersistenceLayer({
   useIndexedDB: true,
   useLocalStorage: true,
-  enableRemoteSync: process.env.ENABLE_REMOTE_PERSISTENCE === 'true'
+  enableRemoteSync: import.meta.env?.VITE_ENABLE_REMOTE_PERSISTENCE === 'true'
 });

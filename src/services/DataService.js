@@ -122,15 +122,7 @@ class DataService {
             const cached = this.getFromCache('stats');
             if (cached) return cached;
 
-            // Try API first
-            const response = await fetch(`${this.baseUrl}/api/stats`);
-            if (response.ok) {
-                const data = await response.json();
-                this.setCache('stats', data);
-                eventBus.emit(Events.STATS_LOADED, data);
-                return data;
-            }
-
+            // In static mode (no backend), skip API and go to GitHub directly
             // Fall back to GitHub data
             const github = await this.fetchGitHubData();
             if (github) {

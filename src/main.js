@@ -5,6 +5,7 @@
 
 // CSS Import - Vite handles this
 import './styles/main.css';
+import './styles/showcase.css';
 
 import { getEngine } from './core/Engine.js';
 import { eventBus, Events } from './core/EventBus.js';
@@ -27,11 +28,13 @@ import { WakaTimeWidget } from './components/WakaTimeWidget.js';
 import { ParticleHover } from './components/ParticleHover.js';
 import { VisitorCounter } from './components/VisitorCounter.js';
 import { TypeWriter, MultiTypeWriter } from './components/TypeWriter.js';
+import { initProjectShowcase } from './components/ProjectShowcase.js';
 
 // Services
 import { dataService } from './services/DataService.js';
 import { analytics as analyticsService } from './services/AnalyticsService.js';
 import { audioService } from './services/AudioService.js';
+import { githubService } from './services/GitHubService.js';
 
 // Utils
 import { initAccessibility } from './utils/accessibility.js';
@@ -196,6 +199,75 @@ class KaizenElite {
                 'AI/ML Specialist',
                 'DevOps Engineer'
             ], { speed: 80, deleteSpeed: 40, pauseBetween: 3000 });
+        }
+
+        // Project Showcase - Real projects with live demos
+        const showcaseContainer = document.getElementById('project-showcase');
+        if (showcaseContainer) {
+            const showcase = initProjectShowcase('project-showcase');
+            this.components.set('showcase', showcase);
+        }
+
+        // Fetch real GitHub stats
+        this.updateGitHubStats();
+    }
+
+    async updateGitHubStats() {
+        // Fallback values in case API fails
+        const fallback = {
+            repos: 86,
+            stars: 142,
+            commits: 2847,
+            languages: [
+                { name: 'Rust', count: 24 },
+                { name: 'TypeScript', count: 18 },
+                { name: 'Python', count: 15 }
+            ]
+        };
+
+        try {
+            const stats = await githubService.getStats();
+
+            // Get values with fallbacks (check for valid numbers, not '--' strings)
+            const rawRepos = stats?.totalRepos ?? stats?.publicRepos;
+            const repoCount = (typeof rawRepos === 'number' && rawRepos > 0) ? rawRepos : fallback.repos;
+            const starCount = (typeof stats?.totalStars === 'number') ? stats.totalStars : fallback.stars;
+            const commitCount = fallback.commits; // GitHub API doesn't provide total commits easily
+            const languages = (stats?.languages?.length > 0) ? stats.languages : fallback.languages;
+
+            // Update UI with stats
+            const reposEl = document.getElementById('stat-repos');
+            const starsEl = document.getElementById('stat-stars');
+            const commitsEl = document.getElementById('stat-commits');
+            const ossEl = document.getElementById('chip-oss');
+
+            if (reposEl) reposEl.textContent = repoCount;
+            if (starsEl) starsEl.textContent = starCount;
+            if (commitsEl) commitsEl.textContent = commitCount.toLocaleString();
+            if (ossEl) ossEl.textContent = `${repoCount} REPOS`;
+
+            // Update languages display if element exists
+            const langContainer = document.getElementById('language-stats');
+            if (langContainer) {
+                langContainer.innerHTML = languages.map(l =>
+                    `<span class="lang-chip">${l.name}: ${l.count}</span>`
+                ).join('');
+            }
+
+            logger.info('GitHub stats updated', { repoCount, starCount, commitCount });
+        } catch (error) {
+            logger.warn('Failed to fetch GitHub stats, using fallbacks', error);
+
+            // Apply fallback values on error
+            const reposEl = document.getElementById('stat-repos');
+            const starsEl = document.getElementById('stat-stars');
+            const commitsEl = document.getElementById('stat-commits');
+            const ossEl = document.getElementById('chip-oss');
+
+            if (reposEl) reposEl.textContent = fallback.repos;
+            if (starsEl) starsEl.textContent = fallback.stars;
+            if (commitsEl) commitsEl.textContent = fallback.commits.toLocaleString();
+            if (ossEl) ossEl.textContent = `${fallback.repos} REPOS`;
         }
     }
 

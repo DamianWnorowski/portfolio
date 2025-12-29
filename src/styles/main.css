@@ -105,8 +105,9 @@ body {
     background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.5;
-    overflow: hidden;
-    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -167,7 +168,7 @@ button {
     z-index: 10;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
     padding: var(--spacing-lg);
     gap: var(--spacing-lg);
 }
@@ -1575,4 +1576,135 @@ button {
 @keyframes pulse-error {
     0%, 100% { opacity: 0.7; }
     50% { opacity: 0.4; }
+}
+
+/* ============================================
+   SHOWCASE PANEL & LANGUAGE CHIPS
+   Real GitHub data display
+   ============================================ */
+
+.showcase-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-md);
+}
+
+.showcase-panel h3 {
+    font-size: var(--fs-lg);
+    color: var(--accent-gold);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+}
+
+/* Language Stats Container */
+#language-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+/* Language Chips */
+.lang-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(74, 158, 255, 0.1);
+    border: 1px solid rgba(74, 158, 255, 0.3);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    color: var(--accent-blue);
+    transition: all var(--transition-fast);
+}
+
+.lang-chip:hover {
+    background: rgba(74, 158, 255, 0.2);
+    border-color: rgba(74, 158, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+/* Real Stats Display */
+.real-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.stat-item {
+    text-align: center;
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+}
+
+.stat-item .value {
+    font-family: var(--font-mono);
+    font-size: var(--fs-2xl);
+    font-weight: 700;
+    color: var(--accent-gold);
+}
+
+.stat-item .label {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+
+/* ==========================================================================
+   PROJECT SHOWCASE - Full Width Interactive Demo Section
+   ========================================================================== */
+
+.showcase-section {
+    width: 100%;
+    min-height: 80vh;
+    padding: var(--spacing-2xl) var(--spacing-xl);
+    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    border-top: 1px solid var(--border-primary);
+    opacity: 1 !important; /* Override scroll animation */
+}
+
+.showcase-section .showcase-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.showcase-section .showcase-header h2 {
+    font-size: var(--fs-3xl);
+    color: var(--accent-gold);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.showcase-section .showcase-header p {
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: var(--fs-base);
+}
+
+/* Override showcase wrapper for full-width layout */
+.showcase-section .showcase-wrapper {
+    max-width: 1600px;
+    margin: 0 auto;
+    min-height: 600px;
+    grid-template-columns: 1fr 400px; /* More space for preview */
+}
+
+.showcase-section .showcase-content {
+    grid-template-columns: 300px 1fr; /* Project list | Preview area */
+}
+
+.showcase-section .preview-area {
+    min-width: 500px;
+    background: var(--bg-panel);
+    border-left: 1px solid var(--border-primary);
 }

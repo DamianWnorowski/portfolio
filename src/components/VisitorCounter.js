@@ -31,12 +31,14 @@ export class VisitorCounter {
     }
 
     async init() {
+        if (!this.container) return; // Bail if no container found
         this.render();
         this.addStyles();
         await this.fetchCount();
     }
 
     render() {
+        if (!this.container) return;
         this.container.innerHTML = `
             <div class="visitor-inner">
                 <div class="visitor-icon">

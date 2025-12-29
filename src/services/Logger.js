@@ -162,8 +162,8 @@ export class Logger {
 
 // Global logger instance
 export const logger = new Logger('kaizen', {
-  level: process.env.LOG_LEVEL || 'info',
+  level: import.meta.env?.VITE_LOG_LEVEL || 'info',
   enableConsole: true,
-  enableRemote: process.env.ENABLE_REMOTE_LOGGING === 'true',
-  remoteEndpoint: process.env.LOG_ENDPOINT || 'https://logs.example.com/api/logs'
+  enableRemote: import.meta.env?.VITE_ENABLE_REMOTE_LOGGING === 'true',
+  remoteEndpoint: import.meta.env?.VITE_LOG_ENDPOINT || 'https://logs.example.com/api/logs'
 });

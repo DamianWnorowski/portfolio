@@ -50,7 +50,7 @@
                 </div>
                 <nav class="nav-links">
                     <a href="#overview" class="nav-link active" data-section="overview">OVERVIEW</a>
-                    <a href="#assets" class="nav-link" data-section="assets">ASSETS</a>
+                    <a href="#project-showcase" class="nav-link" data-section="project-showcase">PROJECTS</a>
                     <a href="#metrics" class="nav-link" data-section="metrics">METRICS</a>
                     <a href="#terminal" class="nav-link" data-section="terminal">TERMINAL</a>
                 </nav>
@@ -58,35 +58,35 @@
 
             <div class="header-right">
                 <div class="status-ticker" id="status-ticker">
-                    <span class="ticker-item">SYSTEM STATUS: <span class="hl-success">OPERATIONAL</span></span>
+                    <span class="ticker-item">STATUS: <span class="hl-success">AVAILABLE</span></span>
                     <span class="ticker-divider">|</span>
-                    <span class="ticker-item">UPTIME: <span id="uptime-value">99.97%</span></span>
+                    <span class="ticker-item">LOCATION: <span>RIDGE, NY</span></span>
                     <span class="ticker-divider">|</span>
-                    <span class="ticker-item">AVAILABILITY: <span class="hl-success">IMMEDIATE</span></span>
+                    <span class="ticker-item">RESPONSE: <span class="hl-success">&lt; 2 HRS</span></span>
                 </div>
                 <div class="valuation-ticker" id="valuation-ticker">
                     <div class="ticker-chip">
-                        <span class="chip-label">ASSET ROI</span>
-                        <span class="chip-value" id="chip-roi">+214%</span>
-                    </div>
-                    <div class="ticker-chip">
-                        <span class="chip-label">OUTPUT VEL</span>
-                        <span class="chip-value" id="chip-velocity">147%</span>
-                    </div>
-                    <div class="ticker-chip">
-                        <span class="chip-label">OSS FOOTPRINT</span>
+                        <span class="chip-label">REPOS</span>
                         <span class="chip-value" id="chip-oss">--</span>
+                    </div>
+                    <div class="ticker-chip">
+                        <span class="chip-label">LANGUAGES</span>
+                        <span class="chip-value" id="chip-langs">8+</span>
+                    </div>
+                    <div class="ticker-chip">
+                        <span class="chip-label">EXPERIENCE</span>
+                        <span class="chip-value" id="chip-exp">7+ YRS</span>
                     </div>
                 </div>
                 <button class="btn-acquire" id="btn-acquire">
                     <span class="btn-icon">></span>
-                    ACQUIRE ASSET
+                    CONTACT
                 </button>
             </div>
         </header>
 
         <!-- Main Content Grid -->
-        <main class="main-grid">
+        <main class="main-grid" id="overview">
 
             <!-- Left Sidebar: Operator Profile -->
             <aside class="panel sidebar" id="sidebar">
@@ -167,22 +167,15 @@
                     <div id="spotify-container" class="widget-container"></div>
                     <div id="wakatime-container" class="widget-container"></div>
 
-                    <!-- Insight Micro-panels -->
+                    <!-- Language Stats -->
                     <div class="insight-panel">
                         <div class="insight-card">
-                            <div class="insight-title">ASSET VALUATION</div>
-                            <div class="insight-value gold" id="insight-valuation">$2.4M</div>
-                            <div class="insight-delta" id="insight-valuation-delta">+3.2% MoM</div>
-                        </div>
-                        <div class="insight-card">
-                            <div class="insight-title">OUTPUT VELOCITY</div>
-                            <div class="insight-value" id="insight-velocity">147%</div>
-                            <div class="insight-delta" id="insight-velocity-delta">+12% QoQ</div>
-                        </div>
-                        <div class="insight-card">
-                            <div class="insight-title">RELIABILITY</div>
-                            <div class="insight-value success" id="insight-reliability">99.97%</div>
-                            <div class="insight-delta" id="insight-reliability-delta">Stable</div>
+                            <div class="insight-title">TOP LANGUAGES</div>
+                            <div id="language-stats" class="language-chips">
+                                <span class="lang-chip">Rust</span>
+                                <span class="lang-chip">TypeScript</span>
+                                <span class="lang-chip">Python</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,16 +197,16 @@
 
                 <div class="globe-overlay">
                     <div class="metric-block">
-                        <span class="metric-value gold" id="metric-value">$2.4M</span>
-                        <span class="metric-label">ESTIMATED VALUE GENERATED</span>
+                        <span class="metric-value gold" id="metric-repos">86+</span>
+                        <span class="metric-label">REPOSITORIES BUILT</span>
                     </div>
                     <div class="metric-block">
-                        <span class="metric-value" id="metric-velocity">147%</span>
-                        <span class="metric-label">OUTPUT VELOCITY vs INDUSTRY</span>
+                        <span class="metric-value" id="metric-langs">8+</span>
+                        <span class="metric-label">LANGUAGES MASTERED</span>
                     </div>
                     <div class="metric-block">
-                        <span class="metric-value success" id="metric-uptime">99.97%</span>
-                        <span class="metric-label">SYSTEM UPTIME</span>
+                        <span class="metric-value success" id="metric-exp">7+</span>
+                        <span class="metric-label">YEARS EXPERIENCE</span>
                     </div>
                 </div>
 
@@ -222,84 +215,6 @@
                     <!-- Populated dynamically -->
                 </div>
             </section>
-
-            <!-- Right: Deployed Assets -->
-            <aside class="panel assets" id="assets-panel">
-                <div class="panel-header">
-                    <span class="panel-title">DEPLOYED ASSETS</span>
-                    <span class="panel-count" id="asset-count">4 ACTIVE</span>
-                </div>
-
-                <div class="assets-list" id="assets-list">
-                    <article class="asset-card" data-status="live">
-                        <div class="asset-header">
-                            <h3 class="asset-title">Kaizen OS</h3>
-                            <span class="asset-status status-live">LIVE</span>
-                        </div>
-                        <p class="asset-desc">Industrial fleet management platform processing real-time telemetry from 50+ vehicles.</p>
-                        <div class="asset-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">FastAPI</span>
-                            <span class="tech-tag">Redis</span>
-                        </div>
-                        <div class="asset-metrics">
-                            <span class="asset-metric"><strong>1.2M</strong> req/day</span>
-                            <span class="asset-metric"><strong>12ms</strong> p99</span>
-                        </div>
-                    </article>
-
-                    <article class="asset-card" data-status="beta">
-                        <div class="asset-header">
-                            <h3 class="asset-title">Hive Agent</h3>
-                            <span class="asset-status status-beta">BETA</span>
-                        </div>
-                        <p class="asset-desc">Autonomous coding agent with self-correcting syntax and AWS Lambda deployment.</p>
-                        <div class="asset-tech">
-                            <span class="tech-tag">LangChain</span>
-                            <span class="tech-tag">GPT-4</span>
-                            <span class="tech-tag">AWS</span>
-                        </div>
-                        <div class="asset-metrics">
-                            <span class="asset-metric"><strong>94%</strong> accuracy</span>
-                            <span class="asset-metric"><strong>3.2x</strong> speedup</span>
-                        </div>
-                    </article>
-
-                    <article class="asset-card" data-status="rd">
-                        <div class="asset-header">
-                            <h3 class="asset-title">Sentient Core</h3>
-                            <span class="asset-status status-rd">R&D</span>
-                        </div>
-                        <p class="asset-desc">WebGL/GLSL physics engine simulating fluid dynamics for next-gen interfaces.</p>
-                        <div class="asset-tech">
-                            <span class="tech-tag">Three.js</span>
-                            <span class="tech-tag">GLSL</span>
-                            <span class="tech-tag">WebGPU</span>
-                        </div>
-                        <div class="asset-metrics">
-                            <span class="asset-metric"><strong>60</strong> FPS</span>
-                            <span class="asset-metric"><strong>1M</strong> particles</span>
-                        </div>
-                    </article>
-
-                    <article class="asset-card" data-status="live">
-                        <div class="asset-header">
-                            <h3 class="asset-title">Titan Search</h3>
-                            <span class="asset-status status-live">PROD</span>
-                        </div>
-                        <p class="asset-desc">Vector-based semantic search engine for legal document retrieval using embeddings.</p>
-                        <div class="asset-tech">
-                            <span class="tech-tag">OpenAI</span>
-                            <span class="tech-tag">Pinecone</span>
-                            <span class="tech-tag">Next.js</span>
-                        </div>
-                        <div class="asset-metrics">
-                            <span class="asset-metric"><strong>50K</strong> docs</span>
-                            <span class="asset-metric"><strong>98%</strong> relevance</span>
-                        </div>
-                    </article>
-                </div>
-            </aside>
 
             <!-- Bottom Left: Terminal -->
             <section class="panel terminal" id="terminal-panel">
@@ -400,6 +315,15 @@
 
         </main>
 
+        <!-- PROJECT SHOWCASE - Full Width Section -->
+        <section class="showcase-section" id="project-showcase" data-animate="fade-up">
+            <div class="showcase-header">
+                <h2>LIVE PROJECT DEMOS</h2>
+                <p>Interactive previews of real systems - select a project to explore</p>
+            </div>
+            <!-- ProjectShowcase component renders here -->
+        </section>
+
         <!-- Acquisition Modal -->
         <div class="modal-overlay hidden" id="modal-overlay">
             <div class="modal acquisition-modal" id="acquisition-modal">
@@ -440,58 +364,8 @@
     <!-- Main Application Script -->
     <script type="module" src="/src/main.js"></script>
     <script>
-        // Inline enhancements: dynamic tickers, GitHub fetch fallback, constellation view
+        // Skills toggle & constellation view
         (function() {
-            const roiEl = document.getElementById('chip-roi');
-            const velEl = document.getElementById('chip-velocity');
-            const ossEl = document.getElementById('chip-oss');
-            const valuationEl = document.getElementById('insight-valuation');
-            const valuationDeltaEl = document.getElementById('insight-valuation-delta');
-            const velocityEl = document.getElementById('insight-velocity');
-            const velocityDeltaEl = document.getElementById('insight-velocity-delta');
-            const reliabilityEl = document.getElementById('insight-reliability');
-            const reliabilityDeltaEl = document.getElementById('insight-reliability-delta');
-
-            // Oscillate metrics to feel live
-            setInterval(() => {
-                const baseROI = 214;
-                const drift = (Math.random() - 0.5) * 4;
-                const roiVal = Math.max(180, Math.min(260, baseROI + drift)).toFixed(1);
-                roiEl.textContent = `+${roiVal}%`;
-                valuationDeltaEl.textContent = `${drift >= 0 ? '+' : ''}${(drift/10).toFixed(1)}% MoM`;
-
-                const baseVel = 147;
-                const velDrift = (Math.random() - 0.5) * 6;
-                const velVal = Math.max(120, Math.min(200, baseVel + velDrift)).toFixed(0);
-                velEl.textContent = `${velVal}%`;
-                velocityEl.textContent = `${velVal}%`;
-                velocityDeltaEl.textContent = `${velDrift >= 0 ? '+' : ''}${velDrift.toFixed(1)}% QoQ`;
-
-                const relBase = 99.97;
-                const relDrift = (Math.random() - 0.5) * 0.03;
-                const relVal = Math.max(99.8, Math.min(99.99, relBase + relDrift)).toFixed(2);
-                reliabilityEl.textContent = `${relVal}%`;
-                reliabilityDeltaEl.textContent = relDrift >= 0 ? 'Stable' : 'Monitoring';
-                valuationEl.textContent = `$${(2.4 + drift/100).toFixed(2)}M`;
-            }, 2600);
-
-            // GitHub fetch (graceful fallback)
-            const githubUser = 'damianwnorowski';
-            fetch(`https://api.github.com/users/${githubUser}`)
-                .then(res => res.ok ? res.json() : Promise.reject(res.status))
-                .then(data => {
-                    const repos = data.public_repos ?? '--';
-                    const followers = data.followers ?? '--';
-                    document.getElementById('stat-repos').textContent = repos;
-                    document.getElementById('stat-stars').textContent = followers; // Using followers as signal if stars not available
-                    document.getElementById('stat-commits').textContent = '—';
-                    ossEl.textContent = `${repos} REPOS`;
-                })
-                .catch(() => {
-                    ossEl.textContent = 'SIMULATED';
-                });
-
-            // Skills toggle & constellation
             const toggle = document.getElementById('skills-toggle');
             const bars = document.getElementById('skills-bars');
             const constellation = document.getElementById('skills-constellation');
@@ -522,7 +396,6 @@
                         ctx.fillStyle = `rgba(0, 188, 212, ${0.6 * n.z})`;
                         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
                         ctx.fill();
-                        // connect
                         for (let j = idx + 1; j < nodes.length; j++) {
                             const m = nodes[j];
                             const d = Math.hypot(n.x - m.x, n.y - m.y);
