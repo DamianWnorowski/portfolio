@@ -3,7 +3,7 @@
  * Full-screen WebGL shader background with interactive neural network
  */
 
-import * as THREE from 'three';
+import { WebGLRenderer, Scene, OrthographicCamera, PlaneGeometry, ShaderMaterial, Mesh, Vector2 } from 'three';
 
 // Inline shaders for Vite compatibility
 const vertexShader = `
@@ -30,7 +30,7 @@ uniform float uMouseInfluence;
 varying vec2 vUv;
 
 #define PI 3.14159265359
-#define NEURON_COUNT 15
+#define NEURON_COUNT 10
 #define CONNECTION_INTENSITY 0.4
 
 const vec3 GOLD = vec3(0.788, 0.639, 0.149);
@@ -139,7 +139,7 @@ void main() {
     color += GOLD * mouseProximity * uMouseInfluence * 0.2;
 
     if (uMouseInfluence > 0.1) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             float fi = float(i);
             vec2 offset = vec2(cos(fi * 1.256 + uTime), sin(fi * 1.256 + uTime)) * 0.1;
             float glow = neuronGlow(uv, mouse + offset, uTime * 2.0, fi + 20.0);
@@ -169,7 +169,7 @@ export class NeuralBackground {
 
     init() {
         // Setup renderer
-        this.renderer = new THREE.WebGLRenderer({
+        this.renderer = new WebGLRenderer({
             canvas: this.canvas,
             alpha: false,
             antialias: false,
@@ -179,22 +179,22 @@ export class NeuralBackground {
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
         // Setup scene
-        this.scene = new THREE.Scene();
-        this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        this.scene = new Scene();
+        this.camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
         // Create fullscreen quad
-        this.geometry = new THREE.PlaneGeometry(2, 2);
+        this.geometry = new PlaneGeometry(2, 2);
 
         // Setup uniforms
         this.uniforms = {
             uTime: { value: 0 },
-            uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-            uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+            uResolution: { value: new Vector2(window.innerWidth, window.innerHeight) },
+            uMouse: { value: new Vector2(0.5, 0.5) },
             uMouseInfluence: { value: 0 }
         };
 
         // Create material
-        this.material = new THREE.ShaderMaterial({
+        this.material = new ShaderMaterial({
             uniforms: this.uniforms,
             vertexShader,
             fragmentShader,
@@ -203,7 +203,7 @@ export class NeuralBackground {
         });
 
         // Create mesh
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.mesh = new Mesh(this.geometry, this.material);
         this.scene.add(this.mesh);
     }
 

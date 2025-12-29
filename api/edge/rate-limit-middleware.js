@@ -20,6 +20,7 @@ const RATE_LIMITS = {
 // In-memory store (Edge runtime compatible)
 const rateLimitStore = new Map();
 const CLEANUP_INTERVAL = 300000; // 5 minutes
+let cleanupIntervalId = null;
 
 /**
  * Cleanup expired entries
@@ -33,8 +34,14 @@ function cleanupExpired() {
     }
 }
 
-// Periodic cleanup
-setInterval(cleanupExpired, CLEANUP_INTERVAL);
+/**
+ * Start periodic cleanup (lazy initialization)
+ */
+function ensureCleanupRunning() {
+    if (!cleanupIntervalId) {
+        cleanupIntervalId = setInterval(cleanupExpired, CLEANUP_INTERVAL);
+    }
+}
 
 /**
  * Get client identifier
@@ -125,6 +132,7 @@ function getRateLimitHeaders(result) {
  * Main handler
  */
 export default async function handler(req) {
+    ensureCleanupRunning(); // Lazy start cleanup on first request
     const url = new URL(req.url);
 
     // CORS preflight

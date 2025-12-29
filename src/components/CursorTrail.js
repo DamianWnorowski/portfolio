@@ -6,6 +6,7 @@
 export class CursorTrail {
     constructor() {
         this.particles = [];
+        this.particlePool = []; // Object pool for reuse
         this.maxParticles = 20;
         this.mouseX = 0;
         this.mouseY = 0;
@@ -97,10 +98,28 @@ export class CursorTrail {
         document.body.appendChild(this.glow);
     }
 
+    getPooledParticle() {
+        // Reuse from pool if available
+        if (this.particlePool.length > 0) {
+            return this.particlePool.pop();
+        }
+        // Create new element only when pool is empty
+        const particle = document.createElement('div');
+        particle.className = 'trail-particle';
+        particle.style.transform = 'translate(-50%, -50%)';
+        return particle;
+    }
+
+    returnToPool(particleData) {
+        // Hide and return to pool instead of removing
+        particleData.element.style.display = 'none';
+        this.particlePool.push(particleData.element);
+    }
+
     createParticle() {
         if (!this.enabled || this.particles.length >= this.maxParticles) return;
 
-        const particle = document.createElement('div');
+        const particle = this.getPooledParticle();
         const isGold = Math.random() > 0.3;
         const size = Math.random() * 8 + 4;
 
@@ -109,9 +128,12 @@ export class CursorTrail {
         particle.style.height = `${size}px`;
         particle.style.left = `${this.mouseX}px`;
         particle.style.top = `${this.mouseY}px`;
-        particle.style.transform = 'translate(-50%, -50%)';
+        particle.style.display = 'block';
+        particle.style.opacity = '1';
 
-        this.container.appendChild(particle);
+        if (!particle.parentNode) {
+            this.container.appendChild(particle);
+        }
 
         const particleData = {
             element: particle,
@@ -154,9 +176,9 @@ export class CursorTrail {
             p.element.style.opacity = p.life;
             p.element.style.transform = `translate(-50%, -50%) scale(${p.life})`;
 
-            // Remove dead particles
+            // Return dead particles to pool
             if (p.life <= 0) {
-                p.element.remove();
+                this.returnToPool(p);
                 this.particles.splice(i, 1);
             }
         }
@@ -182,6 +204,7 @@ export class CursorTrail {
         this.container?.remove();
         this.glow?.remove();
         this.particles = [];
+        this.particlePool = [];
     }
 }
 

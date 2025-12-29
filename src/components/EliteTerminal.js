@@ -131,6 +131,7 @@ export class EliteTerminal {
         this.commandHistory = [];
         this.historyIndex = -1;
         this.isStreaming = false;
+        this.streamTimer = null; // Store timer for cleanup
 
         this.init();
     }
@@ -303,7 +304,9 @@ export class EliteTerminal {
 
         const delay = 2000 + Math.random() * 3000; // 2-5 seconds
 
-        setTimeout(() => {
+        this.streamTimer = setTimeout(() => {
+            if (!this.isStreaming) return; // Double-check before executing
+
             const log = LOG_TEMPLATES[Math.floor(Math.random() * LOG_TEMPLATES.length)];
 
             // Only show if matches current filter or filter is 'all'
@@ -330,5 +333,13 @@ export class EliteTerminal {
 
     stopStream() {
         this.isStreaming = false;
+        if (this.streamTimer) {
+            clearTimeout(this.streamTimer);
+            this.streamTimer = null;
+        }
+    }
+
+    destroy() {
+        this.stopStream();
     }
 }

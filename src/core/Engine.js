@@ -3,12 +3,12 @@
  * Core WebGL rendering engine with shader management
  */
 
-import * as THREE from 'three';
+import { Clock, Vector2 } from 'three';
 
 export class Engine {
     constructor() {
-        this.clock = new THREE.Clock();
-        this.mouse = new THREE.Vector2(0.5, 0.5);
+        this.clock = new Clock();
+        this.mouse = new Vector2(0.5, 0.5);
         this.mouseInfluence = 0;
         this.components = new Map();
         this.isRunning = false;

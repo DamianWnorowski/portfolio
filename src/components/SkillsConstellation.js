@@ -3,7 +3,11 @@
  * 3D interactive visualization of technical skills as a star constellation
  */
 
-import * as THREE from 'three';
+import {
+    WebGLRenderer, Scene, PerspectiveCamera, IcosahedronGeometry, MeshBasicMaterial,
+    Mesh, SpriteMaterial, Sprite, BufferGeometry, LineBasicMaterial, Line,
+    Raycaster, Vector2, Color, AdditiveBlending
+} from 'three';
 
 const SKILLS = [
     { name: 'Python', level: 98, category: 'backend', x: -40, y: 20, z: 0 },
@@ -33,12 +37,15 @@ const CONNECTIONS = [
 ];
 
 const CATEGORY_COLORS = {
-    backend: new THREE.Color(0x4a9eff),   // Steel blue
-    frontend: new THREE.Color(0xc9a227),  // Gold
-    cloud: new THREE.Color(0x22c55e),     // Green
-    devops: new THREE.Color(0xa855f7),    // Purple
-    ai: new THREE.Color(0xf43f5e)         // Red/Pink
+    backend: new Color(0x4a9eff),   // Steel blue
+    frontend: new Color(0xc9a227),  // Gold
+    cloud: new Color(0x22c55e),     // Green
+    devops: new Color(0xa855f7),    // Purple
+    ai: new Color(0xf43f5e)         // Red/Pink
 };
+
+// Pre-build skill lookup map for O(1) access
+const SKILL_MAP = new Map(SKILLS.map(s => [s.name, s]));
 
 export class SkillsConstellation {
     constructor(containerId = 'skills-constellation') {
@@ -66,7 +73,7 @@ export class SkillsConstellation {
 
     setup(rect) {
         // Renderer
-        this.renderer = new THREE.WebGLRenderer({
+        this.renderer = new WebGLRenderer({
             alpha: true,
             antialias: true
         });
@@ -75,10 +82,10 @@ export class SkillsConstellation {
         this.container.appendChild(this.renderer.domElement);
 
         // Scene
-        this.scene = new THREE.Scene();
+        this.scene = new Scene();
 
         // Camera
-        this.camera = new THREE.PerspectiveCamera(50, rect.width / rect.height, 0.1, 500);
+        this.camera = new PerspectiveCamera(50, rect.width / rect.height, 0.1, 500);
         this.camera.position.z = 100;
 
         // Create constellation
@@ -86,8 +93,8 @@ export class SkillsConstellation {
         this.createConnections();
 
         // Interaction
-        this.raycaster = new THREE.Raycaster();
-        this.pointer = new THREE.Vector2();
+        this.raycaster = new Raycaster();
+        this.pointer = new Vector2();
 
         this.container.addEventListener('mousemove', (e) => {
             const rect = this.container.getBoundingClientRect();
@@ -99,42 +106,47 @@ export class SkillsConstellation {
     }
 
     createStars() {
+        // Build skill mesh map for O(1) connection lookup
+        this.skillMeshMap = new Map();
+
         SKILLS.forEach(skill => {
             // Star geometry (icosahedron for sparkle effect)
             const size = (skill.level / 100) * 3 + 1;
-            const geometry = new THREE.IcosahedronGeometry(size, 1);
+            const geometry = new IcosahedronGeometry(size, 1);
 
             const color = CATEGORY_COLORS[skill.category];
-            const material = new THREE.MeshBasicMaterial({
+            const material = new MeshBasicMaterial({
                 color: color,
                 transparent: true,
                 opacity: 0.9
             });
 
-            const mesh = new THREE.Mesh(geometry, material);
+            const mesh = new Mesh(geometry, material);
             mesh.position.set(skill.x, skill.y, skill.z);
             mesh.userData = skill;
 
             // Glow sprite
-            const spriteMaterial = new THREE.SpriteMaterial({
+            const spriteMaterial = new SpriteMaterial({
                 color: color,
                 transparent: true,
                 opacity: 0.3,
-                blending: THREE.AdditiveBlending
+                blending: AdditiveBlending
             });
-            const sprite = new THREE.Sprite(spriteMaterial);
+            const sprite = new Sprite(spriteMaterial);
             sprite.scale.setScalar(size * 4);
             mesh.add(sprite);
 
             this.skills.push({ mesh, skill, baseSize: size, sprite });
+            this.skillMeshMap.set(skill.name, this.skills[this.skills.length - 1]);
             this.scene.add(mesh);
         });
     }
 
     createConnections() {
         CONNECTIONS.forEach(([from, to]) => {
-            const fromSkill = this.skills.find(s => s.skill.name === from);
-            const toSkill = this.skills.find(s => s.skill.name === to);
+            // O(1) lookup instead of O(n) find
+            const fromSkill = this.skillMeshMap.get(from);
+            const toSkill = this.skillMeshMap.get(to);
 
             if (!fromSkill || !toSkill) return;
 
@@ -143,14 +155,14 @@ export class SkillsConstellation {
                 toSkill.mesh.position.clone()
             ];
 
-            const geometry = new THREE.BufferGeometry().setFromPoints(points);
-            const material = new THREE.LineBasicMaterial({
+            const geometry = new BufferGeometry().setFromPoints(points);
+            const material = new LineBasicMaterial({
                 color: 0x4a9eff,
                 transparent: true,
                 opacity: 0.2
             });
 
-            const line = new THREE.Line(geometry, material);
+            const line = new Line(geometry, material);
             this.connections.push({ line, from: fromSkill, to: toSkill });
             this.scene.add(line);
         });
