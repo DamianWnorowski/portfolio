@@ -111,7 +111,8 @@ export class CursorTrail {
     }
 
     returnToPool(particleData) {
-        // Hide and return to pool instead of removing
+        // Detach from DOM and return to pool for reuse
+        particleData.element.remove();
         particleData.element.style.display = 'none';
         this.particlePool.push(particleData.element);
     }

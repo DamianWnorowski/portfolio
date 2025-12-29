@@ -313,9 +313,18 @@ class KaizenElite {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const section = link.dataset.section;
-                const target = document.getElementById(section);
+                const href = link.getAttribute('href');
+                const target = document.getElementById(section) ||
+                               document.querySelector(href);
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth' });
+                    // Update URL hash
+                    if (href) {
+                        history.pushState(null, '', href);
+                    }
+                    // Update active state
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
                     audioService.play('key');
                 }
             });

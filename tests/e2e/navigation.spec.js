@@ -26,9 +26,10 @@ test.describe('Navigation', () => {
         await page.goto('/');
         await expect(page.locator('.nav-links')).toBeVisible();
 
+        // Match actual nav structure from index.html
         const cases = [
-            { text: 'OVERVIEW', hash: '#sidebar', target: '#sidebar' },
-            { text: 'ASSETS', hash: '#assets-panel', target: '#assets-panel' },
+            { text: 'OVERVIEW', hash: '#overview', target: '#overview' },
+            { text: 'PROJECTS', hash: '#project-showcase', target: '#project-showcase' },
             { text: 'METRICS', hash: '#viewport', target: '#viewport' },
             { text: 'TERMINAL', hash: '#terminal-panel', target: '#terminal-panel' },
         ];
